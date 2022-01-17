@@ -1,0 +1,22 @@
+@import "./theme.scss";
+
+.view {
+  height: 100%;
+  width: 100%;
+  background-color: $frame-background;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.background {
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+@media (min-width: $Movile-Breakpoint) {
+  .view {
+    width: $Movile-Breakpoint;
+    height: 90%;
+  }
+}
