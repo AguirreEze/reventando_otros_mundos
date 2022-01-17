@@ -1,6 +1,14 @@
 import Head from "next/head"
+import { useEffect, useState } from "react"
 
 export default function Games() {
+  const [games, setGames] = useState([])
+  useEffect(() => {
+    fetch("/api/games")
+      .then((res) => res.json())
+      .then(setGames)
+  }, [])
+  console.log(games)
   return (
     <article>
       <Head>
