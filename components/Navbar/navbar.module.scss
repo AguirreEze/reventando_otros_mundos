@@ -1,7 +1,12 @@
 .header {
+  position: sticky;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
+  height: 64px;
+  top: 0;
+  background: #fafafa;
 }
 
 .nav {
