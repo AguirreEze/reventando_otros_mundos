@@ -1,25 +1,28 @@
+@import "../../styles/theme.scss";
+
 .container {
   display: grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: 180px 1fr;
   gap: 1rem;
-  margin: 0.5rem 0;
+  margin: 0.7rem 0;
   padding: 3px;
   border-radius: 5px;
-  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
-  border: 1px solid #333;
+  box-shadow: 3px 7px 5px #0001;
+  border: 1px solid #3331;
 }
 .cover {
-  margin: 0.5rem 0;
+  margin: 5px;
   border-radius: 5px;
   overflow: hidden;
   height: 130px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-  border: 1px solid #333;
+  border: 1px solid #3331;
 }
 .data {
   & h2 {
     margin: 0.5rem 0;
     font-weight: 500;
+    color: $Primary;
   }
   & p {
     margin: 0.2rem 0;
