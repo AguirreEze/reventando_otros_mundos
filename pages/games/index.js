@@ -2,13 +2,12 @@ import Head from "next/head"
 import { useEffect, useState } from "react"
 import Game from "components/Game"
 import styles from "pages/games/styles.module.scss"
+import axios from "axios"
 
 export default function Games() {
   const [games, setGames] = useState([])
   useEffect(() => {
-    fetch("/api/games")
-      .then((res) => res.json())
-      .then(setGames)
+    axios.get("/api/games").then((res) => setGames(res.data))
   }, [])
   return (
     <section className={styles.background}>
