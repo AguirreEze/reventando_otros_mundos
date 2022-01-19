@@ -1,0 +1,48 @@
+@import "styles/theme.scss";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 1rem 0;
+  div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    label {
+      text-transform: capitalize;
+      color: $Primary;
+    }
+    input {
+      border: none;
+      text-align: center;
+      &::placeholder {
+        text-align: center;
+        color: $Accent;
+        user-select: none;
+      }
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.button {
+  margin: 0.5rem 0.5rem 0rem;
+  background: $Secondary;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid $Accent;
+  color: $Accent;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    color: $Secondary;
+    border: 1px solid $Secondary;
+    background: $Accent;
+  }
+}
