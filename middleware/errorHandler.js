@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, res) => {
   console.log(err.name)
   if (err.name === "CastError")
     return res.status(400).send({ error: "Data Malformed" })

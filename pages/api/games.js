@@ -173,7 +173,7 @@ const handler = async (req, res) => {
       const savedGame = await game.save()
       res.status(200).json(savedGame)
     } catch (err) {
-      errorHandler(err, req, res)
+      errorHandler(err, res)
     }
   }
 }
