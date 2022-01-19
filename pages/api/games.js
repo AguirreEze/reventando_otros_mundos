@@ -1,5 +1,6 @@
 import Game from "models/Game"
-import connectDB from "mongo"
+import connectDB from "middleware/mongo"
+import errorHandler from "middleware/errorHandler"
 
 // const games = [
 //   {
@@ -172,7 +173,7 @@ const handler = async (req, res) => {
       const savedGame = await game.save()
       res.status(200).json(savedGame)
     } catch (err) {
-      res.send({ error: err })
+      errorHandler(err, req, res)
     }
   }
 }
