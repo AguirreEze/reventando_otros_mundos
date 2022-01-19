@@ -1,6 +1,9 @@
+import ErrorDisplay from "components/ErrorDisplay"
 import Game from "components/Game"
 import useField from "hooks/useField"
+import { useRouter } from "next/router"
 import { useState } from "react"
+import { addGame } from "services/games"
 
 export default function AddGame() {
   const name = useField({ type: "text" })
@@ -8,9 +11,11 @@ export default function AddGame() {
   const studio = useField({ type: "text" })
   const gameYear = useField({ type: "number" })
   const steamLink = useField({ type: "text" })
+  const [error, setError] = useState("")
   const [showCover, setShowCover] = useState("https://via.placeholder.com/150")
+  const router = useRouter()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const data = {
       name: name.input.value,
@@ -20,7 +25,12 @@ export default function AddGame() {
       steamLink: steamLink.input.value,
       completed: false,
     }
-    console.log(data)
+    try {
+      await addGame(data)
+      router.push("/games")
+    } catch ({ response }) {
+      setError(response.data.error.message)
+    }
   }
 
   const handleShow = (e) => {
@@ -35,6 +45,7 @@ export default function AddGame() {
 
   return (
     <section>
+      <ErrorDisplay text={error} />
       <form onSubmit={handleSubmit}>
         <div>
           <label name="name">game name:</label>
