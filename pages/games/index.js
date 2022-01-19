@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import Game from "components/Game"
 import styles from "pages/games/styles.module.scss"
 import axios from "axios"
+import GamePlaceHolder from "components/GamePlaceHolder"
 
 export default function Games() {
   const [games, setGames] = useState([])
@@ -24,6 +25,7 @@ export default function Games() {
       </header>
       <section>
         <ul className={styles.list}>
+          {games.length === 0 && <GamePlaceHolder />}
           {games
             .sort((a, b) => b.order - a.order)
             .map(
@@ -46,6 +48,7 @@ export default function Games() {
                       studio={studio}
                       gameYear={gameYear}
                       steamLink={steamLink}
+                      placeHolder={true}
                     />
                   </li>
                 )
