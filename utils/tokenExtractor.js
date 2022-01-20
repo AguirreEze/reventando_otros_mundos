@@ -1,10 +1,10 @@
-const tokenExtractor = (req, res) => {
+const tokenExtractor = (req) => {
   const { authorization } = req.headers
   let token
   if (authorization && authorization.toLowerCase().startsWith("bearer")) {
     token = authorization.substring(7)
   } else token = null
-  req.token = token
+  return token
 }
 
 export default tokenExtractor

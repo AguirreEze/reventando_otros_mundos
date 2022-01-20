@@ -3,6 +3,7 @@ import connectDB from "middleware/mongo"
 import errorHandler from "middleware/errorHandler"
 import jsonwebtoken from "jsonwebtoken"
 import User from "models/User"
+import tokenExtractor from "utils/tokenExtractor"
 
 // const games = [
 //   {
@@ -153,9 +154,10 @@ const handler = async (req, res) => {
       studio,
       gameYear,
       steamLink,
-      token,
     } = req.body
     let decodedToken
+    const token = tokenExtractor(req)
+
     try {
       decodedToken = jsonwebtoken.verify(token, process.env.SECRET)
     } catch (err) {
