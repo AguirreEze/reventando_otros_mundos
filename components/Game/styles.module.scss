@@ -2,7 +2,7 @@
 
 .container {
   display: grid;
-  width: 500px;
+  max-width: 500px;
   grid-template-columns: 180px 1fr;
   gap: 1rem;
   margin: 0.7rem 0;
