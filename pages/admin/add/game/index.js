@@ -31,7 +31,7 @@ export default function AddGame() {
       await addGame(data)
       router.push("/games")
     } catch ({ response }) {
-      setError(response.data.error.message)
+      setError(response.data.error.message || response.data.error)
     }
   }
 
