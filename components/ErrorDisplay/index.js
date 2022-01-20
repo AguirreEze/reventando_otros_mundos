@@ -9,6 +9,7 @@ export default function ErrorDisplay({ text }) {
       <style jsx>
         {`
           div {
+            text-align: center;
             margin: 10px 0;
             padding: 5px;
             border: 3px solid red;
