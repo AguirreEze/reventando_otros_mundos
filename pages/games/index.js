@@ -37,9 +37,10 @@ export default function Games() {
                 studio,
                 gameYear,
                 steamLink,
+                id,
               }) => {
                 return (
-                  <li key={order}>
+                  <li key={id}>
                     <Game
                       order={order}
                       name={name}
