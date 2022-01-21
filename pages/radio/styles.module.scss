@@ -1,0 +1,28 @@
+@import "styles/theme.scss";
+.container {
+  text-align: center;
+  color: $Primary;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 0;
+  li {
+    list-style: none;
+  }
+}
+.title {
+  margin: 0.5rem 0rem;
+}
+.description {
+  color: black;
+  margin: 0;
+}
+
+@media (max-width: 425px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+}
