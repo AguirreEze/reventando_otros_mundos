@@ -23,7 +23,7 @@ export default function Games() {
           Here is a list of the games played by RoM
         </p>
       </header>
-      <section>
+      <section className={styles.games}>
         <ul className={styles.list}>
           {games.length === 0 && <GamePlaceHolder />}
           {games
