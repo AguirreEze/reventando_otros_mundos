@@ -14,10 +14,14 @@
   }
 }
 .title {
-  margin: 0.5rem 0rem;
+  color: $Primary;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 1rem 0;
 }
 .description {
-  color: black;
+  color: $Paragraph;
   margin: 0;
 }
 
