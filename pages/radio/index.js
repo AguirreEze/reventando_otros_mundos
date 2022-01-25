@@ -14,9 +14,7 @@ export default function Radio() {
       </Head>
       <section className={styles.container}>
         <h1 className={styles.title}>Invernalia</h1>
-        <p className={styles.description}>
-          This animes were reviewed by Myullnir and R
-        </p>
+        <p className={styles.description}>Work In Progres...</p>
         <ul className={styles.list}>
           {list.length === 0 && (
             <>
