@@ -1,9 +1,10 @@
 import ErrorDisplay from "components/ErrorDisplay"
 import Game from "components/Game"
 import useField from "hooks/useField"
+import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { addGame } from "services/games"
 import styles from "./styles.module.scss"
 
@@ -14,8 +15,12 @@ export default function AddGame() {
   const gameYear = useField({ type: "number" })
   const steamLink = useField({ type: "text" })
   const [error, setError] = useState("")
-  const [showCover, setShowCover] = useState("https://via.placeholder.com/150")
+  const [showCover, setShowCover] = useState("/PlaceHolder.jpg")
   const router = useRouter()
+  const { data: session } = useSession()
+  useEffect(() => {
+    if (!session || session.user.group !== "Admin") router.replace("/games")
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
