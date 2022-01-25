@@ -28,7 +28,7 @@ export default function Games() {
         </p>
       </header>
       <section className={styles.games}>
-        {session && (
+        {session && session.user.group === "Admin" && (
           <Link href="admin/add/game">
             <a>
               <Button>+ Add Game +</Button>
