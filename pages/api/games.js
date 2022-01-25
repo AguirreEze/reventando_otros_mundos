@@ -146,7 +146,7 @@ const handler = async (req, res) => {
   }
   if (req.method === "POST") {
     const session = await getSession({ req })
-    if (!session || session.group !== "Admin")
+    if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
     const {
       name,
