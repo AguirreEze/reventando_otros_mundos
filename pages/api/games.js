@@ -1,9 +1,6 @@
 import Game from "models/Game"
 import connectDB from "middleware/mongo"
 import errorHandler from "middleware/errorHandler"
-import jsonwebtoken from "jsonwebtoken"
-import User from "models/User"
-import tokenExtractor from "utils/tokenExtractor"
 
 // const games = [
 //   {
@@ -155,22 +152,10 @@ const handler = async (req, res) => {
       gameYear,
       steamLink,
     } = req.body
-    let decodedToken
-    const token = tokenExtractor(req)
-
-    try {
-      decodedToken = jsonwebtoken.verify(token, process.env.SECRET)
-    } catch (err) {
-      return errorHandler(err, res)
-    }
-    if (!token || !decodedToken.id)
-      res.status(401).send({ error: "Not Authorized" })
 
     let order
     try {
       order = await Game.countDocuments({})
-      const user = await User.findById(decodedToken.id)
-      if (!user) res.status(401).send({ error: "Not Authorized" })
     } catch (err) {
       res.send({ error: err })
     }
