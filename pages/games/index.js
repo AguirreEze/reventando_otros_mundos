@@ -24,7 +24,7 @@ export default function Games() {
       <header>
         <h1 className={styles.title}>Games</h1>
         <p className={styles.description}>
-          Here is a list of the games played by RoM
+          Estos son los titulos jugados en el stream de Reventando Otros Mundos
         </p>
       </header>
       <section className={styles.games}>
