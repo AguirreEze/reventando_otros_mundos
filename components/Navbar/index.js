@@ -10,15 +10,13 @@ export default function Navbar() {
   const [showNav, setShowNav] = useState(false)
   const { data: session } = useSession()
   return (
-    <>
-      <header className={styles.header}>
-        <RomIcon />
+    <header className={styles.header}>
+      <RomIcon />
 
-        <Hamburger
-          onClick={() => setShowNav(!showNav)}
-          className={styles.hamburger}
-        />
-      </header>
+      <Hamburger
+        onClick={() => setShowNav(!showNav)}
+        className={styles.hamburger}
+      />
       <nav className={showNav ? styles.navMovile__show : styles.navMovile}>
         {session && (
           <p className={styles.user}>
@@ -41,6 +39,6 @@ export default function Navbar() {
           <a onClick={() => signIn()}>sign in</a>
         )}
       </nav>
-    </>
+    </header>
   )
 }
