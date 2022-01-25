@@ -12,7 +12,7 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token, user }) {
-      session.user.groups = user.groups
+      session.user.group = user.group
       return session
     },
   },
