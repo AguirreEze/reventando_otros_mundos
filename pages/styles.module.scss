@@ -1,0 +1,41 @@
+@import "styles/theme.scss";
+
+.title {
+  color: $Primary;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.h2 {
+  color: $Primary;
+  text-align: center;
+}
+
+.section {
+  color: $Primary;
+  text-decoration: underline;
+}
+
+.description {
+  color: $Paragraph;
+  margin-bottom: 2rem;
+}
+
+.description_list {
+  color: $Paragraph;
+  list-style: disc;
+}
+
+.separation {
+  align-self: center;
+  width: 80%;
+  height: 1px;
+  background: $Accent;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}

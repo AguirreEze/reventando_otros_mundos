@@ -1,0 +1,18 @@
+@import "../Game/styles.module.scss";
+
+.container {
+  animation: none;
+}
+.data,
+.cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $Primary;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.2rem;
+}
+.cover {
+  min-width: 170px;
+}

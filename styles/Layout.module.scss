@@ -5,7 +5,6 @@
   height: 100%;
   width: 100%;
   background-color: $Secondary;
-  border-radius: 10px;
   padding: 0 1em;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
@@ -31,6 +30,7 @@
 @media (min-width: $Movile-Breakpoint) {
   .view {
     width: $Movile-Breakpoint;
-    height: 90%;
+    height: 98%;
+    border-radius: 10px;
   }
 }

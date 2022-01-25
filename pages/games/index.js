@@ -2,13 +2,17 @@ import Head from "next/head"
 import { useEffect, useState } from "react"
 import Game from "components/Game"
 import styles from "pages/games/styles.module.scss"
+import axios from "axios"
+import GamePlaceHolder from "components/GamePlaceHolder"
+import { useSession } from "next-auth/react"
+import Button from "components/Button"
+import Link from "next/link"
 
 export default function Games() {
+  const { data: session } = useSession()
   const [games, setGames] = useState([])
   useEffect(() => {
-    fetch("/api/games")
-      .then((res) => res.json())
-      .then(setGames)
+    axios.get("/api/games").then((res) => setGames(res.data))
   }, [])
   return (
     <section className={styles.background}>
@@ -20,11 +24,19 @@ export default function Games() {
       <header>
         <h1 className={styles.title}>Games</h1>
         <p className={styles.description}>
-          Here is a list of the games played by RoM
+          Estos son los titulos jugados en el stream de Reventando Otros Mundos
         </p>
       </header>
-      <section>
+      <section className={styles.games}>
+        {session && session.user.group === "Admin" && (
+          <Link href="admin/add/game">
+            <a>
+              <Button>+ Add Game +</Button>
+            </a>
+          </Link>
+        )}
         <ul className={styles.list}>
+          {games.length === 0 && <GamePlaceHolder />}
           {games
             .sort((a, b) => b.order - a.order)
             .map(
@@ -36,9 +48,10 @@ export default function Games() {
                 studio,
                 gameYear,
                 steamLink,
+                id,
               }) => {
                 return (
-                  <li key={order}>
+                  <li key={id}>
                     <Game
                       order={order}
                       name={name}
@@ -47,6 +60,7 @@ export default function Games() {
                       studio={studio}
                       gameYear={gameYear}
                       steamLink={steamLink}
+                      placeHolder={true}
                     />
                   </li>
                 )
