@@ -1,4 +1,4 @@
-import styles from "styles/Layout.module.scss"
+import styles from "./styles.module.scss"
 import Navbar from "components/Navbar"
 
 export default function Layout({ children }) {
