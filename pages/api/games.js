@@ -1,6 +1,7 @@
 import Game from "models/Game"
 import connectDB from "middleware/mongo"
 import errorHandler from "middleware/errorHandler"
+import { getSession } from "next-auth/react"
 
 // const games = [
 //   {
@@ -144,6 +145,9 @@ const handler = async (req, res) => {
     res.status(200).json(list)
   }
   if (req.method === "POST") {
+    const session = await getSession({ req })
+    if (!session || session.group !== "Admin")
+      return res.status(401).send({ error: "Unauthorized" })
     const {
       name,
       completed = false,
