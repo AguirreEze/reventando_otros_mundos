@@ -1,46 +1,46 @@
-import Game from "components/Icons/Game"
-import Radio from "components/Icons/Radio"
 import RomIcon from "components/Icons/RomIcon"
-import Home from "components/Icons/Home"
-import { useSession, signIn, signOut } from "next-auth/react"
+import Hamburger from "components/Icons/Hamburger"
 
+import { useSession, signIn, signOut } from "next-auth/react"
 import styles from "components/Navbar/navbar.module.scss"
 import Link from "next/link"
-import SignIn from "components/Icons/SignIn"
-import SignOut from "components/Icons/SignOut"
+import { useState } from "react"
 
 export default function Navbar() {
+  const [showNav, setShowNav] = useState(false)
   const { data: session } = useSession()
-  const iconSize = "23px"
   return (
-    <header className={styles.header}>
-      <RomIcon />
-      <nav className={styles.nav}>
+    <>
+      <header className={styles.header}>
+        <RomIcon />
+
+        <Hamburger
+          onClick={() => setShowNav(!showNav)}
+          className={styles.hamburger}
+        />
+      </header>
+      <nav className={showNav ? styles.navMovile__show : styles.navMovile}>
+        {session && (
+          <p className={styles.user}>
+            Welcome<span>{session.user.name}</span>
+          </p>
+        )}
         <Link href="/">
-          <a>
-            <Home width={iconSize} height={iconSize} />
-          </a>
+          <a onClick={() => setShowNav(!showNav)}>home</a>
         </Link>
         <Link href="/games">
-          <a>
-            <Game width={iconSize} height={iconSize} />
-          </a>
+          <a onClick={() => setShowNav(!showNav)}>games</a>
         </Link>
         <Link href="/radio">
-          <a>
-            <Radio width={iconSize} height={iconSize} />
-          </a>
+          <a onClick={() => setShowNav(!showNav)}>radio</a>
         </Link>
+        <div className={styles.separation}></div>
         {session ? (
-          <a>
-            <SignOut onClick={() => signOut()} />
-          </a>
+          <a onClick={() => signOut()}>sign out</a>
         ) : (
-          <a>
-            <SignIn onClick={() => signIn()} />
-          </a>
+          <a onClick={() => signIn()}>sign in</a>
         )}
       </nav>
-    </header>
+    </>
   )
 }
