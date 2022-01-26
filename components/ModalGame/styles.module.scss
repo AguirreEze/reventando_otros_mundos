@@ -79,10 +79,29 @@
   border: 1px solid $Accent;
   color: $Accent;
   cursor: pointer;
+  flex: 1;
   user-select: none;
   &:hover {
     color: $Secondary;
     border: 1px solid $Secondary;
     background: $Accent;
   }
+}
+.button_delete {
+  @extend .button;
+  background: red;
+  color: #fff;
+  border: 1px solid red;
+  &:hover {
+    background: #fff;
+    color: red;
+    border: 1px solid red;
+  }
+}
+.panel {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 }
