@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss"
 import Game from "components/Game"
 import useField from "hooks/useField"
+import { addGame, updateGame } from "services/games"
 import { useState } from "react"
 
 export default function ModalGame({ show, onClose, data }) {
@@ -22,7 +23,28 @@ export default function ModalGame({ show, onClose, data }) {
 
   if (!show) return null
 
-  const handleSubmit = () => {}
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const dataToAdd = {
+      name: name.input.value,
+      gameCover: gameCover.input.value,
+      studio: studio.input.value,
+      gameYear: gameYear.input.value,
+      steamLink: steamLink.input.value,
+      completed: false,
+    }
+    try {
+      if (data) {
+        const id = data.id
+        await updateGame(dataToAdd, id)
+      } else {
+        await addGame(dataToAdd)
+      }
+      onClose(false)
+    } catch ({ response }) {
+      //   setError(response.data.error.message || response.data.error)
+    }
+  }
 
   const handleShow = (e) => {
     e.preventDefault()
