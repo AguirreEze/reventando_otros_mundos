@@ -40,6 +40,25 @@ const handler = async (req, res) => {
       errorHandler(err, res)
     }
   }
+  if (req.method === "DELETE") {
+    const session = await getSession({ req })
+    if (!session || session.user.group !== "Admin")
+      return res.status(401).send({ error: "Unauthorized" })
+
+    const { id } = req.query
+    try {
+      await connectDB()
+    } catch (err) {
+      errorHandler(err)
+    }
+
+    try {
+      const savedGame = await Game.findByIdAndDelete(id)
+      res.status(200).json(savedGame)
+    } catch (err) {
+      errorHandler(err, res)
+    }
+  }
 }
 
 export default handler
