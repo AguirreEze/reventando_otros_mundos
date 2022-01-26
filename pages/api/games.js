@@ -140,14 +140,11 @@ import { getSession } from "next-auth/react"
 // ]
 
 const handler = async (req, res) => {
-  if (req.method === "GET") {
-    const list = await Game.find({})
-    res.status(200).json(list)
-  }
   if (req.method === "POST") {
     const session = await getSession({ req })
     if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
+
     const {
       name,
       completed = false,
@@ -156,6 +153,12 @@ const handler = async (req, res) => {
       gameYear,
       steamLink,
     } = req.body
+
+    try {
+      await connectDB()
+    } catch (err) {
+      errorHandler(err)
+    }
 
     let order
     try {
@@ -183,4 +186,4 @@ const handler = async (req, res) => {
   }
 }
 
-export default connectDB(handler)
+export default handler
