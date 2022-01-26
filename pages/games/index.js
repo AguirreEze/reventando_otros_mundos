@@ -1,19 +1,16 @@
 import Head from "next/head"
-import { useEffect, useState } from "react"
 import Game from "components/Game"
 import styles from "pages/games/styles.module.scss"
-import axios from "axios"
 import GamePlaceHolder from "components/GamePlaceHolder"
 import { useSession } from "next-auth/react"
 import Button from "components/Button"
 import Link from "next/link"
+import connectDB from "middleware/mongo"
+import GameModel from "models/Game"
 
-export default function Games() {
+export default function Games({ games }) {
   const { data: session } = useSession()
-  const [games, setGames] = useState([])
-  useEffect(() => {
-    axios.get("/api/games").then((res) => setGames(res.data))
-  }, [])
+
   return (
     <section className={styles.background}>
       <Head>
@@ -70,4 +67,16 @@ export default function Games() {
       </section>
     </section>
   )
+}
+
+export async function getServerSideProps() {
+  await connectDB()
+  console.log(GameModel)
+  const res = await GameModel.find({})
+  const games = res.map((doc) => {
+    const game = doc.toJSON()
+    game.id = game.id.toString()
+    return game
+  })
+  return { props: { games: games } }
 }
