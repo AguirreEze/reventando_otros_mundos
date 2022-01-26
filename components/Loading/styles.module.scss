@@ -1,0 +1,52 @@
+$Frame-BG-Color: #222;
+$Square-Border: #888;
+$Text: #aaa;
+$Square-Size: 12rem;
+
+.background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+}
+
+.text {
+  position: absolute;
+  color: $Text;
+  font-size: 2rem;
+  bottom: 0;
+}
+
+.frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: $Frame-BG-Color;
+}
+
+@for $i from 1 through 20 {
+  .square_#{$i} {
+    position: absolute;
+    border: 1px solid $Square-Border;
+    transform-origin: center;
+    $color: calc(70 + ((20 - $i) * 8));
+    width: calc($Square-Size / 20 * $i);
+    height: calc($Square-Size / 20 * $i);
+    border-color: rgb($color, $color, $color);
+    animation: rotate 2s ease-in-out calc($i / 30) + s infinite alternate;
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
