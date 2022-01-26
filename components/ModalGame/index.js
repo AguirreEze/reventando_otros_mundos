@@ -3,6 +3,7 @@ import Game from "components/Game"
 import useField from "hooks/useField"
 import { addGame, updateGame } from "services/games"
 import { useState } from "react"
+import ErrorDisplay from "components/ErrorDisplay"
 
 export default function ModalGame({ show, onClose, data }) {
   const name = useField({ type: "text", initialValue: data && data.name })
@@ -19,6 +20,7 @@ export default function ModalGame({ show, onClose, data }) {
     type: "text",
     initialValue: data && data.steamLink,
   })
+  const [error, setError] = useState("")
   const [showCover, setShowCover] = useState(data && data.gameCover)
 
   if (!show) return null
@@ -42,7 +44,7 @@ export default function ModalGame({ show, onClose, data }) {
       }
       onClose(false)
     } catch ({ response }) {
-      //   setError(response.data.error.message || response.data.error)
+      setError(response.data.error.message || response.data.error)
     }
   }
 
@@ -61,6 +63,7 @@ export default function ModalGame({ show, onClose, data }) {
         <button onClick={() => onClose(false)} className={styles.close}>
           x
         </button>
+        <ErrorDisplay text={error} />
         <form onSubmit={handleSubmit} className={styles.form}>
           <div>
             <label name="name">game name:</label>
