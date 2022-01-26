@@ -17,9 +17,18 @@ export default function Game({
   steamLink,
   id,
   onModal = false,
+  setCompleted,
 }) {
   const [showModal, setShowModal] = useState(false)
+  const [showCompleted, setShowCompleted] = useState(completed)
   const { data: session } = useSession()
+
+  const handleClick = () => {
+    if (onModal) {
+      setCompleted(!completed)
+      setShowCompleted(!showCompleted)
+    }
+  }
   return (
     <>
       <article className={styles.container}>
@@ -31,7 +40,9 @@ export default function Game({
           <p>Studio: {studio}</p>
           <p>Release date: {gameYear}</p>
           <footer className={styles.footer}>
-            {completed ? <Completed /> : <OnProgress />}
+            <div onClick={handleClick}>
+              {showCompleted ? <Completed /> : <OnProgress />}
+            </div>
             {steamLink && (
               <a
                 href={steamLink}

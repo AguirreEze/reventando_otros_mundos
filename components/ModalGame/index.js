@@ -4,6 +4,7 @@ import useField from "hooks/useField"
 import { addGame, updateGame } from "services/games"
 import { useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
+import { useRouter } from "next/router"
 
 export default function ModalGame({ show, onClose, data }) {
   const name = useField({ type: "text", initialValue: data && data.name })
@@ -20,8 +21,10 @@ export default function ModalGame({ show, onClose, data }) {
     type: "text",
     initialValue: data && data.steamLink,
   })
+  const [completed, setCompleted] = useState(data ? data.completed : false)
   const [error, setError] = useState("")
   const [showCover, setShowCover] = useState(data && data.gameCover)
+  const router = useRouter()
 
   if (!show) return null
 
@@ -33,7 +36,7 @@ export default function ModalGame({ show, onClose, data }) {
       studio: studio.input.value,
       gameYear: gameYear.input.value,
       steamLink: steamLink.input.value,
-      completed: false,
+      completed: completed,
     }
     try {
       if (data) {
@@ -43,6 +46,7 @@ export default function ModalGame({ show, onClose, data }) {
         await addGame(dataToAdd)
       }
       onClose(false)
+      router.reload()
     } catch ({ response }) {
       setError(response.data.error.message || response.data.error)
     }
@@ -111,7 +115,9 @@ export default function ModalGame({ show, onClose, data }) {
             studio={studio.input.value}
             gameYear={gameYear.input.value}
             steamLink={steamLink.input.value}
+            completed={completed}
             onModal={true}
+            setCompleted={setCompleted}
           ></Game>
         </article>
       </section>
