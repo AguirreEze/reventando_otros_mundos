@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss"
 import Game from "components/Game"
 import useField from "hooks/useField"
-import { addGame, updateGame } from "services/games"
+import { addGame, deleteGame, updateGame } from "services/games"
 import { useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
 import { useRouter } from "next/router"
@@ -61,6 +61,19 @@ export default function ModalGame({ show, onClose, data }) {
       setShowCover(gameCover.input.value)
     }
   }
+
+  const handleDelete = async (e) => {
+    e.preventDefault()
+    if (window.confirm(`Delete ${data.name}`)) {
+      try {
+        await deleteGame(data.id)
+        onClose(false)
+        router.reload()
+      } catch ({ response }) {
+        setError(response.data.error.message || response.data.error)
+      }
+    }
+  }
   return (
     <div className={styles.background}>
       <section className={styles.view}>
@@ -93,20 +106,25 @@ export default function ModalGame({ show, onClose, data }) {
             <label name="Steam link">steam link:</label>
             <input {...steamLink.input} placeholder="Link" name="Steam link" />
           </div>
-          <div>
+          <footer className={styles.panel}>
             <button onClick={handleShow} className={styles.button}>
               Show Cover
             </button>
             {data ? (
-              <button type="submit" className={styles.button}>
-                Update
-              </button>
+              <>
+                <button type="submit" className={styles.button}>
+                  Update
+                </button>
+                <button className={styles.button_delete} onClick={handleDelete}>
+                  Delete
+                </button>
+              </>
             ) : (
               <button type="submit" className={styles.button}>
                 Upload
               </button>
             )}
-          </div>
+          </footer>
         </form>
         <article>
           <Game
