@@ -1,16 +1,19 @@
 import Head from "next/head"
 import Game from "components/Game"
 import styles from "pages/games/styles.module.scss"
-import GamePlaceHolder from "components/GamePlaceHolder"
 import { useSession } from "next-auth/react"
 import Button from "components/Button"
 import Link from "next/link"
 import connectDB from "middleware/mongo"
 import GameModel from "models/Game"
+import useLoading from "hooks/useLoading"
+import Loading from "components/Loading"
 
 export default function Games({ games }) {
   const { data: session } = useSession()
+  const { loading } = useLoading()
 
+  if (loading) return <Loading />
   return (
     <section className={styles.background}>
       <Head>
@@ -33,7 +36,6 @@ export default function Games({ games }) {
           </Link>
         )}
         <ul className={styles.list}>
-          {games.length === 0 && <GamePlaceHolder />}
           {games
             .sort((a, b) => b.order - a.order)
             .map(
@@ -71,7 +73,6 @@ export default function Games({ games }) {
 
 export async function getServerSideProps() {
   await connectDB()
-  console.log(GameModel)
   const res = await GameModel.find({})
   const games = res.map((doc) => {
     const game = doc.toJSON()
