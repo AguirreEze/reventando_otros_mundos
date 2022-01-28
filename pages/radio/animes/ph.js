@@ -1,5 +1,7 @@
 import Head from "next/head"
 import Image from "next/image"
+import Link from "next/link"
+import styles from "./styles.module.scss"
 
 const data = {
   name: "Pokemon",
@@ -12,6 +14,7 @@ const data = {
   score: 6.9,
   season: "winter",
   watched: 25,
+  studio: "GameFreak",
   year: 1995,
 }
 
@@ -24,9 +27,12 @@ export default function Ph() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
-        <h1>{data.name}</h1>
+        <Link href="/radio">
+          <a>back</a>
+        </Link>
+        <h1 className={styles.title}>{data.name}</h1>
       </header>
-      <article>
+      <article className={styles.data}>
         <section>
           <Image
             src={data.cover}
@@ -36,34 +42,53 @@ export default function Ph() {
           />
         </section>
         <section>
-          <h2>generos:</h2>
-          <ul>
+          <h2 className={styles.subTitle}>estudio:</h2>
+          <p className={styles.description}>{data.studio}</p>
+          <h2 className={styles.subTitle}>generos:</h2>
+          <ul className={styles.list}>
             {data.genres.map((e) => (
-              <li key={e}>{e}</li>
+              <li key={e} className={styles.genre}>
+                {e}
+              </li>
             ))}
           </ul>
-          <p>{data.genres}</p>
-          <h2>temporada:</h2>
-          <p>
+          <h2 className={styles.subTitle}>temporada:</h2>
+          <p className={styles.description}>
             {data.season} {data.year}
           </p>
-          <h2>episodios:</h2>
-          <p>{data.episodes ? data.episodes : "?"}</p>
-          <h2>sinopsis:</h2>
-          <p>{data.sinopsis}</p>
+          <h2 className={styles.subTitle}>episodios:</h2>
+          <p className={styles.description}>
+            {data.episodes ? data.episodes : "?"}
+          </p>
         </section>
+        <footer className={styles.sinopsis}>
+          <h2 className={styles.subTitle}>sinopsis:</h2>
+          <p className={styles.description}>{data.sinopsis}</p>
+        </footer>
       </article>
       <article>
-        <h2>estado:</h2>
-        <p>{data.state}</p>
-        <h2>episodios vistos:</h2>
-        <p>
-          {data.watched} / {data.episodes ? data.episodes : "?"}
-        </p>
-        <h2>comentario:</h2>
-        <p>{data.comentary}</p>
-        <h2>score:</h2>
-        <p>{data.score}</p>
+        <header className={styles.title}>
+          <h1>Review</h1>
+        </header>
+        <section className={styles.card}>
+          <div className={styles.score}>
+            <h2 className={styles.subTitle}>score</h2>
+            <div className={styles.scoreStamp}>
+              <span className={styles.scoreValue}>{data.score}</span>
+            </div>
+          </div>
+          <div className={styles.state}>
+            <div className={styles.stateStamp}>{data.state}</div>
+            <h2 className={styles.subTitle}>vistos:</h2>
+            <p className={styles.episodes}>
+              {data.watched} / {data.episodes ? data.episodes : "?"}
+            </p>
+          </div>
+          <div>
+            <h2 className={styles.subTitle}>comentario:</h2>
+            <p className={styles.description}>{data.comentary}</p>
+          </div>
+        </section>
       </article>
     </section>
   )

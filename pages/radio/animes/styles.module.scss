@@ -1,0 +1,95 @@
+@import "styles/theme.scss";
+
+.title {
+  color: $Primary;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.subTitle {
+  color: $Primary;
+  font-size: 1.2rem;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.description {
+  color: $Paragraph;
+  padding-left: 1rem;
+}
+.list {
+  padding-left: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.genre {
+  list-style: none;
+  color: $Accent;
+  text-transform: capitalize;
+  border: 1px solid $Accent;
+  padding: 0 0.5rem;
+  border-radius: 1rem;
+  user-select: none;
+}
+
+.sinopsis {
+  grid-column: span 2;
+  padding: 0.5rem;
+  & > p {
+    margin: 0.2rem 0;
+    max-height: 100px;
+    overflow-y: scroll;
+  }
+}
+.card {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: 80px 1fr;
+  gap: 0 1rem;
+  margin: 1rem 0;
+}
+
+.score {
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.scoreStamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  border: 15px solid green;
+  background-color: limegreen;
+}
+.scoreValue {
+  font-size: 35px;
+  font-weight: 800;
+  color: green;
+  user-select: none;
+}
+
+.state {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+}
+.stateStamp {
+  grid-row: 1 / span 2;
+}
+.episodes {
+  margin: 0;
+}
