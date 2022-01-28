@@ -4,16 +4,12 @@ import styles from "pages/games/styles.module.scss"
 import { useSession } from "next-auth/react"
 import connectDB from "middleware/mongo"
 import GameModel from "models/Game"
-import useLoading from "hooks/useLoading"
-import Loading from "components/Loading"
 import ModalGame from "components/ModalGame"
 import { useState } from "react"
 
 export default function Games({ games }) {
   const [showModal, setShowModal] = useState(false)
   const { data: session } = useSession()
-  const { loading } = useLoading()
-  if (loading) return <Loading />
 
   return (
     <>
