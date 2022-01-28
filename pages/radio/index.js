@@ -1,9 +1,13 @@
-import Anime from "components/Anime"
+import AnimePreview from "components/AnimePreview"
+import ModalAnime from "components/ModalAnime"
+import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { useState } from "react"
 import styles from "./styles.module.scss"
 
 export default function Radio() {
+  const [showModal, setShowModal] = useState(false)
+  const { data: session } = useSession()
   const [list] = useState([])
   return (
     <article>
@@ -15,25 +19,35 @@ export default function Radio() {
       <section className={styles.container}>
         <h1 className={styles.title}>Invernalia</h1>
         <p className={styles.description}>Work In Progres...</p>
+        {session && session.user.group === "Admin" && (
+          <button
+            onClick={() => setShowModal(!showModal)}
+            className={styles.button}
+          >
+            + Add Anime +
+          </button>
+        )}
+
         <ul className={styles.list}>
           {list.length === 0 && (
             <>
               <li>
-                <Anime />
+                <AnimePreview />
               </li>
               <li>
-                <Anime />
+                <AnimePreview />
               </li>
               <li>
-                <Anime />
+                <AnimePreview />
               </li>
               <li>
-                <Anime />
+                <AnimePreview />
               </li>
             </>
           )}
         </ul>
       </section>
+      <ModalAnime show={showModal} onClose={setShowModal} />
     </article>
   )
 }
