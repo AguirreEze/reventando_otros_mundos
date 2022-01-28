@@ -1,5 +1,4 @@
 import { model, models, Schema } from "mongoose"
-import AnimeEpisode from "./AnimeEpisode"
 
 const animeSchema = new Schema({
   name: {
@@ -11,10 +10,6 @@ const animeSchema = new Schema({
     type: String,
     required: true,
   },
-  genres: {
-    type: [{ type: String, required: true }],
-    required: true,
-  },
   state: {
     type: String,
     required: true,
@@ -23,14 +18,17 @@ const animeSchema = new Schema({
     type: String,
     required: true,
   },
+  genres: {
+    type: [{ type: String, required: true }],
+    required: true,
+  },
   comentary: {
     type: String,
   },
-  season: {
-    type: String,
+  year: {
+    type: Number,
     required: true,
   },
-  episodes: [AnimeEpisode],
 })
 
 animeSchema.set("toJSON", {
