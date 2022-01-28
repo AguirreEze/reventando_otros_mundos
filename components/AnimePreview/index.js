@@ -1,7 +1,7 @@
 import Image from "next/image"
 import style from "./style.module.scss"
 
-export default function Anime({
+export default function AnimePreview({
   name = "loading...",
   cover = "https://via.placeholder.com/200",
 }) {
