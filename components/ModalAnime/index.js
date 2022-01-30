@@ -19,7 +19,8 @@ export default function ModalAnime({ show, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    console.log(showCover)
+    setError(10)
     console.log(genres)
   }
 
