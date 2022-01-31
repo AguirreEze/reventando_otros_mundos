@@ -1,24 +1,25 @@
+import AnimeReview from "components/AnimeReview"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import styles from "./styles.module.scss"
 
-const data = {
+const initialData = {
   name: "Pokemon",
   cover: "/PlaceHolder.jpg",
+  studio: "GameFreak",
   state: "Dropeada",
+  genres: ["action", "aventuras", "comedia", "fantasía", "seinen"],
+  year: 1995,
+  season: "winter",
   sinopsis:
     "El anime de Pokémon es uno de los pocos que es basado en un videojuego debido a la popularidad de este. La historia del anime esta centrada en un chico de 10 años llamado Ash Ketchum. Este muchacho tiene el sueño de llegar a ser el mejor entrenador Pokémon del mundo. La historia empieza exactamente la noche anterior a que este muchacho empezara su viaje. Este chico vive en Pueblo Paleta con su madre (del padre no se sabe nada). En este pueblo también vive una autoridad del mundo Pokémon, el Profesor Oak, quien le entrega a todos los nuevos entrenadores su primer Pokémon y una herramienta llamada Pokedex (una enciclopedia de alta tecnología con información sobre todos los Pokémon), es esta persona quien le da su primer Pokémon a Ash, como ustedes bien sabrán, un Pikachu.",
-  genres: ["action", "aventuras", "comedia", "fantasía", "seinen"],
   comentary: "Explican todo como si fueramos idiotas",
-  score: 6.9,
-  season: "winter",
   watched: 25,
-  studio: "GameFreak",
-  year: 1995,
+  score: 6.9,
 }
 
-export default function Ph() {
+export default function Ph({ data = initialData }) {
   return (
     <section>
       <Head>
@@ -66,30 +67,13 @@ export default function Ph() {
           <p className={styles.description}>{data.sinopsis}</p>
         </footer>
       </article>
-      <article>
-        <header className={styles.title}>
-          <h1>Review</h1>
-        </header>
-        <section className={styles.card}>
-          <div className={styles.score}>
-            <h2 className={styles.subTitle}>score</h2>
-            <div className={styles.scoreStamp}>
-              <span className={styles.scoreValue}>{data.score}</span>
-            </div>
-          </div>
-          <div className={styles.state}>
-            <div className={styles.stateStamp}>{data.state}</div>
-            <h2 className={styles.subTitle}>vistos:</h2>
-            <p className={styles.episodes}>
-              {data.watched} / {data.episodes ? data.episodes : "?"}
-            </p>
-          </div>
-          <div>
-            <h2 className={styles.subTitle}>comentario:</h2>
-            <p className={styles.description}>{data.comentary}</p>
-          </div>
-        </section>
-      </article>
+      <AnimeReview
+        comentary={data.comentary}
+        score={data.score}
+        watched={data.watched}
+        episodes={data.episodes}
+        state={data.state}
+      />
     </section>
   )
 }
