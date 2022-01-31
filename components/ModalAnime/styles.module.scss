@@ -21,6 +21,11 @@
   border-radius: 5px;
   width: 550px;
 }
+.view_drag {
+  @extend .view;
+  border: 3px dashed cyan;
+  height: 520px;
+}
 
 .close {
   position: absolute;
@@ -115,4 +120,8 @@
     color: $Accent;
     user-select: none;
   }
+}
+.cover {
+  width: 250px;
+  height: 320px;
 }
