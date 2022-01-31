@@ -11,6 +11,7 @@ export default function ModalAnime({ show, onClose }) {
   const sinopsis = useField({ type: "textarea" })
   const genre = useField({ type: "text" })
   const year = useField({ type: "number" })
+  const season = useField({ type: "text" })
   const [error, setError] = useState("")
   const [showCover, setShowCover] = useState()
   const [genres, setGenres] = useState([])
@@ -84,6 +85,10 @@ export default function ModalAnime({ show, onClose }) {
           <div>
             <label name="Year">year:</label>
             <input {...year.input} placeholder="Year" name="Year" />
+          </div>
+          <div>
+            <label name="season">season:</label>
+            <input {...season.input} placeholder="Season" name="season" />
           </div>
           <div>
             <label name="Sinopsis">sinopsis:</label>
