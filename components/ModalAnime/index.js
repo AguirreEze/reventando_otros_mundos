@@ -54,7 +54,7 @@ export default function ModalAnime({ show, onClose }) {
         state: state.input.value,
         sinopsis: sinopsis.input.value,
         genres,
-        year: year.input.value,
+        year: parseInt(year.input.value),
         season: season.input.value,
         episodes: episodes.input.value || "?",
       })
