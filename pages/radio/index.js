@@ -29,9 +29,16 @@ export default function Radio({ list }) {
         )}
 
         <ul className={styles.list}>
-          {list.map((e) => (
-            <AnimePreview key={e.id} name={e.name} cover={e.cover} id={e.id} />
-          ))}
+          {list
+            .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
+            .map((e) => (
+              <AnimePreview
+                key={e.id}
+                name={e.name}
+                cover={e.cover}
+                id={e.id}
+              />
+            ))}
         </ul>
       </section>
       <ModalAnime show={showModal} onClose={setShowModal} />
