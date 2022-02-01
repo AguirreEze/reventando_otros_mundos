@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import style from "./style.module.scss"
 
 export default function AnimePreview({
@@ -7,20 +8,25 @@ export default function AnimePreview({
   cover = "/PlaceHolder.jpg",
   id,
 }) {
+  const router = useRouter()
+  const handleClick = (e) => {
+    e.preventDefault()
+    router.push("/radio/animes/[id]", `/radio/animes/${id}`)
+  }
   return (
-    <Link href={`/radio/animes/[id]`} as={`/radio/animes/${id}`}>
-      <a>
-        <article className={style.card}>
-          <Image
-            src={cover}
-            height={230}
-            width={200}
-            className={style.cover}
-            alt={`${name} cover`}
-          />
+    <article className={style.card} onClick={handleClick}>
+      <Image
+        src={cover}
+        height={230}
+        width={200}
+        className={style.cover}
+        alt={`${name} cover`}
+      />
+      <Link href={`/radio/animes/[id]`} as={`/radio/animes/${id}`}>
+        <a>
           <h2 className={style.name}>{name}</h2>
-        </article>
-      </a>
-    </Link>
+        </a>
+      </Link>
+    </article>
   )
 }
