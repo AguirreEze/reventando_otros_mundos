@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore, collection, addDoc } from "firebase/firestore"
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore"
 import { getStorage, ref, uploadBytesResumable } from "firebase/storage"
 
 const firebaseConfig = {
@@ -16,6 +16,16 @@ const app = initializeApp(firebaseConfig)
 
 const storage = getStorage(app)
 const db = getFirestore(app)
+
+export const getAllAnimes = async () => {
+  return getDocs(collection(db, "animes")).then(({ docs }) =>
+    docs.map((doc) => {
+      const data = doc.data()
+      const id = doc.id
+      return { ...data, id }
+    })
+  )
+}
 
 export const addAnime = async ({
   name,
