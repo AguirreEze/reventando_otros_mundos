@@ -3,13 +3,14 @@ import style from "./style.module.scss"
 
 export default function AnimePreview({
   name = "loading...",
-  cover = "https://via.placeholder.com/200",
+  cover = "/PlaceHolder.jpg",
+  id,
 }) {
   return (
     <article className={style.card}>
       <Image
-        src="/PlaceHolder.jpg"
-        height={200}
+        src={cover}
+        height={230}
         width={200}
         className={style.cover}
         alt={`${name} cover`}
