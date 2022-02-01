@@ -1,14 +1,14 @@
 import AnimePreview from "components/AnimePreview"
 import ModalAnime from "components/ModalAnime"
+import { getAllAnimes } from "../../firebase/client"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { useState } from "react"
 import styles from "./styles.module.scss"
 
-export default function Radio() {
+export default function Radio({ list }) {
   const [showModal, setShowModal] = useState(false)
   const { data: session } = useSession()
-  const [list] = useState([])
   return (
     <article>
       <Head>
@@ -29,25 +29,18 @@ export default function Radio() {
         )}
 
         <ul className={styles.list}>
-          {list.length === 0 && (
-            <>
-              <li>
-                <AnimePreview />
-              </li>
-              <li>
-                <AnimePreview />
-              </li>
-              <li>
-                <AnimePreview />
-              </li>
-              <li>
-                <AnimePreview />
-              </li>
-            </>
-          )}
+          {list.map((e) => (
+            <AnimePreview key={e.id} name={e.name} cover={e.cover} id={e.id} />
+          ))}
         </ul>
       </section>
       <ModalAnime show={showModal} onClose={setShowModal} />
     </article>
   )
+}
+
+export async function getServerSideProps() {
+  return getAllAnimes().then((res) => {
+    return { props: { list: res } }
+  })
 }
