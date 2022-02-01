@@ -86,23 +86,17 @@
   cursor: pointer;
   flex: 1;
   user-select: none;
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
   &:hover {
     color: $Secondary;
     border: 1px solid $Secondary;
     background: $Accent;
   }
 }
-.button_delete {
-  @extend .button;
-  background: red;
-  color: #fff;
-  border: 1px solid red;
-  &:hover {
-    background: #fff;
-    color: red;
-    border: 1px solid red;
-  }
-}
+
 .panel {
   display: flex;
   flex-direction: row;
