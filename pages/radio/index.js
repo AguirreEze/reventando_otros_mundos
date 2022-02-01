@@ -18,7 +18,9 @@ export default function Radio({ list }) {
       </Head>
       <section className={styles.container}>
         <h1 className={styles.title}>Invernalia</h1>
-        <p className={styles.description}>Work In Progres...</p>
+        <p className={styles.description}>
+          Estos son los animes vistos y reseñados en el programa Invernalia
+        </p>
         {session && session.user.group === "Admin" && (
           <button
             onClick={() => setShowModal(!showModal)}
@@ -27,7 +29,7 @@ export default function Radio({ list }) {
             + Add Anime +
           </button>
         )}
-
+        {list.length === 0 && <h2>No hay animes en la lista</h2>}
         <ul className={styles.list}>
           {list
             .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
