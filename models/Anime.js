@@ -1,44 +1,15 @@
-import { model, models, Schema } from "mongoose"
+import * as yup from "yup"
 
-const animeSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  cover: {
-    type: String,
-    required: true,
-  },
-  state: {
-    type: String,
-    required: true,
-  },
-  sinopsis: {
-    type: String,
-    required: true,
-  },
-  genres: {
-    type: [{ type: String, required: true }],
-    required: true,
-  },
-  comentary: {
-    type: String,
-  },
-  year: {
-    type: Number,
-    required: true,
-  },
+const Anime = yup.object().shape({
+  name: yup.string().required(),
+  cover: yup.string().url().required(),
+  studio: yup.string().required(),
+  state: yup.string().required(),
+  genres: yup.array().required().min(1),
+  year: yup.number().required().positive().integer(),
+  season: yup.string().required(),
+  sinopsis: yup.string().required(),
+  episodes: yup.number().positive().integer().nullable(true),
 })
-
-animeSchema.set("toJSON", {
-  transform: (doc, returnedObject) => {
-    returnedObject.id = returnedObject._id
-    delete returnedObject._id
-    delete returnedObject.__v
-  },
-})
-
-const Anime = models.Anime || model("Anime", animeSchema)
 
 export default Anime
