@@ -38,6 +38,15 @@ export const addAnime = async ({
   season,
   episodes,
 }) => {
+  if (!name.length) throw new Error("name is required")
+  if (!cover.length) throw new Error("cover is required")
+  if (!studio.length) throw new Error("studio is required")
+  if (!state.length) throw new Error("state is required")
+  if (!genres.length) throw new Error("genres is required")
+  if (!year.length) throw new Error("year is required")
+  if (!season.length) throw new Error("season is required")
+  if (!sinopsis.length) throw new Error("sinopsis is required")
+  const createdAt = new Date()
   const data = {
     name,
     cover,
@@ -48,15 +57,8 @@ export const addAnime = async ({
     year,
     season,
     episodes,
+    createdAt: createdAt.toISOString(),
   }
-  if (!name.length) throw new Error("name is required")
-  if (!cover.length) throw new Error("cover is required")
-  if (!studio.length) throw new Error("studio is required")
-  if (!state.length) throw new Error("state is required")
-  if (!genres.length) throw new Error("genres is required")
-  if (!year.length) throw new Error("year is required")
-  if (!season.length) throw new Error("season is required")
-  if (!sinopsis.length) throw new Error("sinopsis is required")
 
   await addDoc(collection(db, "animes"), data)
 }
