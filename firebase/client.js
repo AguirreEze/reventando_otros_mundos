@@ -71,7 +71,6 @@ export const addAnime = async ({
     episodes,
     createdAt: createdAt.toISOString(),
   }
-
   await addDoc(collection(db, "animes"), data)
 }
 
