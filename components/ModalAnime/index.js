@@ -13,18 +13,20 @@ export default function ModalAnime({ show, onClose }) {
   const [dragState, setDragState] = useState(false)
   const [task, setTask] = useState(null)
   const [uploading, setUploading] = useState(false)
-  const [cover, setCover] = useState("/PlaceHolder.jpg")
 
+  const [cover, setCover] = useState("/PlaceHolder.jpg")
+  const [state, setState] = useState(null)
+  const [season, setSeason] = useState(null)
   const name = useField({ type: "text" })
   const studio = useField({ type: "text" })
-  const state = useField({ type: "text" })
   const sinopsis = useField({ type: "textarea" })
   const genre = useField({ type: "text" })
-  const year = useField({ type: "number" })
-  const season = useField({ type: "text" })
-  const episodes = useField({ type: "number" })
-  const [error, setError] = useState("")
   const [genres, setGenres] = useState([])
+  const year = useField({ type: "number" })
+  const episodes = useField({ type: "number" })
+  const [disableSend, setDisableSend] = useState(false)
+
+  const [error, setError] = useState("")
 
   useEffect(() => {
     const onProgress = () => {
@@ -49,25 +51,28 @@ export default function ModalAnime({ show, onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setDisableSend(true)
     const data = {
       name: name.input.value,
       cover,
       studio: studio.input.value,
-      state: state.input.value,
+      state: state,
       sinopsis: sinopsis.input.value,
       genres,
       year: parseInt(year.input.value),
-      season: season.input.value,
+      season: season,
       episodes: parseInt(episodes.input.value) || null,
     }
     Anime.validate(data)
-      .then(() => addAnime(data))
       .then(() => {
-        onClose(false)
-        router.reload()
+        addAnime(data).then(() => {
+          onClose(false)
+          router.reload()
+        })
       })
       .catch((err) => {
         setError(err.message)
+        setDisableSend(false)
       })
   }
 
@@ -95,6 +100,13 @@ export default function ModalAnime({ show, onClose }) {
   }
   const handleDragOver = (e) => {
     e.preventDefault()
+  }
+
+  const handleStateSelect = (e) => {
+    setState(e.target.value)
+  }
+  const handleSeasonSelect = (e) => {
+    setSeason(e.target.value)
   }
 
   return (
@@ -129,7 +141,12 @@ export default function ModalAnime({ show, onClose }) {
               </div>
               <div>
                 <label name="State">state:</label>
-                <input {...state.input} placeholder="State" name="State" />
+                <select onChange={handleStateSelect}>
+                  <option value={null}></option>
+                  <option value="viendo">viendo</option>
+                  <option value="dropeada">dropeada</option>
+                  <option value="completo">completo</option>
+                </select>
               </div>
               <div>
                 <label name="Genre">genre:</label>
@@ -153,7 +170,13 @@ export default function ModalAnime({ show, onClose }) {
               </div>
               <div>
                 <label name="season">season:</label>
-                <input {...season.input} placeholder="Season" name="season" />
+                <select onChange={handleSeasonSelect}>
+                  <option value={null}></option>
+                  <option value="winter">Winter</option>
+                  <option value="autum">Autum</option>
+                  <option value="summer">Summer</option>
+                  <option value="spring">Spring</option>
+                </select>
               </div>
               <div>
                 <label name="episodes">episodes:</label>
@@ -173,7 +196,11 @@ export default function ModalAnime({ show, onClose }) {
                 />
               </div>
               <footer className={styles.panel}>
-                <button type="submit" className={styles.button}>
+                <button
+                  type="submit"
+                  className={styles.button}
+                  disabled={disableSend}
+                >
                   Upload
                 </button>
               </footer>
