@@ -5,8 +5,11 @@ import ErrorDisplay from "components/ErrorDisplay"
 import { addAnime, uploadImage } from "../../firebase/client"
 import { getDownloadURL } from "firebase/storage"
 import Loading from "components/Loading"
+import Anime from "models/Anime"
+import { useRouter } from "next/router"
 
 export default function ModalAnime({ show, onClose }) {
+  const router = useRouter()
   const [dragState, setDragState] = useState(false)
   const [task, setTask] = useState(null)
   const [uploading, setUploading] = useState(false)
@@ -44,24 +47,28 @@ export default function ModalAnime({ show, onClose }) {
 
   if (!show) return null
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    try {
-      await addAnime({
-        name: name.input.value,
-        cover,
-        studio: studio.input.value,
-        state: state.input.value,
-        sinopsis: sinopsis.input.value,
-        genres,
-        year: parseInt(year.input.value),
-        season: season.input.value,
-        episodes: episodes.input.value || "?",
-      })
-      onClose(false)
-    } catch (err) {
-      setError(err.message)
+    const data = {
+      name: name.input.value,
+      cover,
+      studio: studio.input.value,
+      state: state.input.value,
+      sinopsis: sinopsis.input.value,
+      genres,
+      year: parseInt(year.input.value),
+      season: season.input.value,
+      episodes: parseInt(episodes.input.value) || null,
     }
+    Anime.validate(data)
+      .then(() => addAnime(data))
+      .then(() => {
+        onClose(false)
+        router.reload()
+      })
+      .catch((err) => {
+        setError(err.message)
+      })
   }
 
   const addGenre = (e) => {
