@@ -1,25 +1,11 @@
 import AnimeReview from "components/AnimeReview"
+import { getAnimeByID } from "../../../firebase/client"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import styles from "./styles.module.scss"
 
-const initialData = {
-  name: "Pokemon",
-  cover: "/PlaceHolder.jpg",
-  studio: "GameFreak",
-  state: "Dropeada",
-  genres: ["action", "aventuras", "comedia", "fantasía", "seinen"],
-  year: 1995,
-  season: "winter",
-  sinopsis:
-    "El anime de Pokémon es uno de los pocos que es basado en un videojuego debido a la popularidad de este. La historia del anime esta centrada en un chico de 10 años llamado Ash Ketchum. Este muchacho tiene el sueño de llegar a ser el mejor entrenador Pokémon del mundo. La historia empieza exactamente la noche anterior a que este muchacho empezara su viaje. Este chico vive en Pueblo Paleta con su madre (del padre no se sabe nada). En este pueblo también vive una autoridad del mundo Pokémon, el Profesor Oak, quien le entrega a todos los nuevos entrenadores su primer Pokémon y una herramienta llamada Pokedex (una enciclopedia de alta tecnología con información sobre todos los Pokémon), es esta persona quien le da su primer Pokémon a Ash, como ustedes bien sabrán, un Pikachu.",
-  comentary: "Explican todo como si fueramos idiotas",
-  watched: 25,
-  score: 6.9,
-}
-
-export default function Ph({ data = initialData }) {
+export default function AnimePage({ data }) {
   return (
     <section>
       <Head>
@@ -76,4 +62,18 @@ export default function Ph({ data = initialData }) {
       />
     </section>
   )
+}
+
+export const getServerSideProps = (context) => {
+  const { params } = context
+  const { id } = params
+  return getAnimeByID(id).then((res) => {
+    if (res.exists()) {
+      const data = res.data()
+      return { props: { data } }
+    }
+    return {
+      notFound: true,
+    }
+  })
 }
