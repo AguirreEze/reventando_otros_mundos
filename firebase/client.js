@@ -6,6 +6,8 @@ import {
   addDoc,
   getDocs,
   getDoc,
+  updateDoc,
+  deleteDoc,
 } from "firebase/firestore"
 import { getStorage, ref, uploadBytesResumable } from "firebase/storage"
 
@@ -39,7 +41,7 @@ export const getAnimeByID = (id) => {
   return getDoc(docRef)
 }
 
-export const addAnime = async ({
+export const addAnime = ({
   name,
   cover,
   studio,
@@ -63,10 +65,18 @@ export const addAnime = async ({
     episodes,
     createdAt: createdAt.toISOString(),
   }
-  await addDoc(collection(db, "animes"), data)
+  return addDoc(collection(db, "animes"), data)
 }
 
 export const uploadImage = (file) => {
   const storageRef = ref(storage, `images/${file.name}`)
   return uploadBytesResumable(storageRef, file)
+}
+
+export const updateAnime = (data, id) => {
+  return updateDoc(doc(db, "animes", id), data)
+}
+
+export const deleteAnime = (id) => {
+  return deleteDoc(doc(db, "animes", id))
 }
