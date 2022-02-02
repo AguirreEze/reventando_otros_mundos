@@ -2,28 +2,50 @@ import styles from "./styles.module.scss"
 import useField from "hooks/useField"
 import { useEffect, useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
-import { addAnime, uploadImage } from "../../firebase/client"
+import {
+  addAnime,
+  deleteAnime,
+  updateAnime,
+  uploadImage,
+} from "../../firebase/client"
 import { getDownloadURL } from "firebase/storage"
 import Loading from "components/Loading"
 import Anime from "models/Anime"
 import { useRouter } from "next/router"
 
-export default function ModalAnime({ show, onClose }) {
+export default function ModalAnime({ show, onClose, data }) {
   const router = useRouter()
   const [dragState, setDragState] = useState(false)
   const [task, setTask] = useState(null)
   const [uploading, setUploading] = useState(false)
 
-  const [cover, setCover] = useState("/PlaceHolder.jpg")
-  const [state, setState] = useState(null)
-  const [season, setSeason] = useState(null)
-  const name = useField({ type: "text" })
-  const studio = useField({ type: "text" })
-  const sinopsis = useField({ type: "textarea" })
+  const [cover, setCover] = useState(
+    data && data.id ? data.cover : "/PlaceHolder.jpg"
+  )
+  const [state, setState] = useState(data && data.id ? data.state : null)
+  const [season, setSeason] = useState(data && data.id ? data.season : null)
+  const name = useField({
+    type: "text",
+    initialValue: data && data.id ? data.name : "",
+  })
+  const studio = useField({
+    type: "text",
+    initialValue: data && data.id ? data.studio : "",
+  })
+  const sinopsis = useField({
+    type: "textarea",
+    initialValue: data && data.id ? data.sinopsis : "",
+  })
   const genre = useField({ type: "text" })
-  const [genres, setGenres] = useState([])
-  const year = useField({ type: "number" })
-  const episodes = useField({ type: "number" })
+  const [genres, setGenres] = useState(data && data.id ? data.genres : [])
+  const year = useField({
+    type: "number",
+    initialValue: data && data.id ? data.year : "",
+  })
+  const episodes = useField({
+    type: "number",
+    initialValue: data && data.id ? data.episodes : "",
+  })
   const [disableSend, setDisableSend] = useState(false)
 
   const [error, setError] = useState("")
@@ -52,7 +74,7 @@ export default function ModalAnime({ show, onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     setDisableSend(true)
-    const data = {
+    const dataToSend = {
       name: name.input.value,
       cover,
       studio: studio.input.value,
@@ -63,12 +85,17 @@ export default function ModalAnime({ show, onClose }) {
       season: season,
       episodes: parseInt(episodes.input.value) || null,
     }
-    Anime.validate(data)
+    Anime.validate(dataToSend)
       .then(() => {
-        addAnime(data).then(() => {
-          onClose(false)
-          router.reload()
-        })
+        data && data.id
+          ? updateAnime(dataToSend, data.id).then(() => {
+              onClose(false)
+              router.reload()
+            })
+          : addAnime(dataToSend).then(() => {
+              onClose(false)
+              router.reload()
+            })
       })
       .catch((err) => {
         setError(err.message)
@@ -107,6 +134,20 @@ export default function ModalAnime({ show, onClose }) {
   }
   const handleSeasonSelect = (e) => {
     setSeason(e.target.value)
+  }
+
+  const handleDelete = (e) => {
+    e.preventDefault()
+    if (window.confirm(`Delete ${data.name}`)) {
+      deleteAnime(data.id)
+        .then(() => {
+          onClose(false)
+          router.back()
+        })
+        .catch((err) => {
+          setError(err.message)
+        })
+    }
   }
 
   return (
@@ -202,6 +243,15 @@ export default function ModalAnime({ show, onClose }) {
                 >
                   Upload
                 </button>
+                {data && data.id && (
+                  <button
+                    onClick={handleDelete}
+                    className={styles.button}
+                    disabled={disableSend}
+                  >
+                    delete
+                  </button>
+                )}
               </footer>
             </form>
           </>
