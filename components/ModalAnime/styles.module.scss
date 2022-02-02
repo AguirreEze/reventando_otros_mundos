@@ -1,5 +1,7 @@
 @import "styles/theme.scss";
 
+$Field-Shadow: 4px 8px 16px #00000010;
+
 .background {
   position: fixed;
   display: flex;
@@ -76,6 +78,8 @@
     border: none;
     text-align: center;
     padding: 0.3rem 0;
+    border-radius: 5px;
+    box-shadow: $Field-Shadow;
     &::placeholder {
       text-align: center;
       color: $Accent;
@@ -96,8 +100,10 @@
   select {
     border: none;
     color: $Primary;
+    box-shadow: $Field-Shadow;
     text-transform: capitalize;
   }
+
   * {
     flex: 1;
     text-align: center;
@@ -158,6 +164,8 @@
     width: 100%;
     resize: none;
     border: none;
+    border-radius: 5px;
+    box-shadow: $Field-Shadow;
     &::placeholder {
       color: $Accent;
       user-select: none;
@@ -175,6 +183,7 @@
   cursor: pointer;
   flex: 1;
   user-select: none;
+  box-shadow: $Field-Shadow;
   &:disabled {
     opacity: 0.3;
     pointer-events: none;
@@ -198,4 +207,6 @@
 .cover {
   width: 250px;
   height: 320px;
+  border-radius: 5px;
+  box-shadow: 4px 8px 16px #0000001a;
 }
