@@ -17,7 +17,7 @@
   position: relative;
   background: $Secondary;
   width: 100%;
-  padding: 15px;
+  padding: 2rem 15px 15px;
   border-radius: 5px;
   width: 550px;
 }
@@ -31,8 +31,8 @@
   position: absolute;
   right: 10px;
   top: 10px;
-  height: 35px;
-  width: 35px;
+  height: 32px;
+  width: 32px;
   border-radius: 50%;
   border: 2px solid $Accent;
   color: $Accent;
@@ -46,38 +46,127 @@
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(10, fit-content);
   gap: 0.5rem;
   width: 100%;
   margin: 1rem 0;
-  div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    label {
-      text-transform: capitalize;
-      color: $Primary;
-    }
-    input {
-      border: none;
+}
+.cover_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-row: 1 / span 8;
+  span {
+    text-transform: capitalize;
+    color: $Primary;
+  }
+}
+.input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  label {
+    text-align: center;
+    text-transform: capitalize;
+    color: $Primary;
+  }
+  input {
+    border: none;
+    text-align: center;
+    padding: 0.3rem 0;
+    &::placeholder {
       text-align: center;
-      &::placeholder {
-        text-align: center;
-        color: $Accent;
-        user-select: none;
-      }
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
+      color: $Accent;
+      user-select: none;
+    }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+.input_container__select {
+  @extend .input_container;
+  width: 100%;
+  flex-direction: row;
+  gap: 1rem;
+  select {
+    border: none;
+    color: $Primary;
+    text-transform: capitalize;
+  }
+  * {
+    flex: 1;
+    text-align: center;
+  }
+}
+.genre_container {
+  @extend .input_container;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  label {
+    grid-column: span 2;
+  }
+  button {
+    margin: 0;
+    text-transform: capitalize;
+  }
+}
+.genres_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span {
+    text-transform: capitalize;
+    color: $Primary;
+  }
+  ul {
+    padding: 0rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  li {
+    list-style: none;
+    color: $Accent;
+    text-transform: capitalize;
+    border: 1px solid $Accent;
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+    user-select: none;
+  }
+}
+.sinopsis_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-column: span 2;
+  gap: 0.3rem;
+  label {
+    text-transform: capitalize;
+    color: $Primary;
+  }
+  textarea {
+    height: 7rem;
+    padding: 0.3rem;
+    width: 100%;
+    resize: none;
+    border: none;
+    &::placeholder {
+      color: $Accent;
+      user-select: none;
     }
   }
 }
 
 .button {
-  margin: 0.5rem 0.5rem 0rem;
+  margin: 0.5rem;
   background: $Secondary;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
@@ -98,6 +187,7 @@
 }
 
 .panel {
+  grid-column: span 2;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -105,16 +195,6 @@
   justify-content: space-between;
 }
 
-.textarea {
-  height: 7rem;
-  width: 15rem;
-  resize: none;
-  border: none;
-  &::placeholder {
-    color: $Accent;
-    user-select: none;
-  }
-}
 .cover {
   width: 250px;
   height: 320px;

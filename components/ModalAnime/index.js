@@ -127,48 +127,46 @@ export default function ModalAnime({ show, onClose }) {
             </button>
             <ErrorDisplay text={error} />
             <form onSubmit={handleSubmit} className={styles.form}>
-              <div>
-                <label name="name">game name:</label>
-                <input {...name.input} placeholder="Name" name="name" />
-              </div>
-              <div>
+              <div className={styles.cover_container}>
                 <span>cover:</span>
                 <img src={cover} className={styles.cover} />
               </div>
-              <div>
+              <div className={styles.input_container}>
+                <label name="name">game name:</label>
+                <input {...name.input} placeholder="Name" name="name" />
+              </div>
+              <div className={styles.input_container}>
                 <label name="studio">studio:</label>
-                <input {...studio.input} placeholder="Name" name="studio" />
+                <input {...studio.input} placeholder="Studio" name="studio" />
               </div>
-              <div>
-                <label name="State">state:</label>
-                <select onChange={handleStateSelect}>
-                  <option value={null}></option>
-                  <option value="viendo">viendo</option>
-                  <option value="dropeada">dropeada</option>
-                  <option value="completo">completo</option>
-                </select>
+              <div className={styles.input_container}>
+                <label name="episodes">episodes:</label>
+                <input
+                  {...episodes.input}
+                  placeholder="Episodes"
+                  name="episodes"
+                />
               </div>
-              <div>
+              <div className={styles.genre_container}>
                 <label name="Genre">genre:</label>
                 <input {...genre.input} placeholder="Genre" name="Genre" />
                 <button onClick={addGenre} className={styles.button}>
-                  add genre
+                  add
                 </button>
               </div>
-              <div>
-                <span>Genres</span>
+              <div className={styles.genres_container}>
+                <span>genres:</span>
                 <ul>
                   {genres.map((e) => (
                     <li key={e}>{e}</li>
                   ))}
                 </ul>
               </div>
-
-              <div>
+              <div className={styles.input_container}>
                 <label name="Year">year:</label>
                 <input {...year.input} placeholder="Year" name="Year" />
               </div>
-              <div>
+              <div className={styles.input_container__select}>
                 <label name="season">season:</label>
                 <select onChange={handleSeasonSelect}>
                   <option value={null}></option>
@@ -178,21 +176,22 @@ export default function ModalAnime({ show, onClose }) {
                   <option value="spring">Spring</option>
                 </select>
               </div>
-              <div>
-                <label name="episodes">episodes:</label>
-                <input
-                  {...episodes.input}
-                  placeholder="Episodes"
-                  name="episodes"
-                />
+
+              <div className={styles.input_container__select}>
+                <label name="State">state:</label>
+                <select onChange={handleStateSelect}>
+                  <option value={null}></option>
+                  <option value="viendo">viendo</option>
+                  <option value="dropeada">dropeada</option>
+                  <option value="completo">completo</option>
+                </select>
               </div>
-              <div>
+              <div className={styles.sinopsis_container}>
                 <label name="Sinopsis">sinopsis:</label>
                 <textarea
                   {...sinopsis.input}
                   placeholder="Sinopsis"
                   name="Sinopsis"
-                  className={styles.textarea}
                 />
               </div>
               <footer className={styles.panel}>
