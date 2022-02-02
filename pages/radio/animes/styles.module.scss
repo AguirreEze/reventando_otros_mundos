@@ -69,3 +69,18 @@
     box-shadow: 4px 6px 8px #00000010;
   }
 }
+
+.editIcon {
+  position: absolute;
+  top: 70px;
+  right: 25px;
+  border-radius: 50%;
+  padding: 3px;
+  border: 2px solid $Accent;
+  color: $Accent;
+  cursor: pointer;
+  &:hover {
+    color: $Secondary;
+    background: $Accent;
+  }
+}
