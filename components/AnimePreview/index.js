@@ -15,13 +15,9 @@ export default function AnimePreview({
   }
   return (
     <article className={style.card} onClick={handleClick}>
-      <Image
-        src={cover}
-        height={230}
-        width={200}
-        className={style.cover}
-        alt={`${name} cover`}
-      />
+      <div className={style.cover}>
+        <Image src={cover} height={230} width={200} alt={`${name} cover`} />
+      </div>
       <Link href={`/radio/animes/[id]`} as={`/radio/animes/${id}`}>
         <a>
           <h2 className={style.name}>{name}</h2>
