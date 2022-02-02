@@ -58,9 +58,7 @@ export default function Game({
             <EditIcon
               className={styles.editIcon}
               onClick={() => setShowModal(true)}
-            >
-              edit
-            </EditIcon>
+            />
           )}
         </section>
       </article>
