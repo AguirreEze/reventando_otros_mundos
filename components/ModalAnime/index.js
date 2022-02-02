@@ -19,32 +19,30 @@ export default function ModalAnime({ show, onClose, data }) {
   const [task, setTask] = useState(null)
   const [uploading, setUploading] = useState(false)
 
-  const [cover, setCover] = useState(
-    data && data.id ? data.cover : "/PlaceHolder.jpg"
-  )
-  const [state, setState] = useState(data && data.id ? data.state : null)
-  const [season, setSeason] = useState(data && data.id ? data.season : null)
+  const [cover, setCover] = useState(data ? data.cover : "/PlaceHolder.jpg")
+  const [state, setState] = useState(data ? data.state : null)
+  const [season, setSeason] = useState(data ? data.season : null)
   const name = useField({
     type: "text",
-    initialValue: data && data.id ? data.name : "",
+    initialValue: data ? data.name : "",
   })
   const studio = useField({
     type: "text",
-    initialValue: data && data.id ? data.studio : "",
+    initialValue: data ? data.studio : "",
   })
   const sinopsis = useField({
     type: "textarea",
-    initialValue: data && data.id ? data.sinopsis : "",
+    initialValue: data ? data.sinopsis : "",
   })
   const genre = useField({ type: "text" })
-  const [genres, setGenres] = useState(data && data.id ? data.genres : [])
+  const [genres, setGenres] = useState(data ? data.genres : [])
   const year = useField({
     type: "number",
-    initialValue: data && data.id ? data.year : "",
+    initialValue: data ? data.year : "",
   })
   const episodes = useField({
     type: "number",
-    initialValue: data && data.id ? data.episodes : "",
+    initialValue: data ? data.episodes : "",
   })
   const [disableSend, setDisableSend] = useState(false)
 
@@ -87,7 +85,7 @@ export default function ModalAnime({ show, onClose, data }) {
     }
     Anime.validate(dataToSend)
       .then(() => {
-        data && data.id
+        data
           ? updateAnime(dataToSend, data.id).then(() => {
               onClose(false)
               router.reload()
@@ -241,12 +239,12 @@ export default function ModalAnime({ show, onClose, data }) {
                   className={styles.button}
                   disabled={disableSend}
                 >
-                  Upload
+                  {data ? "Update" : "Upload"}
                 </button>
-                {data && data.id && (
+                {data && (
                   <button
                     onClick={handleDelete}
-                    className={styles.button}
+                    className={styles.button_delete}
                     disabled={disableSend}
                   >
                     delete
