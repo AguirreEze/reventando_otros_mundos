@@ -110,18 +110,12 @@ export default function ModalGame({ show, onClose, data }) {
             <button onClick={handleShow} className={styles.button}>
               Show Cover
             </button>
-            {data ? (
-              <>
-                <button type="submit" className={styles.button}>
-                  Update
-                </button>
-                <button className={styles.button_delete} onClick={handleDelete}>
-                  Delete
-                </button>
-              </>
-            ) : (
-              <button type="submit" className={styles.button}>
-                Upload
+            <button type="submit" className={styles.button}>
+              {data ? "Update" : "Upload"}
+            </button>
+            {data && (
+              <button className={styles.button_delete} onClick={handleDelete}>
+                Delete
               </button>
             )}
           </footer>
