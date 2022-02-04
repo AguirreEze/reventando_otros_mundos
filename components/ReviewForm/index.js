@@ -35,13 +35,14 @@ export default function ReviewForm({ review, id }) {
         })
       })
       .catch((err) => {
-        setDisableSubmit(true)
+        setDisableSubmit(false)
         setError(err.message)
       })
   }
 
   return (
-    <>
+    <section className={styles.container}>
+      <h2 className={styles.title}>Review</h2>
       <ErrorDisplay text={error} />
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.form_entry}>
@@ -69,9 +70,20 @@ export default function ReviewForm({ review, id }) {
         </div>
         <div className={styles.form_entry}>
           <label name="watched" className={styles.label}>
-            episodios vistos
+            ep. vistos
           </label>
-          <input {...watched.input} name="watched" />
+          <input
+            {...watched.input}
+            name="watched"
+            className={styles.input}
+            max={999}
+            onKeyUp={(e) => {
+              if (e.target.value > 999) {
+                e.target.value = 999
+                watched.input.value = 999
+              }
+            }}
+          />
         </div>
         <div className={styles.form_entry}>
           <label className={styles.label}>state</label>
@@ -85,7 +97,7 @@ export default function ReviewForm({ review, id }) {
             <option value="completo">completo</option>
           </select>
         </div>
-        <div className={styles.form_entry}>
+        <div className={styles.form_entry_big}>
           <label name="comentary" className={styles.label}>
             comentario
           </label>
@@ -95,7 +107,7 @@ export default function ReviewForm({ review, id }) {
             className={styles.textarea}
           />
         </div>
-        <div>
+        <div className={styles.form_entry_big}>
           <button
             type="submit"
             className={styles.button}
@@ -105,6 +117,6 @@ export default function ReviewForm({ review, id }) {
           </button>
         </div>
       </form>
-    </>
+    </section>
   )
 }
