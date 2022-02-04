@@ -1,0 +1,110 @@
+import ErrorDisplay from "components/ErrorDisplay"
+import { updateAnime } from "../../firebase/client"
+import useField from "hooks/useField"
+import Review from "models/Review"
+import { useRouter } from "next/router"
+import { useState } from "react"
+import styles from "./styles.module.scss"
+
+export default function ReviewForm({ review, id }) {
+  const watched = useField({ type: "number", initialValue: review.watched })
+  const comentary = useField({
+    type: "textarea",
+    initialValue: review.comentary,
+  })
+  const [state, setState] = useState(review.state)
+  const [score, setScore] = useState(review.score)
+  const [error, setError] = useState("")
+  const [disableSubmit, setDisableSubmit] = useState(false)
+  const router = useRouter()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setDisableSubmit(true)
+    const dataToSend = {
+      score: parseInt(score),
+      state,
+      watched: parseInt(watched.input.value),
+      comentary: comentary.input.value,
+    }
+    Review.validate(dataToSend)
+      .then(() => {
+        setError("")
+        updateAnime(dataToSend, id).then(() => {
+          router.reload()
+        })
+      })
+      .catch((err) => {
+        setDisableSubmit(true)
+        setError(err.message)
+      })
+  }
+
+  return (
+    <>
+      <ErrorDisplay text={error} />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.form_entry}>
+          <label name="score" className={styles.label}>
+            score
+          </label>
+          <select
+            className={styles.select}
+            onChange={(e) => setScore(e.target.value)}
+            defaultValue={review.score}
+          >
+            <option value="-">-</option>
+            <option value={0}>0</option>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+            <option value={6}>6</option>
+            <option value={7}>7</option>
+            <option value={8}>8</option>
+            <option value={9}>9</option>
+            <option value={10}>10</option>
+          </select>
+        </div>
+        <div className={styles.form_entry}>
+          <label name="watched" className={styles.label}>
+            episodios vistos
+          </label>
+          <input {...watched.input} name="watched" />
+        </div>
+        <div className={styles.form_entry}>
+          <label className={styles.label}>state</label>
+          <select
+            className={styles.select}
+            onChange={(e) => setState(e.target.value)}
+            defaultValue={review.state}
+          >
+            <option value="viendo">viendo</option>
+            <option value="dropeada">dropeada</option>
+            <option value="completo">completo</option>
+          </select>
+        </div>
+        <div className={styles.form_entry}>
+          <label name="comentary" className={styles.label}>
+            comentario
+          </label>
+          <textarea
+            {...comentary.input}
+            name="comentary"
+            className={styles.textarea}
+          />
+        </div>
+        <div>
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={disableSubmit}
+          >
+            update
+          </button>
+        </div>
+      </form>
+    </>
+  )
+}
