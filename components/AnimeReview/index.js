@@ -1,6 +1,7 @@
 import EditIcon from "components/Icons/EditIcon"
 import Modal from "components/Modal"
 import ReviewForm from "components/ReviewForm"
+import { useSession } from "next-auth/react"
 import { useState } from "react"
 import styles from "./styles.module.scss"
 
@@ -9,6 +10,8 @@ export default function AnimeReview({
   id,
 }) {
   const [showModal, setShowModal] = useState(false)
+
+  const { data: session } = useSession()
 
   const scoreStampStyles = (score) => {
     if (score < 4) return styles.scoreStamp__red
@@ -43,10 +46,12 @@ export default function AnimeReview({
           <h2 className={styles.subTitle}>comentario:</h2>
           <p className={styles.description}>{comentary}</p>
         </div>
-        <EditIcon
-          className={styles.editIcon}
-          onClick={() => setShowModal(true)}
-        />
+        {session && session.user.group === "Admin" && (
+          <EditIcon
+            className={styles.editIcon}
+            onClick={() => setShowModal(true)}
+          />
+        )}
       </section>
       {showModal && (
         <Modal onClose={setShowModal}>
