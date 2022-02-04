@@ -1,12 +1,15 @@
+import EditIcon from "components/Icons/EditIcon"
+import Modal from "components/Modal"
+import ReviewForm from "components/ReviewForm"
+import { useState } from "react"
 import styles from "./styles.module.scss"
 
 export default function AnimeReview({
-  comentary = "-",
-  score = "-",
-  watched = "-",
-  episodes,
-  state,
+  review: { comentary = "-", score = "-", watched = "-", episodes, state },
+  id,
 }) {
+  const [showModal, setShowModal] = useState(false)
+
   const scoreStampStyles = (score) => {
     if (score < 4) return styles.scoreStamp__red
     if (score < 7) return styles.scoreStamp__yellow
@@ -40,7 +43,16 @@ export default function AnimeReview({
           <h2 className={styles.subTitle}>comentario:</h2>
           <p className={styles.description}>{comentary}</p>
         </div>
+        <EditIcon
+          className={styles.editIcon}
+          onClick={() => setShowModal(true)}
+        />
       </section>
+      {showModal && (
+        <Modal onClose={setShowModal}>
+          <ReviewForm review={{ comentary, score, watched, state }} id={id} />
+        </Modal>
+      )}
     </article>
   )
 }
