@@ -1,12 +1,21 @@
 @import "styles/theme.scss";
 
+.container {
+  width: 360px;
+}
+
+.title {
+  text-align: center;
+  color: $Primary;
+  margin: 0;
+}
+
 .form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 2rem 0 0.5rem;
+  place-items: center;
   gap: 0.7rem;
-  min-width: 400px;
 }
 
 .form_entry {
@@ -16,6 +25,10 @@
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
+}
+.form_entry_big {
+  @extend .form_entry;
+  grid-column: span 3;
 }
 .textarea {
   height: 7rem;
@@ -63,5 +76,23 @@
     color: $Secondary;
     border: 1px solid $Secondary;
     background: $Accent;
+  }
+}
+.input {
+  border: none;
+  text-align: center;
+  padding: 0.3rem 0;
+  width: 3rem;
+  border-radius: 5px;
+  box-shadow: 4px 8px 16px #00000010;
+  &::placeholder {
+    text-align: center;
+    color: $Accent;
+    user-select: none;
+  }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
