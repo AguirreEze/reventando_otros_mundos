@@ -209,10 +209,18 @@ export default function ModalAnime({ show, onClose, data }) {
                 <label name="season">season:</label>
                 <select onChange={handleSeasonSelect}>
                   <option value={null}></option>
-                  <option value="winter">Winter</option>
-                  <option value="autum">Autum</option>
-                  <option value="summer">Summer</option>
-                  <option value="spring">Spring</option>
+                  <option value="winter" selected={data.season === "winter"}>
+                    Winter
+                  </option>
+                  <option value="autum" selected={data.season === "autum"}>
+                    Autum
+                  </option>
+                  <option value="summer" selected={data.season === "summer"}>
+                    Summer
+                  </option>
+                  <option value="spring" selected={data.season === "spring"}>
+                    Spring
+                  </option>
                 </select>
               </div>
 
@@ -220,9 +228,15 @@ export default function ModalAnime({ show, onClose, data }) {
                 <label name="State">state:</label>
                 <select onChange={handleStateSelect}>
                   <option value={null}></option>
-                  <option value="viendo">viendo</option>
-                  <option value="dropeada">dropeada</option>
-                  <option value="completo">completo</option>
+                  <option value="viendo" selected={data.state === "viendo"}>
+                    viendo
+                  </option>
+                  <option value="dropeada" selected={data.state === "dropeada"}>
+                    dropeada
+                  </option>
+                  <option value="completo" selected={data.state === "completo"}>
+                    completo
+                  </option>
                 </select>
               </div>
               <div className={styles.sinopsis_container}>
