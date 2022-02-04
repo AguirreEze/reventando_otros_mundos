@@ -1,0 +1,67 @@
+@import "styles/theme.scss";
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 400px;
+}
+
+.form_entry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+.textarea {
+  height: 7rem;
+  padding: 0.3rem;
+  width: 100%;
+  resize: none;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 4px 8px 16px #00000010;
+  color: $Paragraph;
+  &::placeholder {
+    color: $Accent;
+    user-select: none;
+  }
+}
+.label {
+  color: $Primary;
+  text-transform: capitalize;
+}
+.select {
+  border: none;
+  color: $Primary;
+  padding: 0.2rem;
+  border-radius: 5px;
+  box-shadow: 4px 8px 16px #00000010;
+  text-transform: capitalize;
+}
+.button {
+  margin: 0.5rem;
+  background: $Secondary;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid $Accent;
+  color: $Accent;
+  cursor: pointer;
+  flex: 1;
+  user-select: none;
+  box-shadow: 4px 8px 16px #00000010;
+  text-transform: capitalize;
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  &:hover {
+    color: $Secondary;
+    border: 1px solid $Secondary;
+    background: $Accent;
+  }
+}
