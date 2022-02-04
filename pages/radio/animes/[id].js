@@ -12,6 +12,14 @@ export default function AnimePage({ data }) {
   const [showModal, setShowModal] = useState(false)
   const { data: session } = useSession()
 
+  const review = {
+    comentary: data.comentary,
+    score: data.score,
+    watched: data.watched,
+    episodes: data.episodes,
+    state: data.state,
+  }
+
   return (
     <section>
       <Head>
@@ -63,13 +71,7 @@ export default function AnimePage({ data }) {
           <p className={styles.description}>{data.sinopsis}</p>
         </footer>
       </article>
-      <AnimeReview
-        comentary={data.comentary}
-        score={data.score}
-        watched={data.watched}
-        episodes={data.episodes}
-        state={data.state}
-      />
+      <AnimeReview review={review} id={data.id} />
     </section>
   )
 }
