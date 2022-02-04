@@ -5,7 +5,7 @@ import { useState } from "react"
 import styles from "./styles.module.scss"
 
 export default function AnimeReview({
-  review: { comentary = "-", score = "-", watched = "-", episodes, state },
+  review: { comentary = "-", score = "-", watched = "0", episodes, state },
   id,
 }) {
   const [showModal, setShowModal] = useState(false)
