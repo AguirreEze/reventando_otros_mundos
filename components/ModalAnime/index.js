@@ -175,7 +175,7 @@ export default function ModalAnime({ show, onClose, data }) {
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.cover_container}>
                 <span>cover:</span>
-                <img src={cover} className={styles.cover} />
+                <img src={cover} className={styles.cover} alt={"Anime cover"} />
               </div>
               <div className={styles.input_container}>
                 <label name="name">game name:</label>
