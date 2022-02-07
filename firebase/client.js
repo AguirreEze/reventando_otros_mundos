@@ -26,6 +26,11 @@ const app = initializeApp(firebaseConfig)
 const storage = getStorage(app)
 const db = getFirestore(app)
 
+export const uploadImage = (file) => {
+  const storageRef = ref(storage, `images/${file.name}`)
+  return uploadBytesResumable(storageRef, file)
+}
+
 export const getAllAnimes = () => {
   return getDocs(collection(db, "animes")).then(({ docs }) =>
     docs.map((doc) => {
@@ -66,11 +71,6 @@ export const addAnime = ({
     createdAt: createdAt.toISOString(),
   }
   return addDoc(collection(db, "animes"), data)
-}
-
-export const uploadImage = (file) => {
-  const storageRef = ref(storage, `images/${file.name}`)
-  return uploadBytesResumable(storageRef, file)
 }
 
 export const updateAnime = (data, id) => {
