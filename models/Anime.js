@@ -13,6 +13,10 @@ const animeSchema = new Schema({
     type: String,
     required: true,
   },
+  state: {
+    type: String,
+    required: true,
+  },
   genres: [
     {
       type: String,
@@ -51,8 +55,6 @@ animeSchema.set("toJSON", {
     delete returnedObject.__v
   },
 })
-
-console.log(models)
 
 const Anime = models.Anime || model("Anime", animeSchema)
 
