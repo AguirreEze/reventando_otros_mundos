@@ -1,5 +1,5 @@
 import ErrorDisplay from "components/ErrorDisplay"
-import { updateAnime } from "../../firebase/client"
+import { updateAnime } from "services/anime"
 import useField from "hooks/useField"
 import reviewValidation from "models/reviewValidation"
 import { useRouter } from "next/router"
