@@ -1,10 +1,11 @@
 import AnimePreview from "components/AnimePreview"
 import ModalAnime from "components/ModalAnime"
-import { getAllAnimes } from "../../firebase/client"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { useState } from "react"
 import styles from "./styles.module.scss"
+import connectDB from "middleware/mongo"
+import Anime from "models/Anime"
 
 export default function Radio({ list }) {
   const [showModal, setShowModal] = useState(false)
@@ -49,7 +50,13 @@ export default function Radio({ list }) {
 }
 
 export async function getServerSideProps() {
-  return getAllAnimes().then((res) => {
-    return { props: { list: res } }
+  connectDB()
+  const res = await Anime.find({})
+
+  const list = res.map((doc) => {
+    const anime = doc.toJSON()
+    anime.id = doc.id.toString()
+    return anime
   })
+  return { props: { list } }
 }
