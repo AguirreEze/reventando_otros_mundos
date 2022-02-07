@@ -147,8 +147,7 @@ export default function ModalAnime({ show, onClose, data }) {
     if (window.confirm(`Delete ${data.name}`)) {
       deleteAnime(data.id)
         .then(() => {
-          onClose(false)
-          router.back()
+          router.replace("/radio")
         })
         .catch(({ response }) => {
           setError(response.data.error.message || response.data.error)
