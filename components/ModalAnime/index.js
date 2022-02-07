@@ -2,15 +2,12 @@ import styles from "./styles.module.scss"
 import useField from "hooks/useField"
 import { useEffect, useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
-import {
-  addAnime,
-  deleteAnime,
-  updateAnime,
-  uploadImage,
-} from "../../firebase/client"
+import { deleteAnime, updateAnime, uploadImage } from "../../firebase/client"
+
+import { addAnime } from "services/anime"
 import { getDownloadURL } from "firebase/storage"
 import Loading from "components/Loading"
-import Anime from "models/Anime"
+import animeValidation from "models/AnimeValidation"
 import { useRouter } from "next/router"
 
 export default function ModalAnime({ show, onClose, data }) {
@@ -83,17 +80,28 @@ export default function ModalAnime({ show, onClose, data }) {
       season: season,
       episodes: parseInt(episodes.input.value) || null,
     }
-    Anime.validate(dataToSend)
+    animeValidation
+      .validate(dataToSend)
       .then(() => {
         data
-          ? updateAnime(dataToSend, data.id).then(() => {
-              onClose(false)
-              router.reload()
-            })
-          : addAnime(dataToSend).then(() => {
-              onClose(false)
-              router.reload()
-            })
+          ? updateAnime(dataToSend, data.id)
+              .then(() => {
+                onClose(false)
+                router.reload()
+              })
+              .catch((err) => {
+                setError(err.message)
+                setDisableSend(false)
+              })
+          : addAnime(dataToSend)
+              .then(() => {
+                onClose(false)
+                router.reload()
+              })
+              .catch(({ response }) => {
+                setError(response.data.error.message || response.data.error)
+                setDisableSend(false)
+              })
       })
       .catch((err) => {
         setError(err.message)
@@ -207,36 +215,28 @@ export default function ModalAnime({ show, onClose, data }) {
               </div>
               <div className={styles.input_container__select}>
                 <label name="season">season:</label>
-                <select onChange={handleSeasonSelect}>
+                <select
+                  onChange={handleSeasonSelect}
+                  defaultValue={data && data.season}
+                >
                   <option value={null}></option>
-                  <option value="winter" selected={data.season === "winter"}>
-                    Winter
-                  </option>
-                  <option value="autum" selected={data.season === "autum"}>
-                    Autum
-                  </option>
-                  <option value="summer" selected={data.season === "summer"}>
-                    Summer
-                  </option>
-                  <option value="spring" selected={data.season === "spring"}>
-                    Spring
-                  </option>
+                  <option value="winter">Winter</option>
+                  <option value="autum">Autum</option>
+                  <option value="summer">Summer</option>
+                  <option value="spring">Spring</option>
                 </select>
               </div>
 
               <div className={styles.input_container__select}>
                 <label name="State">state:</label>
-                <select onChange={handleStateSelect}>
+                <select
+                  onChange={handleStateSelect}
+                  defaultValue={data && data.state}
+                >
                   <option value={null}></option>
-                  <option value="viendo" selected={data.state === "viendo"}>
-                    viendo
-                  </option>
-                  <option value="dropeada" selected={data.state === "dropeada"}>
-                    dropeada
-                  </option>
-                  <option value="completo" selected={data.state === "completo"}>
-                    completo
-                  </option>
+                  <option>viendo</option>
+                  <option>dropeada</option>
+                  <option>completo</option>
                 </select>
               </div>
               <div className={styles.sinopsis_container}>
