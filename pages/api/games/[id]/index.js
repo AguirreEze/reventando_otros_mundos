@@ -22,7 +22,7 @@ const handler = async (req, res) => {
     try {
       await connectDB()
     } catch (err) {
-      errorHandler(err)
+      errorHandler(err, res)
     }
 
     const newGame = {
@@ -49,7 +49,7 @@ const handler = async (req, res) => {
     try {
       await connectDB()
     } catch (err) {
-      errorHandler(err)
+      errorHandler(err, res)
     }
 
     try {
