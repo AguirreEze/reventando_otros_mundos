@@ -2,9 +2,9 @@ import styles from "./styles.module.scss"
 import useField from "hooks/useField"
 import { useEffect, useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
-import { deleteAnime, uploadImage } from "../../firebase/client"
+import { uploadImage } from "../../firebase/client"
 
-import { addAnime, updateAnime } from "services/anime"
+import { addAnime, updateAnime, deleteAnime } from "services/anime"
 import { getDownloadURL } from "firebase/storage"
 import Loading from "components/Loading"
 import animeValidation from "models/AnimeValidation"
@@ -89,8 +89,8 @@ export default function ModalAnime({ show, onClose, data }) {
                 onClose(false)
                 router.reload()
               })
-              .catch((err) => {
-                setError(err.message)
+              .catch(({ response }) => {
+                setError(response.data.error.message || response.data.error)
                 setDisableSend(false)
               })
           : addAnime(dataToSend)
@@ -150,8 +150,8 @@ export default function ModalAnime({ show, onClose, data }) {
           onClose(false)
           router.back()
         })
-        .catch((err) => {
-          setError(err.message)
+        .catch(({ response }) => {
+          setError(response.data.error.message || response.data.error)
         })
     }
   }
