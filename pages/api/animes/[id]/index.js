@@ -18,12 +18,10 @@ const handler = async (req, res) => {
       season,
       sinopsis,
       episodes,
+      score,
+      watched,
+      comentary,
     } = req.body
-    try {
-      connectDB()
-    } catch (err) {
-      errorHandler(err, res)
-    }
 
     const data = {
       name,
@@ -35,10 +33,14 @@ const handler = async (req, res) => {
       year,
       season,
       episodes,
+      score,
+      watched,
+      comentary,
     }
     const { id } = req.query
 
     try {
+      connectDB()
       const savedAnime = await Anime.findByIdAndUpdate(id, data)
       return res.status(200).json(savedAnime)
     } catch (err) {
