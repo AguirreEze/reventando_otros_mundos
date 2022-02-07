@@ -2,9 +2,9 @@ import styles from "./styles.module.scss"
 import useField from "hooks/useField"
 import { useEffect, useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
-import { deleteAnime, updateAnime, uploadImage } from "../../firebase/client"
+import { deleteAnime, uploadImage } from "../../firebase/client"
 
-import { addAnime } from "services/anime"
+import { addAnime, updateAnime } from "services/anime"
 import { getDownloadURL } from "firebase/storage"
 import Loading from "components/Loading"
 import animeValidation from "models/AnimeValidation"
@@ -73,7 +73,7 @@ export default function ModalAnime({ show, onClose, data }) {
       name: name.input.value,
       cover,
       studio: studio.input.value,
-      state: state,
+      state: state || "viendo",
       sinopsis: sinopsis.input.value,
       genres,
       year: parseInt(year.input.value),
