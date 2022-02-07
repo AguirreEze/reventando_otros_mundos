@@ -1,7 +1,7 @@
 import ErrorDisplay from "components/ErrorDisplay"
 import { updateAnime } from "../../firebase/client"
 import useField from "hooks/useField"
-import Review from "models/Review"
+import reviewValidation from "models/reviewValidation"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import styles from "./styles.module.scss"
@@ -27,7 +27,8 @@ export default function ReviewForm({ review, id }) {
       watched: parseInt(watched.input.value),
       comentary: comentary.input.value,
     }
-    Review.validate(dataToSend)
+    reviewValidation
+      .validate(dataToSend)
       .then(() => {
         setError("")
         updateAnime(dataToSend, id).then(() => {
