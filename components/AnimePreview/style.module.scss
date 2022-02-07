@@ -31,4 +31,7 @@
   text-transform: capitalize;
   font-weight: 500;
   margin: 0;
+  max-width: 230px;
+  white-space: nowrap;
+  overflow: hidden;
 }
