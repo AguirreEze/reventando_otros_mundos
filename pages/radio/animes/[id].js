@@ -1,5 +1,4 @@
 import AnimeReview from "components/AnimeReview"
-import { getAnimeByID } from "../../../firebase/client"
 import Head from "next/head"
 import Image from "next/image"
 import styles from "./styles.module.scss"
@@ -7,6 +6,8 @@ import { useState } from "react"
 import EditIcon from "components/Icons/EditIcon"
 import { useSession } from "next-auth/react"
 import ModalAnime from "components/ModalAnime"
+import connectDB from "middleware/mongo"
+import Anime from "models/Anime"
 
 export default function AnimePage({ data }) {
   const [showModal, setShowModal] = useState(false)
@@ -76,16 +77,22 @@ export default function AnimePage({ data }) {
   )
 }
 
-export const getServerSideProps = (context) => {
+export const getServerSideProps = async (context) => {
   const { params } = context
   const { id } = params
-  return getAnimeByID(id).then((res) => {
-    if (res.exists()) {
-      const data = res.data()
-      return { props: { data: { ...data, id } } }
-    }
+  connectDB()
+  try {
+    const res = await Anime.findById(id)
+    const data = res.toJSON()
+    data.id = data.id.toString()
+
+    if (res) return { props: { data } }
     return {
       notFound: true,
     }
-  })
+  } catch (err) {
+    return {
+      notFound: true,
+    }
+  }
 }
