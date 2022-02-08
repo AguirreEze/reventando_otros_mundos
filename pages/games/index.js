@@ -38,10 +38,10 @@ export default function Games({ games }) {
           )}
           <ul className={styles.list}>
             {games
-              .sort((a, b) => b.order - a.order)
+              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
               .map(
                 ({
-                  order,
+                  createdAt,
                   name,
                   completed,
                   gameCover,
@@ -53,7 +53,7 @@ export default function Games({ games }) {
                   return (
                     <li key={id}>
                       <Game
-                        order={order}
+                        createdAt={createdAt}
                         name={name}
                         completed={completed}
                         gameCover={gameCover}
