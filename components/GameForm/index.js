@@ -6,10 +6,12 @@ import { useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
 import { useRouter } from "next/router"
 import { uploadImage } from "services/images"
+import gameValidation from "models/gameValidation"
+import Loading from "components/Loading"
 
 export default function ModalGame({ onClose, data }) {
   const [dragState, setDragState] = useState(false)
-
+  const [loading, setLoading] = useState(false)
   const name = useField({ type: "text", initialValue: data && data.name })
 
   const studio = useField({ type: "text", initialValue: data && data.studio })
@@ -31,12 +33,24 @@ export default function ModalGame({ onClose, data }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
     let dataToAdd = {
       name: name.input.value,
       studio: studio.input.value,
       gameYear: gameYear.input.value,
       steamLink: steamLink.input.value,
       completed: completed,
+    }
+    try {
+      await gameValidation.validate(dataToAdd)
+      if (gameCover === "/PlaceHolder.jpg") {
+        setError("Cover is required")
+        return
+      }
+    } catch (err) {
+      setError(err.message)
+      setLoading(false)
+      return
     }
     try {
       if (data) {
@@ -52,6 +66,7 @@ export default function ModalGame({ onClose, data }) {
       console.log({ res })
       const { response } = res
       setError(response.data.error.message || response.data.error)
+      setLoading(false)
     }
   }
   const handleDelete = async (e) => {
@@ -100,7 +115,8 @@ export default function ModalGame({ onClose, data }) {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      {dragState ? null : (
+      {loading && <Loading />}
+      {loading || dragState ? null : (
         <>
           <ErrorDisplay text={error} />
           <form onSubmit={handleSubmit} className={styles.form}>
