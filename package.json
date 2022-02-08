@@ -11,6 +11,7 @@
     "@next-auth/mongodb-adapter": "^1.0.1",
     "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
+    "cloudinary": "^1.28.1",
     "firebase": "^9.6.5",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.7",
