@@ -24,19 +24,13 @@ const handler = async (req, res) => {
       errorHandler(err, res)
     }
 
-    let order
-    try {
-      order = await Game.countDocuments({})
-    } catch (err) {
-      res.send({ error: err })
-    }
-
+    const createdAt = new Date()
     const newGame = {
       name,
       completed,
       gameCover,
       studio,
-      order: order + 1,
+      createdAt: createdAt.toISOString(),
       gameYear,
       steamLink,
     }
