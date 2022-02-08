@@ -68,8 +68,6 @@ export default function ModalAnime({ show, onClose, data }) {
     season,
   ])
 
-  if (!show) return null
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setUploading(true)
@@ -167,122 +165,120 @@ export default function ModalAnime({ show, onClose, data }) {
   }
 
   return (
-    <div className={styles.background}>
-      <section
-        className={dragState ? styles.view_drag : styles.view}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      >
-        {dragState ? (
-          uploading && <Loading />
-        ) : (
-          <>
-            <button onClick={() => onClose(false)} className={styles.close}>
-              x
-            </button>
-            <ErrorDisplay text={error} />
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <div className={styles.cover_container}>
-                <span>cover:</span>
-                <img
-                  src={coverPreview}
-                  className={styles.cover}
-                  alt={"Anime cover"}
-                />
-              </div>
-              <div className={styles.input_container}>
-                <label name="name">game name:</label>
-                <input {...name.input} placeholder="Name" name="name" />
-              </div>
-              <div className={styles.input_container}>
-                <label name="studio">studio:</label>
-                <input {...studio.input} placeholder="Studio" name="studio" />
-              </div>
-              <div className={styles.input_container}>
-                <label name="episodes">episodes:</label>
-                <input
-                  {...episodes.input}
-                  placeholder="Episodes"
-                  name="episodes"
-                />
-              </div>
-              <div className={styles.genre_container}>
-                <label name="Genre">genre:</label>
-                <input {...genre.input} placeholder="Genre" name="Genre" />
-                <button onClick={addGenre} className={styles.button}>
-                  add
-                </button>
-              </div>
-              <div className={styles.genres_container}>
-                <span>genres:</span>
-                <ul>
-                  {genres.map((e) => (
-                    <li key={e}>{e}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.input_container}>
-                <label name="Year">year:</label>
-                <input {...year.input} placeholder="Year" name="Year" />
-              </div>
-              <div className={styles.input_container__select}>
-                <label name="season">season:</label>
-                <select
-                  onChange={handleSeasonSelect}
-                  defaultValue={data && data.season}
-                >
-                  <option value={null}></option>
-                  <option value="winter">Winter</option>
-                  <option value="autum">Autum</option>
-                  <option value="summer">Summer</option>
-                  <option value="spring">Spring</option>
-                </select>
-              </div>
+    <section
+      className={dragState ? styles.view_drag : styles.view}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+    >
+      {dragState ? (
+        uploading && <Loading />
+      ) : (
+        <>
+          <button onClick={() => onClose(false)} className={styles.close}>
+            x
+          </button>
+          <ErrorDisplay text={error} />
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.cover_container}>
+              <span>cover:</span>
+              <img
+                src={coverPreview}
+                className={styles.cover}
+                alt={"Anime cover"}
+              />
+            </div>
+            <div className={styles.input_container}>
+              <label name="name">game name:</label>
+              <input {...name.input} placeholder="Name" name="name" />
+            </div>
+            <div className={styles.input_container}>
+              <label name="studio">studio:</label>
+              <input {...studio.input} placeholder="Studio" name="studio" />
+            </div>
+            <div className={styles.input_container}>
+              <label name="episodes">episodes:</label>
+              <input
+                {...episodes.input}
+                placeholder="Episodes"
+                name="episodes"
+              />
+            </div>
+            <div className={styles.genre_container}>
+              <label name="Genre">genre:</label>
+              <input {...genre.input} placeholder="Genre" name="Genre" />
+              <button onClick={addGenre} className={styles.button}>
+                add
+              </button>
+            </div>
+            <div className={styles.genres_container}>
+              <span>genres:</span>
+              <ul>
+                {genres.map((e) => (
+                  <li key={e}>{e}</li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.input_container}>
+              <label name="Year">year:</label>
+              <input {...year.input} placeholder="Year" name="Year" />
+            </div>
+            <div className={styles.input_container__select}>
+              <label name="season">season:</label>
+              <select
+                onChange={handleSeasonSelect}
+                defaultValue={data && data.season}
+              >
+                <option value={null}></option>
+                <option value="winter">Winter</option>
+                <option value="autum">Autum</option>
+                <option value="summer">Summer</option>
+                <option value="spring">Spring</option>
+              </select>
+            </div>
 
-              <div className={styles.input_container__select}>
-                <label name="State">state:</label>
-                <select
-                  onChange={handleStateSelect}
-                  defaultValue={data && data.state}
-                >
-                  <option value={null}></option>
-                  <option>viendo</option>
-                  <option>dropeada</option>
-                  <option>completo</option>
-                </select>
-              </div>
-              <div className={styles.sinopsis_container}>
-                <label name="Sinopsis">sinopsis:</label>
-                <textarea
-                  {...sinopsis.input}
-                  placeholder="Sinopsis"
-                  name="Sinopsis"
-                />
-              </div>
-              <footer className={styles.panel}>
+            <div className={styles.input_container__select}>
+              <label name="State">state:</label>
+              <select
+                onChange={handleStateSelect}
+                defaultValue={data && data.state}
+              >
+                <option value={null}></option>
+                <option>viendo</option>
+                <option>dropeada</option>
+                <option>completo</option>
+              </select>
+            </div>
+            <div className={styles.sinopsis_container}>
+              <label name="Sinopsis">sinopsis:</label>
+              <textarea
+                {...sinopsis.input}
+                placeholder="Sinopsis"
+                name="Sinopsis"
+              />
+            </div>
+            <footer className={styles.panel}>
+              <button
+                type="submit"
+                className={styles.button}
+                disabled={disableSend}
+              >
+                {data ? "Update" : "Upload"}
+              </button>
+              {data && (
                 <button
-                  type="submit"
-                  className={styles.button}
+                  onClick={handleDelete}
+                  className={styles.button_delete}
                   disabled={disableSend}
                 >
-                  {data ? "Update" : "Upload"}
+                  delete
                 </button>
-                {data && (
-                  <button
-                    onClick={handleDelete}
-                    className={styles.button_delete}
-                    disabled={disableSend}
-                  >
-                    delete
-                  </button>
-                )}
-              </footer>
-            </form>
-          </>
-        )}
-      </section>
-    </div>
+              )}
+            </footer>
+          </form>
+        </>
+      )}
+    </section>
   )
 }
