@@ -50,13 +50,19 @@ export default function Radio({ list }) {
 }
 
 export async function getServerSideProps() {
-  await connectDB()
-  const res = await Anime.find({})
+  try {
+    await connectDB()
+    const res = await Anime.find({})
 
-  const list = res.map((doc) => {
-    const anime = doc.toJSON()
-    anime.id = doc.id.toString()
-    return anime
-  })
-  return { props: { list } }
+    const list = res.map((doc) => {
+      const anime = doc.toJSON()
+      anime.id = doc.id.toString()
+      return anime
+    })
+    return { props: { list } }
+  } catch (err) {
+    return {
+      notFound: true,
+    }
+  }
 }

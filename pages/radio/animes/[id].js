@@ -80,8 +80,8 @@ export default function AnimePage({ data }) {
 export const getServerSideProps = async (context) => {
   const { params } = context
   const { id } = params
-  await connectDB()
   try {
+    await connectDB()
     const res = await Anime.findById(id)
     const data = res.toJSON()
     data.id = data.id.toString()
