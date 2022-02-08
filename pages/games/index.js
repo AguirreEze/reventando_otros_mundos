@@ -4,8 +4,9 @@ import styles from "pages/games/styles.module.scss"
 import { useSession } from "next-auth/react"
 import connectDB from "middleware/mongo"
 import GameModel from "models/Game"
-import ModalGame from "components/ModalGame"
+import GameForm from "components/GameForm"
 import { useState } from "react"
+import Modal from "components/Modal"
 
 export default function Games({ games }) {
   const [showModal, setShowModal] = useState(false)
@@ -68,7 +69,11 @@ export default function Games({ games }) {
           </ul>
         </section>
       </section>
-      <ModalGame show={showModal} onClose={setShowModal} />
+      {showModal && (
+        <Modal onClose={setShowModal}>
+          <GameForm />
+        </Modal>
+      )}
     </>
   )
 }
