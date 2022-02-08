@@ -5,6 +5,7 @@ module.exports = {
       "i.postimg.cc",
       "via.placeholder.com",
       "firebasestorage.googleapis.com",
+      "res.cloudinary.com",
     ],
   },
   env: {
