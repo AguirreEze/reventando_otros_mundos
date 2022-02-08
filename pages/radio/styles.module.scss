@@ -25,6 +25,24 @@
   margin: 0;
 }
 
+.button {
+  border: none;
+  cursor: pointer;
+  background: $Accent;
+  font-size: 20px;
+  text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border-radius: 30px;
+  color: $Secondary;
+  border: 1px solid $Accent;
+  &:hover {
+    background: $Secondary;
+    color: $Accent;
+  }
+}
+
+
 @media (max-width: 425px) {
   .list {
     grid-template-columns: 1fr;

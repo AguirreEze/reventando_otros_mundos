@@ -1,10 +1,16 @@
-import Anime from "components/Anime"
+import AnimePreview from "components/AnimePreview"
+import AnimeForm from "components/AnimeForm"
+import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { useState } from "react"
 import styles from "./styles.module.scss"
+import connectDB from "middleware/mongo"
+import Anime from "models/Anime"
+import Modal from "components/Modal"
 
-export default function Radio() {
-  const [list] = useState([])
+export default function Radio({ list }) {
+  const [showModal, setShowModal] = useState(false)
+  const { data: session } = useSession()
   return (
     <article>
       <Head>
@@ -14,26 +20,54 @@ export default function Radio() {
       </Head>
       <section className={styles.container}>
         <h1 className={styles.title}>Invernalia</h1>
-        <p className={styles.description}>Work In Progres...</p>
+        <p className={styles.description}>
+          Estos son los animes vistos y reseñados en el programa Invernalia
+        </p>
+        {session && session.user.group === "Admin" && (
+          <button
+            onClick={() => setShowModal(!showModal)}
+            className={styles.button}
+          >
+            + Add Anime +
+          </button>
+        )}
+        {list.length === 0 && <h2>No hay animes en la lista</h2>}
         <ul className={styles.list}>
-          {list.length === 0 && (
-            <>
-              <li>
-                <Anime />
-              </li>
-              <li>
-                <Anime />
-              </li>
-              <li>
-                <Anime />
-              </li>
-              <li>
-                <Anime />
-              </li>
-            </>
-          )}
+          {list
+            .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
+            .map((e) => (
+              <AnimePreview
+                key={e.id}
+                name={e.name}
+                cover={e.cover}
+                id={e.id}
+              />
+            ))}
         </ul>
       </section>
+      {showModal && (
+        <Modal onClose={setShowModal}>
+          <AnimeForm onClose={setShowModal} />
+        </Modal>
+      )}
     </article>
   )
+}
+
+export async function getServerSideProps() {
+  try {
+    await connectDB()
+    const res = await Anime.find({})
+
+    const list = res.map((doc) => {
+      const anime = doc.toJSON()
+      anime.id = doc.id.toString()
+      return anime
+    })
+    return { props: { list } }
+  } catch (err) {
+    return {
+      notFound: true,
+    }
+  }
 }

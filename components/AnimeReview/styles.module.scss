@@ -1,0 +1,126 @@
+@import "styles/theme.scss";
+
+.title {
+  color: $Primary;
+  text-align: center;
+  font-size: 2rem;
+}
+.subTitle {
+  color: $Primary;
+  font-size: 1.2rem;
+  margin: 0;
+  text-transform: capitalize;
+}
+.description {
+  color: $Paragraph;
+  padding-left: 1rem;
+}
+.card {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: 80px 1fr;
+  gap: 0 1rem;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border: 1px solid #0000001a;
+  box-shadow: 4px 8px 16px #0000001a;
+  border-radius: 5px;
+  &:hover {
+    .editIcon {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+.score {
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreStamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  border: 15px solid green;
+  background-color: limegreen;
+  box-shadow: 4px 8px 16px #0000001a;
+  color: green;
+}
+.scoreStamp__red {
+  @extend .scoreStamp;
+  border: 15px solid #800000;
+  background-color: hsl(0, 61%, 50%);
+  color: #800000;
+}
+
+.scoreStamp__yellow {
+  @extend .scoreStamp;
+  border: 15px solid hsl(60, 80%, 45%);
+  background-color: hsl(60, 60%, 70%);
+  color: hsl(60, 100%, 30%);
+}
+
+.scoreValue {
+  font-size: 35px;
+  font-weight: 800;
+  user-select: none;
+}
+
+.state {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+}
+.stateStamp_viendo {
+  grid-row: 1 / span 2;
+  text-transform: uppercase;
+  margin: 0.5rem 0;
+  padding: 0.1rem 1rem;
+  border: 6px solid #1bbe9e;
+  border-radius: 3rem;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #1bbe9e;
+  user-select: none;
+}
+
+.stateStamp_completo {
+  @extend .stateStamp_viendo;
+  border: 6px solid #37e;
+  color: #37e;
+}
+
+.stateStamp_dropeada {
+  @extend .stateStamp_viendo;
+  border: 6px solid #800000;
+  color: #800000;
+}
+
+.episodes {
+  margin: 0;
+}
+
+.editIcon {
+  position: absolute;
+  right: 25px;
+  border-radius: 50%;
+  padding: 3px;
+  border: 2px solid $Accent;
+  color: $Accent;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  &:hover {
+    color: $Secondary;
+    background: $Accent;
+  }
+}

@@ -2,7 +2,8 @@ import Completed from "components/Icons/Completed"
 import EditIcon from "components/Icons/EditIcon"
 import OnProgress from "components/Icons/OnProgress"
 import Steam from "components/Icons/Steam"
-import ModalGame from "components/ModalGame"
+import Modal from "components/Modal"
+import GameForm from "components/GameForm"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useState } from "react"
@@ -58,17 +59,27 @@ export default function Game({
             <EditIcon
               className={styles.editIcon}
               onClick={() => setShowModal(true)}
-            >
-              edit
-            </EditIcon>
+            />
           )}
         </section>
       </article>
-      <ModalGame
-        show={showModal}
-        onClose={setShowModal}
-        data={{ name, completed, gameCover, studio, gameYear, steamLink, id }}
-      />
+      {showModal && (
+        <Modal onClose={setShowModal}>
+          <GameForm
+            show={showModal}
+            onClose={setShowModal}
+            data={{
+              name,
+              completed,
+              gameCover,
+              studio,
+              gameYear,
+              steamLink,
+              id,
+            }}
+          />
+        </Modal>
+      )}
     </>
   )
 }

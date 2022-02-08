@@ -1,6 +1,6 @@
-import Game from "models/Game"
-import connectDB from "middleware/mongo"
 import errorHandler from "middleware/errorHandler"
+import connectDB from "middleware/mongo"
+import Anime from "models/Anime"
 import { getSession } from "next-auth/react"
 
 const handler = async (req, res) => {
@@ -8,34 +8,41 @@ const handler = async (req, res) => {
     const session = await getSession({ req })
     if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
-
-    const { id } = req.query
     const {
       name,
-      completed = false,
-      gameCover,
+      cover,
       studio,
-      gameYear,
-      steamLink,
+      state,
+      genres,
+      year,
+      season,
+      sinopsis,
+      episodes,
+      score,
+      watched,
+      comentary,
     } = req.body
+
+    const data = {
+      name,
+      cover,
+      studio,
+      state,
+      sinopsis,
+      genres,
+      year,
+      season,
+      episodes,
+      score,
+      watched,
+      comentary,
+    }
+    const { id } = req.query
 
     try {
       await connectDB()
-    } catch (err) {
-      errorHandler(err, res)
-    }
-
-    const newGame = {
-      name,
-      completed,
-      gameCover,
-      studio,
-      gameYear,
-      steamLink,
-    }
-    try {
-      const savedGame = await Game.findByIdAndUpdate(id, newGame)
-      res.status(200).json(savedGame)
+      const savedAnime = await Anime.findByIdAndUpdate(id, data)
+      return res.status(200).json(savedAnime)
     } catch (err) {
       errorHandler(err, res)
     }
@@ -44,17 +51,11 @@ const handler = async (req, res) => {
     const session = await getSession({ req })
     if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
-
-    const { id } = req.query
     try {
       await connectDB()
-    } catch (err) {
-      errorHandler(err, res)
-    }
-
-    try {
-      const savedGame = await Game.findByIdAndDelete(id)
-      res.status(200).json(savedGame)
+      const { id } = req.query
+      const deletedAnime = await Anime.findByIdAndDelete(id)
+      return res.status(200).json(deletedAnime)
     } catch (err) {
       errorHandler(err, res)
     }

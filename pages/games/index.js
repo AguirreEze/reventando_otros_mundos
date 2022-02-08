@@ -4,16 +4,13 @@ import styles from "pages/games/styles.module.scss"
 import { useSession } from "next-auth/react"
 import connectDB from "middleware/mongo"
 import GameModel from "models/Game"
-import useLoading from "hooks/useLoading"
-import Loading from "components/Loading"
-import ModalGame from "components/ModalGame"
+import GameForm from "components/GameForm"
 import { useState } from "react"
+import Modal from "components/Modal"
 
 export default function Games({ games }) {
   const [showModal, setShowModal] = useState(false)
   const { data: session } = useSession()
-  const { loading } = useLoading()
-  if (loading) return <Loading />
 
   return (
     <>
@@ -41,10 +38,10 @@ export default function Games({ games }) {
           )}
           <ul className={styles.list}>
             {games
-              .sort((a, b) => b.order - a.order)
+              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
               .map(
                 ({
-                  order,
+                  createdAt,
                   name,
                   completed,
                   gameCover,
@@ -56,7 +53,7 @@ export default function Games({ games }) {
                   return (
                     <li key={id}>
                       <Game
-                        order={order}
+                        createdAt={createdAt}
                         name={name}
                         completed={completed}
                         gameCover={gameCover}
@@ -72,7 +69,11 @@ export default function Games({ games }) {
           </ul>
         </section>
       </section>
-      <ModalGame show={showModal} onClose={setShowModal} />
+      {showModal && (
+        <Modal onClose={setShowModal}>
+          <GameForm />
+        </Modal>
+      )}
     </>
   )
 }
