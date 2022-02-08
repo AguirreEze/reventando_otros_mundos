@@ -41,7 +41,7 @@ const handler = async (req, res) => {
     const savedAnime = await anime.save()
     res.status(200).json(savedAnime)
   } catch (err) {
-    errorHandler(err)
+    errorHandler(err, res)
   }
 }
 
