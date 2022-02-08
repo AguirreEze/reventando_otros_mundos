@@ -6,6 +6,12 @@
   padding: 5px 15px;
   border-radius: 5px;
 }
+.container_drag {
+  @extend .container;
+  border: 3px dashed cyan;
+  height: 520px;
+  width: 520px;
+}
 
 .close {
   position: absolute;
@@ -64,6 +70,7 @@
   border: 1px solid $Accent;
   color: $Accent;
   cursor: pointer;
+  max-width: 50%;
   flex: 1;
   user-select: none;
   &:hover {
@@ -86,7 +93,7 @@
 .panel {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
 }
