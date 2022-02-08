@@ -1,11 +1,12 @@
 import AnimePreview from "components/AnimePreview"
-import ModalAnime from "components/ModalAnime"
+import AnimeForm from "components/AnimeForm"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
 import { useState } from "react"
 import styles from "./styles.module.scss"
 import connectDB from "middleware/mongo"
 import Anime from "models/Anime"
+import Modal from "components/Modal"
 
 export default function Radio({ list }) {
   const [showModal, setShowModal] = useState(false)
@@ -44,7 +45,11 @@ export default function Radio({ list }) {
             ))}
         </ul>
       </section>
-      <ModalAnime show={showModal} onClose={setShowModal} />
+      {showModal && (
+        <Modal onClose={setShowModal}>
+          <AnimeForm onClose={setShowModal} />
+        </Modal>
+      )}
     </article>
   )
 }

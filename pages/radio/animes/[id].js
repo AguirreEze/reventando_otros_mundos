@@ -5,9 +5,10 @@ import styles from "./styles.module.scss"
 import { useState } from "react"
 import EditIcon from "components/Icons/EditIcon"
 import { useSession } from "next-auth/react"
-import ModalAnime from "components/ModalAnime"
+import AnimeForm from "components/AnimeForm"
 import connectDB from "middleware/mongo"
 import Anime from "models/Anime"
+import Modal from "components/Modal"
 
 export default function AnimePage({ data }) {
   const [showModal, setShowModal] = useState(false)
@@ -34,7 +35,11 @@ export default function AnimePage({ data }) {
           onClick={() => setShowModal(true)}
         />
       )}
-      <ModalAnime show={showModal} onClose={setShowModal} data={data} />
+      {showModal && (
+        <Modal onClose={setShowModal}>
+          <AnimeForm onClose={setShowModal} data={data} />
+        </Modal>
+      )}
       <header>
         <h1 className={styles.title}>{data.name}</h1>
       </header>
