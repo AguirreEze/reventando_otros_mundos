@@ -5,7 +5,7 @@ import ErrorDisplay from "components/ErrorDisplay"
 
 import { addAnime, updateAnime, deleteAnime } from "services/anime"
 import Loading from "components/Loading"
-import animeValidation from "models/AnimeValidation"
+import animeValidation from "models/animeValidation"
 import { useRouter } from "next/router"
 import { uploadImage } from "services/images"
 
