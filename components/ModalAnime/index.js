@@ -2,21 +2,20 @@ import styles from "./styles.module.scss"
 import useField from "hooks/useField"
 import { useEffect, useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
-import { uploadImage } from "../../firebase/client"
 
 import { addAnime, updateAnime, deleteAnime } from "services/anime"
-import { getDownloadURL } from "firebase/storage"
 import Loading from "components/Loading"
 import animeValidation from "models/AnimeValidation"
 import { useRouter } from "next/router"
+import { uploadImage } from "services/images"
 
 export default function ModalAnime({ show, onClose, data }) {
   const router = useRouter()
   const [dragState, setDragState] = useState(false)
-  const [task, setTask] = useState(null)
   const [uploading, setUploading] = useState(false)
-
-  const [cover, setCover] = useState(data ? data.cover : "/PlaceHolder.jpg")
+  const [coverPreview, setCoverPreview] = useState(
+    data ? data.cover : "/PlaceHolder.jpg"
+  )
   const [state, setState] = useState(data ? data.state : null)
   const [season, setSeason] = useState(data ? data.season : null)
   const name = useField({
@@ -31,8 +30,6 @@ export default function ModalAnime({ show, onClose, data }) {
     type: "textarea",
     initialValue: data ? data.sinopsis : "",
   })
-  const genre = useField({ type: "text" })
-  const [genres, setGenres] = useState(data ? data.genres : [])
   const year = useField({
     type: "number",
     initialValue: data ? data.year : "",
@@ -41,37 +38,43 @@ export default function ModalAnime({ show, onClose, data }) {
     type: "number",
     initialValue: data ? data.episodes : "",
   })
+  const genre = useField({ type: "text" })
+  const [genres, setGenres] = useState(data ? data.genres : [])
   const [disableSend, setDisableSend] = useState(false)
 
   const [error, setError] = useState("")
 
   useEffect(() => {
-    const onProgress = () => {
-      setUploading(true)
-    }
-    const onError = (error) => {
-      setUploading(false)
-      setDragState(false)
-      setError(error.code)
-    }
-    const onComplete = () => {
-      setUploading(false)
-      setDragState(false)
-      getDownloadURL(task.snapshot.ref).then(setCover)
-    }
-    if (task) {
-      task.on("state_changed", onProgress, onError, onComplete)
-    }
-  }, [task])
+    if (
+      name.input.value &&
+      studio.input.value &&
+      episodes.input.value &&
+      genres.length > 0 &&
+      year.input.value &&
+      sinopsis.input.value &&
+      season &&
+      state
+    )
+      setDisableSend(false)
+    else setDisableSend(true)
+  }, [
+    name.input.value,
+    studio.input.value,
+    episodes.input.value,
+    genres,
+    state,
+    sinopsis.input.value,
+    year.input.value,
+    season,
+  ])
 
   if (!show) return null
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setDisableSend(true)
-    const dataToSend = {
+    setUploading(true)
+    let dataToSend = {
       name: name.input.value,
-      cover,
       studio: studio.input.value,
       state: state || "viendo",
       sinopsis: sinopsis.input.value,
@@ -80,33 +83,33 @@ export default function ModalAnime({ show, onClose, data }) {
       season: season,
       episodes: parseInt(episodes.input.value) || null,
     }
-    animeValidation
-      .validate(dataToSend)
-      .then(() => {
-        data
-          ? updateAnime(dataToSend, data.id)
-              .then(() => {
-                onClose(false)
-                router.reload()
-              })
-              .catch(({ response }) => {
-                setError(response.data.error.message || response.data.error)
-                setDisableSend(false)
-              })
-          : addAnime(dataToSend)
-              .then(() => {
-                onClose(false)
-                router.reload()
-              })
-              .catch(({ response }) => {
-                setError(response.data.error.message || response.data.error)
-                setDisableSend(false)
-              })
-      })
-      .catch((err) => {
-        setError(err.message)
-        setDisableSend(false)
-      })
+    try {
+      if (coverPreview === "/PlaceHolder.jpg") {
+        setError("Cover is required")
+        setUploading(false)
+        return
+      }
+      await animeValidation.validate(dataToSend)
+    } catch (err) {
+      setError(err.message)
+      setUploading(false)
+    }
+    try {
+      if (data) {
+        await updateAnime(dataToSend, data.id)
+        onClose(false)
+        router.reload()
+      } else {
+        const coverURL = await uploadImage(coverPreview)
+        dataToSend = { ...dataToSend, cover: coverURL }
+        await addAnime(dataToSend)
+        onClose(false)
+        router.reload()
+      }
+    } catch ({ response }) {
+      setError(response.data.error.message || response.data.error)
+      setUploading(false)
+    }
   }
 
   const addGenre = (e) => {
@@ -124,13 +127,21 @@ export default function ModalAnime({ show, onClose, data }) {
     e.preventDefault()
     setDragState(false)
   }
-
   const handleDrop = (e) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
-    const task = uploadImage(file)
-    setTask(task)
+    previewImage(file)
+    setDragState(false)
   }
+
+  const previewImage = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setCoverPreview(reader.result)
+    }
+  }
+
   const handleDragOver = (e) => {
     e.preventDefault()
   }
@@ -175,7 +186,11 @@ export default function ModalAnime({ show, onClose, data }) {
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.cover_container}>
                 <span>cover:</span>
-                <img src={cover} className={styles.cover} alt={"Anime cover"} />
+                <img
+                  src={coverPreview}
+                  className={styles.cover}
+                  alt={"Anime cover"}
+                />
               </div>
               <div className={styles.input_container}>
                 <label name="name">game name:</label>
