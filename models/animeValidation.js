@@ -2,7 +2,6 @@ import * as yup from "yup"
 
 const animeValidation = yup.object().shape({
   name: yup.string().required(),
-  cover: yup.string().url().required(),
   studio: yup.string().required(),
   state: yup.string().required(),
   genres: yup.array().required().min(1),
