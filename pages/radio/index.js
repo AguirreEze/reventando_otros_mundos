@@ -50,7 +50,7 @@ export default function Radio({ list }) {
 }
 
 export async function getServerSideProps() {
-  connectDB()
+  await connectDB()
   const res = await Anime.find({})
 
   const list = res.map((doc) => {

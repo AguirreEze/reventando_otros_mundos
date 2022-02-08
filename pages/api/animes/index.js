@@ -21,11 +21,7 @@ const handler = async (req, res) => {
     episodes = null,
   } = req.body
   const createdAt = new Date()
-  try {
-    connectDB()
-  } catch (err) {
-    errorHandler(err)
-  }
+
   const data = {
     name,
     cover,
@@ -41,6 +37,7 @@ const handler = async (req, res) => {
 
   const anime = new Anime(data)
   try {
+    await connectDB()
     const savedAnime = await anime.save()
     res.status(200).json(savedAnime)
   } catch (err) {

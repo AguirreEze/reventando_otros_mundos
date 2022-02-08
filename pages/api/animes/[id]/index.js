@@ -40,7 +40,7 @@ const handler = async (req, res) => {
     const { id } = req.query
 
     try {
-      connectDB()
+      await connectDB()
       const savedAnime = await Anime.findByIdAndUpdate(id, data)
       return res.status(200).json(savedAnime)
     } catch (err) {
@@ -52,7 +52,7 @@ const handler = async (req, res) => {
     if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
     try {
-      connectDB()
+      await connectDB()
       const { id } = req.query
       const deletedAnime = await Anime.findByIdAndDelete(id)
       return res.status(200).json(deletedAnime)
