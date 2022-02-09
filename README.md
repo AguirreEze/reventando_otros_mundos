@@ -1,4 +1,4 @@
-## [Reventando Otros Mundos](https://reventandootrosmundos.vercel.app)
+## Reventando Otros Mundos [Deploy](https://reventandootrosmundos.vercel.app)
 This page was made for my friends stream, he plays old games on Twitch and reviews animes in a online radio
  
 ## Proyect Introduction
