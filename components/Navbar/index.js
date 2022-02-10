@@ -12,7 +12,11 @@ export default function Navbar() {
   const { data: session } = useSession()
   return (
     <header className={styles.header}>
-      <RomIcon />
+      <Link href="/">
+        <a>
+          <RomIcon />
+        </a>
+      </Link>
 
       <Hamburger
         onClick={() => setShowNav(!showNav)}
