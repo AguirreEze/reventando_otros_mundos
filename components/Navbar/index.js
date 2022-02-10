@@ -60,6 +60,15 @@ export default function Navbar() {
         >
           Twitch <TwitchIcon className={styles.twitch_icon} />
         </a>
+        <a
+          onClick={() => setShowNav(!showNav)}
+          href="http://japan-next.blogspot.com/"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.link}
+        >
+          JapanNext
+        </a>
         <div className={styles.separation}></div>
         {session ? (
           <a onClick={handleLogout} className={styles.link}>
