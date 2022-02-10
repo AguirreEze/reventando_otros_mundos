@@ -14,7 +14,7 @@ export default function AnimePreview({
     router.push("/radio/animes/[id]", `/radio/animes/${id}`)
   }
   return (
-    <article className={style.card} onClick={handleClick}>
+    <li className={style.card} onClick={handleClick}>
       <div className={style.cover}>
         <Image src={cover} height={230} width={200} alt={`${name} cover`} />
       </div>
@@ -23,6 +23,6 @@ export default function AnimePreview({
           <h2 className={style.name}>{name}</h2>
         </a>
       </Link>
-    </article>
+    </li>
   )
 }
