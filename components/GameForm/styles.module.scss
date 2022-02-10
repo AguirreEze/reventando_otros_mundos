@@ -8,7 +8,7 @@
 }
 .container_drag {
   @extend .container;
-  border: 3px dashed cyan;
+  border: 3px dashed $Accent;
   height: 350px;
   width: 520px;
 }
