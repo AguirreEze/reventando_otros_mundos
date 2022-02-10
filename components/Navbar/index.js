@@ -10,6 +10,10 @@ import TwitchIcon from "components/Icons/TwitchIcon"
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false)
   const { data: session } = useSession()
+  const handleLogout = () => {
+    setShowNav(!showNav)
+    signOut({ redirect: false })
+  }
   return (
     <header className={styles.header}>
       <Link href="/">
@@ -55,7 +59,7 @@ export default function Navbar() {
         </a>
         <div className={styles.separation}></div>
         {session ? (
-          <a onClick={() => signOut()} className={styles.link}>
+          <a onClick={handleLogout} className={styles.link}>
             sign out
           </a>
         ) : (
