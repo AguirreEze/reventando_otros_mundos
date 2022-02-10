@@ -1,7 +1,5 @@
 @import "../../styles/theme.scss";
 
-$Soft-Black: #ddbafe;
-
 .header {
   position: sticky;
   display: flex;
@@ -10,6 +8,7 @@ $Soft-Black: #ddbafe;
   justify-content: space-between;
   height: 64px;
   top: 0;
+  padding: 0 1em;
   background: $Secondary;
   z-index: 10;
   border-bottom: 1px solid $Primary;
