@@ -65,7 +65,7 @@ export default function Navbar() {
           href="http://japan-next.blogspot.com/"
           target="_blank"
           rel="noreferrer"
-          className={styles.link}
+          className={styles.link_japannext}
         >
           JapanNext
         </a>
