@@ -14,6 +14,9 @@ export default function Navbar() {
     setShowNav(!showNav)
     signOut({ redirect: false })
   }
+  const hanldeLogin = () => {
+    signIn("google", { redirect: false })
+  }
   return (
     <header className={styles.header}>
       <Link href="/">
@@ -63,7 +66,7 @@ export default function Navbar() {
             sign out
           </a>
         ) : (
-          <a onClick={() => signIn()} className={styles.link}>
+          <a onClick={hanldeLogin} className={styles.link}>
             sign in
           </a>
         )}
