@@ -21,7 +21,16 @@ export default function Radio({ list }) {
       <section className={styles.container}>
         <h1 className={styles.title}>Invernalia</h1>
         <p className={styles.description}>
-          Estos son los animes vistos y reseñados en el programa Invernalia
+          Estos son los animes vistos y reseñados en el programa Invernalia.
+          Domingo 23Hs GMT-3 en{" "}
+          <a
+            href="http://japan-next.blogspot.com/"
+            target="_blank"
+            rel="noreferrer"
+            className={styles.link}
+          >
+            JapanNext
+          </a>
         </p>
         {session && session.user.group === "Admin" && (
           <button
