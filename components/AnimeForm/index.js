@@ -163,6 +163,10 @@ export default function ModalAnime({ show, onClose, data }) {
         })
     }
   }
+  const handleRemoveGenre = (e) => {
+    const filteredList = genres.filter((genre) => genre !== e)
+    setGenres(filteredList)
+  }
 
   return (
     <section
@@ -215,7 +219,12 @@ export default function ModalAnime({ show, onClose, data }) {
               <span>genres:</span>
               <ul>
                 {genres.map((e) => (
-                  <li key={e}>{e}</li>
+                  <li key={e} className={styles.listItem}>
+                    {e}
+                    <button onClick={() => handleRemoveGenre(e)} type="button">
+                      x
+                    </button>
+                  </li>
                 ))}
               </ul>
             </div>
