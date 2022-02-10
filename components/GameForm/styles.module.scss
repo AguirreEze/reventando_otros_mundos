@@ -2,14 +2,14 @@
 
 .container {
   background: $Secondary;
-  width: 100%;
+  width: 520px;
   padding: 5px 15px;
   border-radius: 5px;
 }
 .container_drag {
   @extend .container;
-  border: 3px dashed cyan;
-  height: 520px;
+  border: 3px dashed $Accent;
+  height: 350px;
   width: 520px;
 }
 

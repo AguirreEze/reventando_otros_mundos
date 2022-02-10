@@ -2,16 +2,15 @@
 .container {
   text-align: center;
   color: $Primary;
+  padding: 0 1em;
 }
 
 .list {
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 0;
-  li {
-    list-style: none;
-  }
 }
 .title {
   color: $Primary;
@@ -41,10 +40,14 @@
     color: $Accent;
   }
 }
+.link {
+  color: $Accent;
+}
 
-
-@media (max-width: 425px) {
+@media (max-width: 515px) {
   .list {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

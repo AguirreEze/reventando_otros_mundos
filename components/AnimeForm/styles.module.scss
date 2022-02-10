@@ -122,17 +122,29 @@ $Field-Shadow: 4px 8px 16px #00000010;
     flex-wrap: wrap;
     gap: 0.3rem;
   }
-
-  li {
-    list-style: none;
-    color: $Accent;
-    text-transform: capitalize;
+}
+.listItem {
+  list-style: none;
+  display: flex;
+  color: $Accent;
+  text-transform: capitalize;
+  border: 1px solid $Accent;
+  padding: 0 0.5rem;
+  border-radius: 1rem;
+  user-select: none;
+  button {
     border: 1px solid $Accent;
-    padding: 0 0.5rem;
-    border-radius: 1rem;
-    user-select: none;
+    border-radius: 50%;
+    color: $Accent;
+    margin: 0.1rem 0rem 0.1rem 0.3rem;
+    cursor: pointer;
+    &:hover {
+      background: $Accent;
+      color: $Secondary;
+    }
   }
 }
+
 .sinopsis_container {
   display: flex;
   flex-direction: column;

@@ -10,9 +10,20 @@ import TwitchIcon from "components/Icons/TwitchIcon"
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false)
   const { data: session } = useSession()
+  const handleLogout = () => {
+    setShowNav(!showNav)
+    signOut({ redirect: false })
+  }
+  const hanldeLogin = () => {
+    signIn("google", { redirect: false })
+  }
   return (
     <header className={styles.header}>
-      <RomIcon />
+      <Link href="/">
+        <a>
+          <RomIcon />
+        </a>
+      </Link>
 
       <Hamburger
         onClick={() => setShowNav(!showNav)}
@@ -49,13 +60,22 @@ export default function Navbar() {
         >
           Twitch <TwitchIcon className={styles.twitch_icon} />
         </a>
+        <a
+          onClick={() => setShowNav(!showNav)}
+          href="http://japan-next.blogspot.com/"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.link_japannext}
+        >
+          JapanNext
+        </a>
         <div className={styles.separation}></div>
         {session ? (
-          <a onClick={() => signOut()} className={styles.link}>
+          <a onClick={handleLogout} className={styles.link}>
             sign out
           </a>
         ) : (
-          <a onClick={() => signIn()} className={styles.link}>
+          <a onClick={hanldeLogin} className={styles.link}>
             sign in
           </a>
         )}
