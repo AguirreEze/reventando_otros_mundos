@@ -17,6 +17,7 @@ $Square-Size: 12rem;
   color: $Text;
   font-size: 2rem;
   bottom: 0;
+  animation: opacity 0.5s ease-in-out infinite alternate;
 }
 
 .frame {
@@ -48,5 +49,10 @@ $Square-Size: 12rem;
 @keyframes rotate {
   to {
     transform: rotate(1turn);
+  }
+}
+@keyframes opacity {
+  to {
+    opacity: 0.3;
   }
 }
