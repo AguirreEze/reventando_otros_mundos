@@ -24,10 +24,7 @@ export default function AnimeReview({
     if (state === "completo") return styles.stateStamp_completo
   }
   return (
-    <article>
-      <header className={styles.title}>
-        <h1>Review</h1>
-      </header>
+    <>
       <section className={styles.card}>
         <div className={styles.score}>
           <h2 className={styles.subTitle}>score</h2>
@@ -58,6 +55,6 @@ export default function AnimeReview({
           <ReviewForm review={{ comentary, score, watched, state }} id={id} />
         </Modal>
       )}
-    </article>
+    </>
   )
 }
