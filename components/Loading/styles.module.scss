@@ -1,3 +1,5 @@
+@import "styles/theme.scss";
+
 $Frame-BG-Color: #222;
 $Square-Border: #888;
 $Text: #aaa;
@@ -9,7 +11,7 @@ $Square-Size: 12rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ddd;
+  background: $Secondary;
 }
 
 .text {
