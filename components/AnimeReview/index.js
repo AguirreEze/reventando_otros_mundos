@@ -32,15 +32,15 @@ export default function AnimeReview({
             <span className={styles.scoreValue}>{score}</span>
           </div>
         </div>
-        <div className={styles.state}>
-          <div className={stateStampStyles(state)}>{state}</div>
-          <h2 className={styles.subTitle}>vistos:</h2>
+        <div className={stateStampStyles(state)}>{state}</div>
+        <div className={styles.watched}>
+          <h2 className={styles.subTitle}>vistos</h2>
           <p className={styles.episodes}>
             {watched} / {episodes}
           </p>
         </div>
-        <div>
-          <h2 className={styles.subTitle}>comentario:</h2>
+        <div className={styles.comentary}>
+          <h2 className={styles.subTitle}>comentario</h2>
           <p className={styles.description}>{comentary}</p>
         </div>
         {session && session.user.group === "Admin" && (
