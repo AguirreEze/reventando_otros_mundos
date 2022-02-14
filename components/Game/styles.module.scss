@@ -25,6 +25,8 @@
   margin: 0.7rem 0;
   padding: 3px;
   border-radius: 5px;
+  max-width: 550px;
+  flex-basis: 100%;
   box-shadow: 3px 7px 5px #0001;
   border: 1px solid #3331;
   transform-origin: center;
@@ -38,6 +40,7 @@
   }
 }
 .cover {
+  place-self: center;
   margin: 5px;
   border-radius: 5px;
   overflow: hidden;
