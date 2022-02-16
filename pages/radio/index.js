@@ -49,6 +49,7 @@ export default function Radio({ list }) {
                 key={e.id}
                 name={e.name}
                 cover={e.cover}
+                score={e.score}
                 id={e.id}
               />
             ))}
