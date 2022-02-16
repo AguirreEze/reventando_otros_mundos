@@ -26,9 +26,11 @@
       opacity: 1;
       &::after {
         transform: scaleY(1);
+        transition: transform 0.3s ease-in-out 0.2s;
       }
       &::before {
         transform: scaleX(1);
+        transition: transform 0.3s ease-in-out 0.2s;
       }
     }
   }
@@ -69,7 +71,7 @@
     border-right: 1px solid white;
     transform-origin: center;
     transform: scaleY(0);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
   }
   &::before {
     content: "";
@@ -80,7 +82,7 @@
     border-bottom: 1px solid white;
     transform-origin: center;
     transform: scaleX(0);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
   }
 }
 .name_overlay {
