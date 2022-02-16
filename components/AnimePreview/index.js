@@ -28,6 +28,7 @@ export default function AnimePreview({
         </a>
       </Link>
       <div className={style.stampContainer}>
+        <span className={style.name_overlay}>{name}</span>
         <ScoreStamp score={score} />
         <ScoreDescription score={score} />
       </div>
