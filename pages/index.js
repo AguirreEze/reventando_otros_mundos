@@ -8,8 +8,8 @@ const caballeros = [
   { name: "Tydrok", avatar: "/avatars/Tydrok.webp" },
   { name: "Nitrix", avatar: "/avatars/Nitrix.webp" },
   { name: "Sabak", avatar: "/avatars/Sabak.webp" },
-  { name: "Nax" },
-  { name: "Kaiser" },
+  { name: "Nax", avatar: "/avatars/Nax.webp" },
+  { name: "Kaiser", avatar: "/avatars/Kaiser.webp" },
 ]
 
 export default function Home() {
