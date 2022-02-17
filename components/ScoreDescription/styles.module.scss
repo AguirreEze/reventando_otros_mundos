@@ -1,0 +1,17 @@
+@import "styles/theme.scss";
+
+.scoreDescription__green {
+  text-transform: capitalize;
+  font-size: 1.2rem;
+  font-weight: 600;
+  user-select: none;
+  color: green;
+}
+.scoreDescription__red {
+  @extend .scoreDescription__green;
+  color: #800000;
+}
+.scoreDescription__yellow {
+  @extend .scoreDescription__green;
+  color: hsl(60, 100%, 30%);
+}
