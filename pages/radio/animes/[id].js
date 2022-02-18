@@ -52,7 +52,7 @@ export default function AnimePage({ data }) {
             height={320}
           />
         </section>
-        <section>
+        <section className={styles.anime_info}>
           <h2 className={styles.subTitle}>estudio</h2>
           <p className={styles.description}>{data.studio}</p>
           <h2 className={styles.subTitle}>generos</h2>
@@ -77,7 +77,12 @@ export default function AnimePage({ data }) {
           <p className={styles.description}>{data.sinopsis}</p>
         </footer>
       </article>
-      <AnimeReview review={review} id={data.id} />
+      <article className={styles.article}>
+        <header className={styles.title}>
+          <h1>Review</h1>
+        </header>
+        <AnimeReview review={review} id={data.id} />
+      </article>
     </section>
   )
 }

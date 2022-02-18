@@ -22,7 +22,7 @@ export default function Radio({ list }) {
         <h1 className={styles.title}>Invernalia</h1>
         <p className={styles.description}>
           Estos son los animes vistos y reseñados en el programa Invernalia.
-          Domingo 23Hs GMT-3 en{" "}
+          Domingo 22Hs hora Argentina (GMT-3) en{" "}
           <a
             href="http://japan-next.blogspot.com/"
             target="_blank"
@@ -49,6 +49,7 @@ export default function Radio({ list }) {
                 key={e.id}
                 name={e.name}
                 cover={e.cover}
+                score={e.score}
                 id={e.id}
               />
             ))}

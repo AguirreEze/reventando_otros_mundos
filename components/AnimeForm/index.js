@@ -177,7 +177,7 @@ export default function ModalAnime({ show, onClose, data }) {
       onDragOver={handleDragOver}
     >
       {uploading && <Loading />}
-      {uploading || dragState ? null : (
+      {dragState ? null : (
         <>
           <button onClick={() => onClose(false)} className={styles.close}>
             x

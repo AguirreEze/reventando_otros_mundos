@@ -116,7 +116,7 @@ export default function ModalGame({ onClose, data }) {
       onDragOver={handleDragOver}
     >
       {loading && <Loading />}
-      {loading || dragState ? null : (
+      {dragState ? null : (
         <>
           <ErrorDisplay text={error} />
           <form onSubmit={handleSubmit} className={styles.form}>
