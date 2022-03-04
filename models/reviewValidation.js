@@ -1,7 +1,7 @@
 import * as yup from "yup"
 
 const reviewValidation = yup.object().shape({
-  score: yup.number().required(),
+  score: yup.number().nullable(),
   state: yup.string().required(),
   watched: yup.number().min(0).required(),
   comentary: yup.string().required(),
