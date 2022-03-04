@@ -22,7 +22,7 @@ export default function ReviewForm({ review, id }) {
     e.preventDefault()
     setDisableSubmit(true)
     const dataToSend = {
-      score: parseInt(score),
+      score: parseInt(score) || undefined,
       state,
       watched: parseInt(watched.input.value),
       comentary: comentary.input.value,
@@ -55,7 +55,7 @@ export default function ReviewForm({ review, id }) {
             onChange={(e) => setScore(e.target.value)}
             defaultValue={review.score}
           >
-            <option value="-">-</option>
+            <option value={null}>-</option>
             <option value={0}>0</option>
             <option value={1}>1</option>
             <option value={2}>2</option>
