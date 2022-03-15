@@ -8,6 +8,7 @@ import Loading from "components/Loading"
 import animeValidation from "models/animeValidation"
 import { useRouter } from "next/router"
 import { uploadImage } from "services/images"
+import Image from "next/image"
 
 export default function ModalAnime({ show, onClose, data }) {
   const router = useRouter()
@@ -186,10 +187,12 @@ export default function ModalAnime({ show, onClose, data }) {
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.cover_container}>
               <span>cover:</span>
-              <img
+              <Image
                 src={coverPreview}
                 className={styles.cover}
                 alt={"Anime cover"}
+                width={250}
+                height={320}
               />
             </div>
             <div className={styles.input_container}>
