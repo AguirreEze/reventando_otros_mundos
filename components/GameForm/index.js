@@ -63,7 +63,6 @@ export default function ModalGame({ onClose, data }) {
       }
       router.reload()
     } catch (res) {
-      console.log({ res })
       const { response } = res
       setError(response.data.error.message || response.data.error)
       setLoading(false)
