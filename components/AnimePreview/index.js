@@ -20,7 +20,13 @@ export default function AnimePreview({
   return (
     <li className={style.card} onClick={handleClick}>
       <div className={style.cover}>
-        <Image src={cover} height={230} width={200} alt={`${name} cover`} />
+        <Image
+          src={cover}
+          height={230}
+          width={200}
+          alt={`${name} cover`}
+          layout={"responsive"}
+        />
       </div>
       <Link href={`/radio/animes/[id]`} as={`/radio/animes/${id}`}>
         <a>
