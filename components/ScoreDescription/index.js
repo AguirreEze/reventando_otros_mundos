@@ -20,7 +20,6 @@ export default function ScoreDescription({ score }) {
     if (score < 7) return styles.scoreDescription__yellow
     return styles.scoreDescription__green
   }
-  console.log(score)
   return score === undefined ? (
     <span className={styles.scoreDescription__green}>Sin Score</span>
   ) : (
