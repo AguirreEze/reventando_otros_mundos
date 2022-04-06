@@ -10,7 +10,7 @@ import Modal from "components/Modal"
 
 export default function Radio({ list }) {
   const [showModal, setShowModal] = useState(false)
-  const [filter, setFilter] = useState("")
+  const [nameFilter, setNameFilter] = useState("")
   const [seasonFilter, setSeasonFilter] = useState("")
   const [yearFilter, setYearFilter] = useState("")
   const [filteredList, setFilteredList] = useState(list)
@@ -25,10 +25,10 @@ export default function Radio({ list }) {
           filterByYear(e.year)
       )
     )
-  }, [filter, seasonFilter, yearFilter])
+  }, [nameFilter, seasonFilter, yearFilter])
 
   const filterByName = (name) => {
-    return name.toLowerCase().includes(filter.toLowerCase())
+    return name.toLowerCase().includes(nameFilter.toLowerCase())
   }
 
   const filterBySeason = (season) => {
@@ -72,8 +72,8 @@ export default function Radio({ list }) {
           <label>Name</label>
           <input
             type="text"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
+            value={nameFilter}
+            onChange={(e) => setNameFilter(e.target.value)}
             className={styles.input}
           />
           <label>Year</label>
