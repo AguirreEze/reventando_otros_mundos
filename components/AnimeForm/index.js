@@ -243,7 +243,7 @@ export default function ModalAnime({ show, onClose, data }) {
               >
                 <option value={null}></option>
                 <option value="winter">Winter</option>
-                <option value="autum">Autum</option>
+                <option value="autumn">Autumn</option>
                 <option value="summer">Summer</option>
                 <option value="spring">Spring</option>
               </select>

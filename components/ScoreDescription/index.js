@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss"
 
 const SCORE_TEXT = [
-  "Sigue siendo mejor que JoJo's",
+  "Es la peor basura que vi en mi vida",
   "Esta abominación nunca debió ver la luz del sol",
   "Me indigno con ver esta cosa",
   "Es una pérdida de tiempo y/o decepción",

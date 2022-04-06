@@ -22,7 +22,7 @@ export default function ReviewForm({ review, id }) {
     e.preventDefault()
     setDisableSubmit(true)
     const dataToSend = {
-      score: parseInt(score) || undefined,
+      score: score === "-" ? undefined : parseInt(score),
       state,
       watched: parseInt(watched.input.value),
       comentary: comentary.input.value,
