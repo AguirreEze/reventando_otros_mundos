@@ -1,4 +1,7 @@
 @import "styles/theme.scss";
+
+$Field-Shadow: 4px 8px 16px #00000010;
+
 .container {
   text-align: center;
   color: $Primary;
@@ -43,4 +46,31 @@
 }
 .link {
   color: $Accent;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0 0;
+}
+
+.input {
+  border: none;
+  text-align: center;
+  padding: 0.3rem 0;
+  border-radius: 5px;
+  box-shadow: $Field-Shadow;
+  &::placeholder {
+    text-align: center;
+    color: $Accent;
+    user-select: none;
+  }
+}
+
+.select {
+  border: none;
+  color: $Primary;
+  box-shadow: $Field-Shadow;
+  text-transform: capitalize;
 }

@@ -68,23 +68,26 @@ export default function Radio({ list }) {
             + Add Anime +
           </button>
         )}
-        <form>
+        <form className={styles.filter}>
           <label>Name</label>
           <input
             type="text"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
+            className={styles.input}
           />
           <label>Year</label>
           <input
             type="number"
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
+            className={styles.input}
           />
           <label>Season</label>
           <select
             value={seasonFilter}
             onChange={(e) => setSeasonFilter(e.target.value)}
+            className={styles.select}
           >
             <option value={""}> </option>
             <option value={"winter"}>Winter</option>
