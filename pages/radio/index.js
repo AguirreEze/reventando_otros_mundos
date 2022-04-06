@@ -17,6 +17,7 @@ export default function Radio({ list }) {
   const { data: session } = useSession()
 
   useEffect(() => {
+    console.log(yearFilter.toString())
     setFilteredList(
       list.filter(
         (e) =>
@@ -36,7 +37,7 @@ export default function Radio({ list }) {
   }
   const filterByYear = (year) => {
     if (yearFilter === "") return true
-    return year === parseInt(yearFilter)
+    return year.toString().includes(yearFilter)
   }
 
   return (
