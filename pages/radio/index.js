@@ -2,7 +2,7 @@ import AnimePreview from "components/AnimePreview"
 import AnimeForm from "components/AnimeForm"
 import { useSession } from "next-auth/react"
 import Head from "next/head"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styles from "./styles.module.scss"
 import connectDB from "middleware/mongo"
 import Anime from "models/Anime"
@@ -10,7 +10,35 @@ import Modal from "components/Modal"
 
 export default function Radio({ list }) {
   const [showModal, setShowModal] = useState(false)
+  const [filter, setFilter] = useState("")
+  const [seasonFilter, setSeasonFilter] = useState("")
+  const [yearFilter, setYearFilter] = useState("")
+  const [filteredList, setFilteredList] = useState(list)
   const { data: session } = useSession()
+
+  useEffect(() => {
+    setFilteredList(
+      list.filter(
+        (e) =>
+          filterByName(e.name) &&
+          filterBySeason(e.season) &&
+          filterByYear(e.year)
+      )
+    )
+  }, [filter, seasonFilter, yearFilter])
+
+  const filterByName = (name) => {
+    return name.toLowerCase().includes(filter.toLowerCase())
+  }
+
+  const filterBySeason = (season) => {
+    return season.toLowerCase().includes(seasonFilter.toLowerCase())
+  }
+  const filterByYear = (year) => {
+    if (yearFilter === "") return true
+    return year === parseInt(yearFilter)
+  }
+
   return (
     <article>
       <Head>
@@ -40,9 +68,34 @@ export default function Radio({ list }) {
             + Add Anime +
           </button>
         )}
+        <form>
+          <label>Name</label>
+          <input
+            type="text"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+          <label>Year</label>
+          <input
+            type="number"
+            value={yearFilter}
+            onChange={(e) => setYearFilter(e.target.value)}
+          />
+          <label>Season</label>
+          <select
+            value={seasonFilter}
+            onChange={(e) => setSeasonFilter(e.target.value)}
+          >
+            <option value={""}> </option>
+            <option value={"winter"}>Winter</option>
+            <option value={"spring"}>Spring</option>
+            <option value={"summer"}>Summer</option>
+            <option value={"autumn"}>Autumn</option>
+          </select>
+        </form>
         {list.length === 0 && <h2>No hay animes en la lista</h2>}
         <ul className={styles.list}>
-          {list
+          {filteredList
             .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
             .map((e) => (
               <AnimePreview
