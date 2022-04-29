@@ -1,6 +1,6 @@
 # Reventando Otros Mundos [Deploy](https://reventandootrosmundos.vercel.app)
 
-This page was made for my friends stream, he plays old games on Twitch and reviews animes in a online radio
+This page was made for my friends stream, he plays old games on Twitch and reviews animes in a online radio.
 
 ## Proyect Introduction
 
@@ -21,15 +21,15 @@ _(CRUD content wont be available for everyone to see on Deploy, since you requir
 
 ### SPA
 
-This page works as a Single Page Application
+This page works as a Single Page Application.
 
 ### Responsive
 
-Page assets will adapt to the screen size
+Page assets will adapt to the screen size.
 
 ### Server Side Props
 
-Data Fetching is done on Serverside to improve the loading speed
+Data Fetching is done on Serverside to improve the loading speed.
 
 ### Developer Server
 
@@ -37,12 +37,12 @@ This proyect has its own developer database on MongoDB.
 
 ### Users
 
-You can login with google account, This is used for admins to create and update entries the Database
+You can login with google account. This is used for Admin Users to create and update entries the Database.
 
 ### Drag & Drop image Upload
 
-When sending a new entry on database images are upload using Drag & Drop
+When sending a new entry on database images are upload using. Drag & Drop
 
 ### Data validation
 
-Data for a Database entrie is validated Frond-end and Back-end
+Information for a Database entrie is validated Frond-end and Back-end.
