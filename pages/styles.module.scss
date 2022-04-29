@@ -1,6 +1,9 @@
 @import "styles/theme.scss";
 
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border-radius: 5px;
   box-shadow: 3px 7px 5px #0001;
   border: 1px solid #3331;
@@ -50,7 +53,7 @@
 .content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1rem;
+  gap: 2rem 1rem;
   margin-bottom: 3rem;
 }
 
