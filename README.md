@@ -37,7 +37,7 @@ This proyect has its own developer database on MongoDB.
 
 ### Users
 
-You can login with google account. This is used for Admin Users to create and update entries the Database.
+You can login with google account. This is used by Admin Users to create and update entries the Database.
 
 ### Drag & Drop image Upload
 
