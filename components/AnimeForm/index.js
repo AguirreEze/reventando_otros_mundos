@@ -17,6 +17,7 @@ export default function ModalAnime({ show, onClose, data }) {
   const [coverPreview, setCoverPreview] = useState(
     data ? data.cover : "/PlaceHolder.jpg"
   )
+  const [updatedCover, setUpdatedCover] = useState(false)
   const [state, setState] = useState(data ? data.state : null)
   const [season, setSeason] = useState(data ? data.season : null)
   const name = useField({
@@ -94,17 +95,17 @@ export default function ModalAnime({ show, onClose, data }) {
       setUploading(false)
     }
     try {
-      if (data) {
-        await updateAnime(dataToSend, data.id)
-        onClose(false)
-        router.reload()
-      } else {
+      if (updatedCover) {
         const coverURL = await uploadImage(coverPreview)
         dataToSend = { ...dataToSend, cover: coverURL }
-        await addAnime(dataToSend)
-        onClose(false)
-        router.reload()
       }
+      if (data) {
+        await updateAnime(dataToSend, data.id)
+      } else {
+        await addAnime(dataToSend)
+      }
+      onClose(false)
+      router.reload()
     } catch ({ response }) {
       setError(response.data.error.message || response.data.error)
       setUploading(false)
@@ -131,6 +132,7 @@ export default function ModalAnime({ show, onClose, data }) {
     const file = e.dataTransfer.files[0]
     previewImage(file)
     setDragState(false)
+    setUpdatedCover(true)
   }
 
   const previewImage = (file) => {
