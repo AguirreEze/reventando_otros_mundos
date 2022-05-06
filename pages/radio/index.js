@@ -17,7 +17,6 @@ export default function Radio({ list }) {
   const { data: session } = useSession()
 
   useEffect(() => {
-    console.log(yearFilter.toString())
     setFilteredList(
       list.filter(
         (e) =>
