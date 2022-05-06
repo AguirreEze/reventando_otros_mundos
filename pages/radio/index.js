@@ -48,7 +48,7 @@ export default function Radio({ list }) {
         />
         <meta
           name="keywords"
-          content="Reventando, otros, Mundos, Anime, Invernalia, Myullnir, JapanNext"
+          content="Reventando, otros, Mundos, Anime, Invernalia, Myullnir, radio"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

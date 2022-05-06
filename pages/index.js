@@ -23,7 +23,7 @@ export default function Home() {
         />
         <meta
           name="keywords"
-          content="Reventando, otros, Mundos, Anime, Juegos, Myullnir, Radio"
+          content="Reventando, otros, Mundos, Anime, Juegos, Myullnir"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
