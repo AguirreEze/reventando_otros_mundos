@@ -35,7 +35,6 @@ export default function Radio({ list }) {
     return season.toLowerCase().includes(seasonFilter.toLowerCase())
   }
   const filterByYear = (year) => {
-    if (yearFilter === "") return true
     return year.toString().includes(yearFilter)
   }
 
