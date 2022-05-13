@@ -22,7 +22,7 @@ export default function Games({ games }) {
         />
         <meta
           name="keywords"
-          content="Reventando, otros, Mundos, Juegos, Stream, Myullnir"
+          content="Reventando, otros, Mundos, Juegos, Stream, Myullnir, transmisión"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
