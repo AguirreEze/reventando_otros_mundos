@@ -19,7 +19,7 @@ export default function Home() {
         <title>Reventando Otros Mundos</title>
         <meta
           name="description"
-          content="En ReventandoOtrosMundos se transmiten juegos populares y clásicos, principalmente los días lunes y jueves. Los Sábados se transmite el proceso de crear un personaje de ROL (a decisión de los espectadores) y los Domingos se retransmite las reseñas de los animes vistos por Myullnir y Sr. R esta temporada."
+          content="En ReventandoOtrosMundos se transmiten juegos populares y clásicos, principalmente los días lunes y jueves. Los Sábados se transmite el proceso de crear un personaje de ROL y los Domingos se reseñan los animes de temporada."
         />
         <meta
           name="keywords"

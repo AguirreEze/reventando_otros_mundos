@@ -28,7 +28,7 @@ export default function AnimePage({ data }) {
         <title>Invernalia | {data.name}</title>
         <meta
           name="description"
-          content={`Reseña de anime ${data.name} por ReventandoOtrosMundos, transmitida en el programa Invernalia los dias Domingos 22Hs GMT-3 por JapanNext`}
+          content={`Reseña de anime ${data.name} por ReventandoOtrosMundos.`}
         />
         <meta
           name="keywords"

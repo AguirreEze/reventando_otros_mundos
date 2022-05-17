@@ -18,7 +18,7 @@ export default function Games({ games }) {
         <title>Reventando otros Juegos</title>
         <meta
           name="description"
-          content="Lista de juegos transmitidos por ReventandoOtrosMundos. En ReventandoOtrosMundos se transmiten principalmente los días Lunes y Jueves juegos clásicos por la plataforma Twitch (twitch.tv/reventandootrosmundos). En esta pagina se encuentra un listado de los juegos ya completados por ReventandoOtrosMundos"
+          content="Lista de juegos transmitidos por ReventandoOtrosMundos. En esta pagina se encuentra un listado de los juegos transmitidos por la plateforma Twitch"
         />
         <meta
           name="keywords"

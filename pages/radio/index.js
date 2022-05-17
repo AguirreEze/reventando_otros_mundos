@@ -44,7 +44,7 @@ export default function Radio({ list }) {
         <title>Invernalia</title>
         <meta
           name="description"
-          content="Reseñas de anime por ReventandoOtrosMundos. En ReventandoOtrosMundos los Domingos 22Hs GMT-3 se transmiten las reseñas a los animes de temporada en Invernalia, emitido por la radio online JapanNext (con retransmisión en twitch.tv/reventandootrosmundos). Con Myullnir y Sr. R como anfitriones, ShadowKaiser, Sabak, Tydrok como invitados regulares. En esta pagina se archivan los animes vistos por los anfitriones junto con sus reseñas"
+          content="Reseñas de anime por ReventandoOtrosMundos. En ReventandoOtrosMundos los Domingos 22Hs GMT-3 se transmiten las reseñas a los animes de temporada en Invernalia, emitido por la radio online JapanNext."
         />
         <meta
           name="keywords"
