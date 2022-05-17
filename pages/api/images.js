@@ -3,7 +3,6 @@ import cloudinary from "cloudinary"
 import errorHandler from "middleware/errorHandler"
 
 const handler = async (req, res) => {
-  console.log("test")
   if (req.method === "POST") {
     const session = await getSession({ req })
     if (!session || session.user.group !== "Admin")
