@@ -10,7 +10,7 @@ export default function Layout({ children }) {
     <div className={styles.background}>
       <main className={styles.view}>
         <Navbar />
-        {loading ? (
+        {loading && (
           <>
             <Head>
               <title>Loading...</title>
@@ -18,9 +18,9 @@ export default function Layout({ children }) {
             </Head>
             <Loading />
           </>
-        ) : (
-          children
-        )}
+        )  
+      }
+      {children}
       </main>
     </div>
   )
