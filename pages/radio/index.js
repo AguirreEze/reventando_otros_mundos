@@ -106,13 +106,11 @@ export default function Radio({ list }) {
         <ul className={styles.list}>
           {filteredList
             .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
-            .map((e) => (
+            .map((anime) => (
               <AnimePreview
-                key={e.id}
-                name={e.name}
-                cover={e.cover}
-                score={e.score}
-                id={e.id}
+                key={anime.id}
+                anime={anime}
+                admin={session && session.user.group === "Admin"}
               />
             ))}
         </ul>

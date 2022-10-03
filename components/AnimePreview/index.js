@@ -5,13 +5,16 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import style from "./style.module.scss"
 
-export default function AnimePreview({
-  name = "loading...",
-  cover = "/PlaceHolder.jpg",
-  score,
-  id,
-}) {
+export default function AnimePreview({ anime, admin }) {
   const router = useRouter()
+  const { name = "loading...", cover = "/PlaceHolder.jpg", score, id } = anime
+  const reviewIncomplete = () => {
+    return (
+      anime.state !== "viendo" &&
+      admin &&
+      (anime.comentary === "-" || typeof score === "undefined")
+    )
+  }
   const handleClick = (e) => {
     e.preventDefault()
     router.push("/radio/animes/[id]", `/radio/animes/${id}`)
@@ -33,8 +36,12 @@ export default function AnimePreview({
           <h2 className={style.name}>{name}</h2>
         </a>
       </Link>
+      {reviewIncomplete() && <div className={style.incomplete_ribbon} />}
       <div className={style.stampContainer}>
         <span className={style.name_overlay}>{name}</span>
+        {reviewIncomplete() && (
+          <span className={style.review_incomplete}>Review Incompleta</span>
+        )}
         <ScoreStamp score={score} />
         <ScoreDescription score={score} />
       </div>
