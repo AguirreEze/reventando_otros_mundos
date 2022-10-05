@@ -32,9 +32,7 @@ export default function AnimePreview({ anime, admin }) {
         />
       </div>
       <Link href={`/radio/animes/[id]`} as={`/radio/animes/${id}`}>
-        <a>
-          <h2 className={style.name}>{name}</h2>
-        </a>
+        <a className={style.name}>{name}</a>
       </Link>
       {reviewIncomplete() && <div className={style.incomplete_ribbon} />}
       <div className={style.stampContainer}>
