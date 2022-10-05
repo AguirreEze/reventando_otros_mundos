@@ -47,10 +47,12 @@
 .name {
   text-transform: capitalize;
   font-weight: 500;
+  font-size: 1.4rem;
   margin: 0;
   max-width: 230px;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .stampContainer {
   position: absolute;
