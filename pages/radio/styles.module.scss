@@ -48,14 +48,22 @@ $Field-Shadow: 4px 8px 16px #00000010;
   color: $Accent;
 }
 
+.filter_container {
+  min-height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .filter {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  padding: 1rem 0 0.5rem;
+  padding: 1rem 0 1rem;
 }
 
 .input {
+  width: 165px;
   border: none;
   text-align: center;
   padding: 0.3rem 0;
@@ -69,8 +77,26 @@ $Field-Shadow: 4px 8px 16px #00000010;
 }
 
 .select {
+  width: 165px;
+  text-align: center;
   border: none;
   color: $Primary;
   box-shadow: $Field-Shadow;
   text-transform: capitalize;
+}
+
+@media (max-width: 940px) {
+  .filter {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .filter {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    gap: 1rem;
+  }
 }

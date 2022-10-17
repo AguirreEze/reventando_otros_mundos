@@ -6,10 +6,11 @@ const caballeros = [
   { name: "Myullnir", avatar: "/avatars/Myullnir.webp" },
   { name: "Sr. R", avatar: "/avatars/SrR.webp" },
   { name: "Tydrok", avatar: "/avatars/Tydrok.webp" },
+  { name: "MrLolycon", avatar: "/avatars/MrLolycon.webp" },
+  { name: "Kaiser", avatar: "/avatars/Kaiser.webp" },
   { name: "Nitricx", avatar: "/avatars/Nitrix.webp" },
   { name: "Sabak", avatar: "/avatars/Sabak.webp" },
   { name: "Nax", avatar: "/avatars/Nax.webp" },
-  { name: "Kaiser", avatar: "/avatars/Kaiser.webp" },
 ]
 
 export default function Home() {
