@@ -149,7 +149,7 @@ export default function Radio({ list }) {
               onClick={() => setShowFilters(true)}
               className={styles.button}
             >
-              Filters
+              Filter &#128269;
             </button>
           )}
         </div>
