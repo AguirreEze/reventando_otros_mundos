@@ -7,35 +7,54 @@ import styles from "./styles.module.scss"
 import connectDB from "middleware/mongo"
 import Anime from "models/Anime"
 import Modal from "components/Modal"
+import { useRouter } from "next/router"
+
+const INITIAL_VALUES = {
+  season: "",
+  name: "",
+  state: "",
+  year: "",
+}
 
 export default function Radio({ list }) {
+  const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-  const [nameFilter, setNameFilter] = useState("")
-  const [seasonFilter, setSeasonFilter] = useState("")
-  const [yearFilter, setYearFilter] = useState("")
+  const [filter, setFilter] = useState({ ...INITIAL_VALUES, ...router.query })
   const [filteredList, setFilteredList] = useState(list)
   const { data: session } = useSession()
 
   useEffect(() => {
-    setFilteredList(
-      list.filter(
-        (e) =>
-          filterByName(e.name) &&
-          filterBySeason(e.season) &&
-          filterByYear(e.year)
+    const timeout = setTimeout(() => {
+      router.replace({
+        query: { ...filter },
+      })
+      setFilteredList(
+        list.filter(
+          (e) =>
+            filterByState(e.state) &&
+            filterByName(e.name) &&
+            filterBySeason(e.season) &&
+            filterByYear(e.year)
+        )
       )
-    )
-  }, [nameFilter, seasonFilter, yearFilter])
+    }, 500)
+    return () => clearTimeout(timeout)
+  }, [filter])
 
   const filterByName = (name) => {
-    return name.toLowerCase().includes(nameFilter.toLowerCase())
+    return name.toLowerCase().includes(filter.name.toLowerCase())
   }
 
   const filterBySeason = (season) => {
-    return season.toLowerCase().includes(seasonFilter.toLowerCase())
+    return season.toLowerCase().includes(filter.season.toLowerCase())
   }
+
   const filterByYear = (year) => {
-    return year.toString().includes(yearFilter)
+    return year.toString().includes(filter.year)
+  }
+
+  const filterByState = (state) => {
+    return state.toLowerCase().includes(filter.state)
   }
 
   return (
@@ -78,28 +97,39 @@ export default function Radio({ list }) {
           <label>Name</label>
           <input
             type="text"
-            value={nameFilter}
-            onChange={(e) => setNameFilter(e.target.value)}
+            value={filter.name}
+            onChange={(e) => setFilter({ ...filter, name: e.target.value })}
             className={styles.input}
           />
           <label>Year</label>
           <input
             type="number"
-            value={yearFilter}
-            onChange={(e) => setYearFilter(e.target.value)}
+            value={filter.year}
+            onChange={(e) => setFilter({ ...filter, year: e.target.value })}
             className={styles.input}
           />
           <label>Season</label>
           <select
-            value={seasonFilter}
-            onChange={(e) => setSeasonFilter(e.target.value)}
+            value={filter.season}
+            onChange={(e) => setFilter({ ...filter, season: e.target.value })}
             className={styles.select}
           >
-            <option value={""}> </option>
+            <option value={""}>All</option>
             <option value={"winter"}>Winter</option>
             <option value={"spring"}>Spring</option>
             <option value={"summer"}>Summer</option>
             <option value={"autumn"}>Autumn</option>
+          </select>
+          <label>State</label>
+          <select
+            value={filter.state}
+            onChange={(e) => setFilter({ ...filter, state: e.target.value })}
+            className={styles.select}
+          >
+            <option value={""}>All</option>
+            <option value={"viendo"}>Viendo</option>
+            <option value={"dropeada"}>Dropeada</option>
+            <option value={"completo"}>Completo</option>
           </select>
         </form>
         {list.length === 0 && <h2>No hay animes en la lista</h2>}
