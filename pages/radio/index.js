@@ -19,14 +19,16 @@ const INITIAL_VALUES = {
 export default function Radio({ list }) {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
+  const [showFilters, setShowFilters] = useState(false)
   const [filter, setFilter] = useState({ ...INITIAL_VALUES, ...router.query })
   const [filteredList, setFilteredList] = useState(list)
   const { data: session } = useSession()
 
   useEffect(() => {
     const timeout = setTimeout(() => {
+      const queryFilter = removeEmptyfilters(filter)
       router.replace({
-        query: { ...filter },
+        query: { ...queryFilter },
       })
       setFilteredList(
         list.filter(
@@ -40,6 +42,10 @@ export default function Radio({ list }) {
     }, 500)
     return () => clearTimeout(timeout)
   }, [filter])
+
+  const removeEmptyfilters = (obj) => {
+    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== ""))
+  }
 
   const filterByName = (name) => {
     return name.toLowerCase().includes(filter.name.toLowerCase())
@@ -93,45 +99,60 @@ export default function Radio({ list }) {
             + Add Anime +
           </button>
         )}
-        <form className={styles.filter}>
-          <label>Name</label>
-          <input
-            type="text"
-            value={filter.name}
-            onChange={(e) => setFilter({ ...filter, name: e.target.value })}
-            className={styles.input}
-          />
-          <label>Year</label>
-          <input
-            type="number"
-            value={filter.year}
-            onChange={(e) => setFilter({ ...filter, year: e.target.value })}
-            className={styles.input}
-          />
-          <label>Season</label>
-          <select
-            value={filter.season}
-            onChange={(e) => setFilter({ ...filter, season: e.target.value })}
-            className={styles.select}
-          >
-            <option value={""}>All</option>
-            <option value={"winter"}>Winter</option>
-            <option value={"spring"}>Spring</option>
-            <option value={"summer"}>Summer</option>
-            <option value={"autumn"}>Autumn</option>
-          </select>
-          <label>State</label>
-          <select
-            value={filter.state}
-            onChange={(e) => setFilter({ ...filter, state: e.target.value })}
-            className={styles.select}
-          >
-            <option value={""}>All</option>
-            <option value={"viendo"}>Viendo</option>
-            <option value={"dropeada"}>Dropeada</option>
-            <option value={"completo"}>Completo</option>
-          </select>
-        </form>
+        <div className={styles.filter_container}>
+          {showFilters ? (
+            <form className={styles.filter}>
+              <label>Name</label>
+              <input
+                type="text"
+                value={filter.name}
+                onChange={(e) => setFilter({ ...filter, name: e.target.value })}
+                className={styles.input}
+              />
+              <label>Year</label>
+              <input
+                type="number"
+                value={filter.year}
+                onChange={(e) => setFilter({ ...filter, year: e.target.value })}
+                className={styles.input}
+              />
+              <label>Season</label>
+              <select
+                value={filter.season}
+                onChange={(e) =>
+                  setFilter({ ...filter, season: e.target.value })
+                }
+                className={styles.select}
+              >
+                <option value={""}>All</option>
+                <option value={"winter"}>Winter</option>
+                <option value={"spring"}>Spring</option>
+                <option value={"summer"}>Summer</option>
+                <option value={"autumn"}>Autumn</option>
+              </select>
+              <label>State</label>
+              <select
+                value={filter.state}
+                onChange={(e) =>
+                  setFilter({ ...filter, state: e.target.value })
+                }
+                className={styles.select}
+              >
+                <option value={""}>All</option>
+                <option value={"viendo"}>Viendo</option>
+                <option value={"dropeada"}>Dropeada</option>
+                <option value={"completo"}>Completo</option>
+              </select>
+            </form>
+          ) : (
+            <button
+              onClick={() => setShowFilters(true)}
+              className={styles.button}
+            >
+              Filters
+            </button>
+          )}
+        </div>
         {list.length === 0 && <h2>No hay animes en la lista</h2>}
         <ul className={styles.list}>
           {filteredList
