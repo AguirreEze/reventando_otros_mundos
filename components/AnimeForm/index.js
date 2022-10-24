@@ -9,6 +9,8 @@ import animeValidation from "models/animeValidation"
 import { useRouter } from "next/router"
 import { uploadImage } from "services/images"
 import Image from "next/image"
+import animeGenres from "utils/animeGenres"
+import InputAutocomplete from "utils/InputAutocomplete"
 
 export default function ModalAnime({ show, onClose, data }) {
   const router = useRouter()
@@ -215,10 +217,16 @@ export default function ModalAnime({ show, onClose, data }) {
             </div>
             <div className={styles.genre_container}>
               <label name="Genre">genre:</label>
-              <input {...genre.input} placeholder="Genre" name="Genre" />
+              <input
+                {...genre.input}
+                placeholder="Genre"
+                name="Genre"
+                list={"genres"}
+              />
               <button onClick={addGenre} className={styles.button}>
                 add
               </button>
+              <InputAutocomplete id={"genres"} list={animeGenres} />
             </div>
             <div className={styles.genres_container}>
               <span>genres:</span>
