@@ -22,7 +22,7 @@ const animeGenres = [
   "Isekai",
   "Josei",
   "Juegos",
-  "Magía",
+  "Magia",
   "Mecha",
   "Militar",
   "Misterio",
