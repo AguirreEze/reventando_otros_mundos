@@ -35,7 +35,7 @@ export default function Game({
     <>
       <article className={styles.container}>
         <section className={styles.cover}>
-          <Image alt="Game Cover" src={gameCover} height={130} width={170} />
+          <Image alt="Game Cover" src={gameCover} fill />
         </section>
         <section className={styles.data}>
           <h2>{name}</h2>

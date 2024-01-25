@@ -40,11 +40,13 @@
   }
 }
 .cover {
+  position: relative;
   place-self: center;
+  height: 130px;
+  width: 170px;
   margin: 5px;
   border-radius: 5px;
   overflow: hidden;
-  height: 130px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   border: 1px solid #3331;
 }

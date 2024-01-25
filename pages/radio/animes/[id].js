@@ -57,6 +57,7 @@ export default function AnimePage({ data }) {
             alt={`${data.name} cover`}
             width={250}
             height={320}
+            priority
           />
         </section>
         <section className={styles.anime_info}>

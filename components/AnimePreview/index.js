@@ -25,14 +25,12 @@ export default function AnimePreview({ anime, admin }) {
       <div className={style.cover}>
         <Image
           src={cover}
-          height={230}
-          width={200}
           alt={`${name} cover`}
-          layout={"responsive"}
+          fill
         />
       </div>
-      <Link href={`/radio/animes/[id]`} as={`/radio/animes/${id}`}>
-        <a className={style.name}>{name}</a>
+      <Link href={`/radio/animes/[id]`} as={`/radio/animes/${id}`} className={style.name}>
+        {name}
       </Link>
       {reviewIncomplete() && <div className={style.incomplete_ribbon} />}
       <div className={style.stampContainer}>
