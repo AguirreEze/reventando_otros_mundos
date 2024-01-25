@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useState } from "react"
 import styles from "./styles.module.scss"
+import Link from "next/link"
 
 export default function Game({
   name,
@@ -44,15 +45,15 @@ export default function Game({
             <div onClick={handleClick}>
               {showCompleted ? <Completed /> : <OnProgress />}
             </div>
-            {steamLink && (
-              <a
+            {steamLink!=="" && (
+              <Link
                 href={steamLink}
                 target="_blank"
                 rel="noreferrer"
                 className={styles.steam}
               >
                 <Steam />
-              </a>
+              </Link>
             )}
           </footer>
           {session && !onModal && session.user.group === "Admin" && (

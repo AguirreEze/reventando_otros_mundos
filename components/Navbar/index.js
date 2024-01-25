@@ -11,25 +11,17 @@ export default function Navbar() {
 
   return (
     <header className={styles.header}>
-      <Link href="/">
-        <a className={styles.RomIcon}>
+      <Link href="/" className={styles.RomIcon}>
           <RomIcon />
-        </a>
       </Link>
-      <Link href="/">
-        <a onClick={() => setShowNav(false)} className={styles.link}>
+      <Link href="/" onClick={() => setShowNav(false)} className={styles.link}>
           home
-        </a>
       </Link>
-      <Link href="/games">
-        <a onClick={() => setShowNav(false)} className={styles.link}>
+      <Link href="/games" onClick={() => setShowNav(false)} className={styles.link}>
           games
-        </a>
       </Link>
-      <Link href="/radio">
-        <a onClick={() => setShowNav(false)} className={styles.link}>
+      <Link href="/radio" onClick={() => setShowNav(false)} className={styles.link}>
           radio
-        </a>
       </Link>
       <button onClick={() => setShowNav(!showNav)} className={styles.link}>
         Links

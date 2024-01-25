@@ -19,20 +19,14 @@ export default function DropdownMenu({ showNav, setShowNav }) {
           Welcome<span>{session.user.name}</span>
         </p>
       )}
-      <Link href="/">
-        <a onClick={() => setShowNav(!showNav)} className={styles.link}>
+      <Link href="/" onClick={() => setShowNav(!showNav)} className={styles.link}>
           home
-        </a>
       </Link>
-      <Link href="/games">
-        <a onClick={() => setShowNav(!showNav)} className={styles.link}>
+      <Link href="/games" onClick={() => setShowNav(!showNav)} className={styles.link}>
           games
-        </a>
       </Link>
-      <Link href="/radio">
-        <a onClick={() => setShowNav(!showNav)} className={styles.link}>
+      <Link href="/radio" onClick={() => setShowNav(!showNav)} className={styles.link}>
           radio
-        </a>
       </Link>
 
       <a
