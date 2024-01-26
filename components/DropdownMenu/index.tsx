@@ -5,7 +5,13 @@ import TwitchIcon from "components/Icons/TwitchIcon"
 import styles from "./styles.module.css"
 import Link from "next/link"
 
-export default function DropdownMenu({ showNav, setShowNav }) {
+export default function DropdownMenu({
+  showNav,
+  setShowNav,
+}: {
+  showNav: boolean
+  setShowNav: (a: boolean) => void
+}) {
   const { data: session } = useSession()
   const handleLogout = () => {
     setShowNav(!showNav)
