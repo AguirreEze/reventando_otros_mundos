@@ -1,5 +1,5 @@
 import Image from "next/image"
-import styles from "./styles.module.scss"
+import styles from "./styles.module.css"
 
 export default function Avatar({ name, avatar = "/AvatarPlaceholder.jpg" }) {
   return (
