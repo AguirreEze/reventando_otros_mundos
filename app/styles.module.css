@@ -1,5 +1,3 @@
-@import "styles/theme.scss";
-
 .card {
   display: flex;
   flex-direction: column;
@@ -12,7 +10,7 @@
 }
 
 .title {
-  color: $Primary;
+  color: var(--Primary-Color);
   text-align: center;
   font-weight: 700;
   font-size: 2rem;
@@ -20,25 +18,25 @@
 }
 
 .h2 {
-  color: $Primary;
+  color: var(--Primary-Color);
   text-align: center;
 }
 
 .section {
-  color: $Primary;
+  color: var(--Primary-Color);
   text-decoration: underline;
 }
 
 .description {
-  color: $Paragraph;
+  color: var(--Paragraph-Color);
   margin-bottom: 2rem;
   text-align: center;
 }
 
 .description_list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  color: $Paragraph;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  color: var(--Paragraph-Color);
   gap: 1rem;
   padding: 0;
   list-style: none;
