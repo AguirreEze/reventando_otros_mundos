@@ -1,26 +1,15 @@
-@import "styles/theme.scss";
-
 .card {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  min-width: 250px;
-  max-width: 400px;
   border-radius: 7px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-  gap: 0.5rem;
-  padding: 0.5rem;
   transform-origin: center;
   transition: transform 0.2s ease-in-out 0.2s;
   cursor: pointer;
-  color: $Accent;
+  color: var(--Accent-Color);
   overflow: hidden;
   &:hover {
-    color: $Primary;
+    color: var(--Primary-Color);
     transition: transform 0.2s ease-in-out;
     transform: scale(1.1);
     .stampContainer {
@@ -37,9 +26,20 @@
   }
 }
 
+.anchor {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
 .cover {
   width: 90%;
-  height: 250px;
+  height: 275px;
   overflow: hidden;
   position: relative;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
@@ -66,6 +66,7 @@
   height: 100%;
   background-color: #000d;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.5s ease-in-out;
   &::after {
     content: "";
@@ -92,7 +93,7 @@
 }
 .name_overlay {
   margin: 0 0 auto 0;
-  color: $Accent;
+  color: var(--Accent-Color);
   font-weight: 600;
 }
 .review_incomplete {
