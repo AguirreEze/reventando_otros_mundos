@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import NextAuthProvider from "context/NextAuthProvider"
+import ModalProvider from "context/ModalProvider"
 import Navbar from "components/Navbar"
 
 import styles from "styles/layout.module.css"
@@ -17,12 +18,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <NextAuthProvider>
-          <div className={styles.background}>
-            <main className={styles.view}>
-              <Navbar />
-              {children}
-            </main>
-          </div>
+          <ModalProvider>
+            <div className={styles.background}>
+              <main className={styles.view}>
+                <Navbar />
+                {children}
+              </main>
+            </div>
+          </ModalProvider>
         </NextAuthProvider>
       </body>
     </html>
