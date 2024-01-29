@@ -1,20 +1,18 @@
-@import "../../styles/theme.scss";
-
 .editIcon {
   position: absolute;
   top: 10px;
   right: 10px;
   border-radius: 50%;
   padding: 3px;
-  border: 2px solid $Accent;
-  color: $Accent;
+  border: 2px solid var(--Accent-Color);
+  color: var(--Accent-Color);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  &:hover {
-    color: $Secondary;
-    background: $Accent;
-  }
+}
+.editIcon:hover {
+  color: var(--Secondary-Color);
+  background: var(--Accent-Color);
 }
 
 .container {
@@ -31,13 +29,11 @@
   border: 1px solid #3331;
   transform-origin: center;
   animation: fadeIn 0.3s ease-out forwards;
-  background: $Secondary;
-  &:hover {
-    .editIcon {
-      opacity: 1;
-      pointer-events: all;
-    }
-  }
+  background: var(--Secondary-Color);
+}
+.container:hover .editIcon {
+  opacity: 1;
+  pointer-events: all;
 }
 .cover {
   position: relative;
@@ -50,17 +46,15 @@
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   border: 1px solid #3331;
 }
-.data {
-  & h2 {
-    margin: 0.5rem 0;
-    font-weight: 500;
-    color: $Primary;
-  }
-  & p {
-    margin: 0.2rem 0;
-    font-size: 14px;
-    color: $Paragraph;
-  }
+.data h2 {
+  margin: 0.5rem 0;
+  font-weight: 500;
+  color: var(--Primary-Color);
+}
+.data p {
+  margin: 0.2rem 0;
+  font-size: 14px;
+  color: var(--Paragraph-Color);
 }
 .footer {
   display: flex;

@@ -4,14 +4,13 @@ import Completed from "components/Icons/Completed"
 import EditIcon from "components/Icons/EditIcon"
 import OnProgress from "components/Icons/OnProgress"
 import Steam from "components/Icons/Steam"
-import Modal from "components/Modal"
-import GameForm from "components/GameForm"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
-import { useState } from "react"
-import styles from "./styles.module.scss"
+import { useContext, useState } from "react"
+import styles from "./styles.module.css"
 import Link from "next/link"
 import { GameType } from "types"
+import { ModalContext } from "context/ModalProvider"
 
 interface Iprops extends GameType {
   onModal?: boolean
@@ -27,11 +26,12 @@ export default function Game({
   steamLink,
   id,
   onModal = false,
-  setCompleted,
+  setCompleted = () => {},
 }: Iprops) {
-  const [showModal, setShowModal] = useState(false)
-  const [showCompleted, setShowCompleted] = useState(completed)
   const { data: session } = useSession()
+
+  const [showCompleted, setShowCompleted] = useState(completed)
+  const { setModal } = useContext(ModalContext)
 
   const handleClick = () => {
     if (onModal) {
@@ -67,28 +67,24 @@ export default function Game({
           {session && !onModal && session?.user?.group === "Admin" && (
             <EditIcon
               className={styles.editIcon}
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                setModal({
+                  type: "UPDATE_GAME",
+                  payload: {
+                    name,
+                    completed,
+                    gameCover,
+                    studio,
+                    gameYear,
+                    steamLink,
+                    id,
+                  },
+                })
+              }}
             />
           )}
         </section>
       </article>
-      {showModal && (
-        <Modal onClose={setShowModal}>
-          <GameForm
-            show={showModal}
-            onClose={setShowModal}
-            data={{
-              name,
-              completed,
-              gameCover,
-              studio,
-              gameYear,
-              steamLink,
-              id,
-            }}
-          />
-        </Modal>
-      )}
     </>
   )
 }
