@@ -50,7 +50,7 @@ export const metadata = {
   keywords: "Reventando, otros, Mundos, Anime, Juegos, Myullnir",
 }
 
-export default function Home() {
+export default function HomePage() {
   return (
     <article className={styles.container}>
       <h1 className={styles.title}>Reventando Otros Mundos</h1>
