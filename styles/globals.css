@@ -5,6 +5,8 @@
   --Paragraph-Color: #437;
 
   --Mobile-Breakpoint: 1200px;
+
+  --Field-Shadow: 4px 8px 16px #00000010;
 }
 
 html,
