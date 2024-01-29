@@ -8,7 +8,7 @@ export default function ButtonAddItem({
   type,
   className,
 }: {
-  type: "ADD_GAME"
+  type: "ADD_GAME" | "ADD_ANIME"
   className: string
 }) {
   const session = useSession()
