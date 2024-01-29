@@ -1,23 +1,16 @@
-import ScoreStamp from "components/ScoreStamp"
 import Image from "next/image"
 import Link from "next/link"
-import style from "./style.module.scss"
+import ScoreStamp from "components/ScoreStamp"
+import IncompleteRibbon from "components/IncompleteRibbon"
 import { AnimeType } from "types"
+import style from "./style.module.css"
 
 interface Iprops {
   anime: AnimeType
-  admin: boolean
 }
 
-export default function AnimePreview({ anime, admin }: Iprops) {
+export default function AnimePreview({ anime }: Iprops) {
   const { name = "loading...", cover = "/PlaceHolder.jpg", score, id } = anime
-  const reviewIncomplete = () => {
-    return (
-      anime.state !== "viendo" &&
-      admin &&
-      (anime.comentary === "-" || typeof score === "undefined")
-    )
-  }
 
   return (
     <li className={style.card}>
@@ -30,12 +23,14 @@ export default function AnimePreview({ anime, admin }: Iprops) {
           <Image src={cover} alt={`${name} cover`} fill />
         </div>
         <h2 className={style.name}>{name}</h2>
-        {reviewIncomplete() && <div className={style.incomplete_ribbon} />}
+        <IncompleteRibbon
+          state={anime.state}
+          comentary={anime.comentary}
+          score={score}
+        />
         <div className={style.stampContainer}>
           <h2 className={style.name_overlay}>{name}</h2>
-          {reviewIncomplete() && (
-            <span className={style.review_incomplete}>Review Incompleta</span>
-          )}
+
           <ScoreStamp score={score} />
         </div>
       </Link>

@@ -4,26 +4,27 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   transform-origin: center;
+  max-width: 280px;
   transition: transform 0.2s ease-in-out 0.2s;
   cursor: pointer;
   color: var(--Accent-Color);
   overflow: hidden;
-  &:hover {
-    color: var(--Primary-Color);
-    transition: transform 0.2s ease-in-out;
-    transform: scale(1.1);
-    .stampContainer {
-      opacity: 1;
-      &::after {
-        transform: scaleY(1);
-        transition: transform 0.3s ease-in-out 0.2s;
-      }
-      &::before {
-        transform: scaleX(1);
-        transition: transform 0.3s ease-in-out 0.2s;
-      }
-    }
-  }
+}
+.card:hover {
+  color: var(--Primary-Color);
+  transition: transform 0.2s ease-in-out;
+  transform: scale(1.1);
+}
+.card:has(:hover) .stampContainer {
+  opacity: 1;
+}
+.card:hover .stampContainer::after {
+  transform: scaleY(1);
+  transition: transform 0.3s ease-in-out 0.2s;
+}
+.card:hover .stampContainer::before {
+  transform: scaleX(1);
+  transition: transform 0.3s ease-in-out 0.2s;
 }
 
 .anchor {
@@ -68,48 +69,33 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s ease-in-out;
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    margin: 0.5rem 1rem;
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-    transform-origin: center;
-    transform: scaleY(0);
-    transition: transform 0.3s ease-in-out;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    margin: 1rem 0.5rem;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    transform-origin: center;
-    transform: scaleX(0);
-    transition: transform 0.3s ease-in-out;
-  }
+}
+.stampContainer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: 0.5rem 1rem;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  transform-origin: center;
+  transform: scaleY(0);
+  transition: transform 0.3s ease-in-out;
+}
+.stampContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: 1rem 0.5rem;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  transform-origin: center;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
 }
 .name_overlay {
   margin: 0 0 auto 0;
   color: var(--Accent-Color);
   font-weight: 600;
-}
-.review_incomplete {
-  @extend .name_overlay;
-  color: red;
-}
-.incomplete_ribbon {
-  position: absolute;
-  width: 6rem;
-  height: 1rem;
-  background-color: red;
-  top: 0;
-  right: -1.5rem;
-  transform-origin: center;
-  border: 1px solid #0006;
-  transform: rotate(45deg);
 }
 
 @media (max-width: 535px) {
