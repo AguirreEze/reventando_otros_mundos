@@ -9,7 +9,13 @@ import gameValidation from "models/gameValidation"
 import Loading from "components/Loading"
 import { GameType } from "types"
 
-export default function ModalGame({ data }: { data?: GameType }) {
+export default function ModalGame({
+  data,
+  onClose,
+}: {
+  data?: GameType
+  onClose: () => void
+}) {
   const [dragState, setDragState] = useState(false)
   const [loading, setLoading] = useState(false)
   const name = useField({ type: "text", initialValue: data && data.name })
@@ -61,6 +67,7 @@ export default function ModalGame({ data }: { data?: GameType }) {
         await addGame(dataToAdd)
       }
       setLoading(false)
+      onClose()
       console.log("RELOAD") //  TO_DO
     } catch (res: any) {
       const { response } = res
@@ -73,6 +80,7 @@ export default function ModalGame({ data }: { data?: GameType }) {
       try {
         await deleteGame(data?.id)
         setLoading(false)
+        onClose()
         console.log("RELOAD") //  TO_DO
       } catch ({ response }: any) {
         setError(response?.data?.error?.message || response?.data?.error)
