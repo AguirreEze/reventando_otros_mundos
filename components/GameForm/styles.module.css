@@ -1,0 +1,95 @@
+.container {
+  background: var(--Secondary-Color);
+  width: 520px;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+.container_drag {
+  border: 3px dashed var(--Accent-Color);
+  height: 350px;
+  width: 520px;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  border: 2px solid var(--Accent-Color);
+  color: var(--Accent-Color);
+  background: var(--Secondary-Color);
+  font-size: 20px;
+  cursor: pointer;
+}
+.close:hover {
+  color: var(--Secondary-Color);
+  background: var(--Accent-Color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 1rem 0;
+}
+.form div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.form div label {
+  text-transform: capitalize;
+  color: var(--Primary-Color);
+}
+.form div input {
+  border: none;
+  text-align: center;
+}
+.form div input::placeholder {
+  text-align: center;
+  color: var(--Accent-Color);
+  user-select: none;
+}
+.form div input::-webkit-outer-spin-button,
+.form div input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.button {
+  margin: 0.5rem 0.5rem 0rem;
+  background: var(--Secondary-Color);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid var(--Accent-Color);
+  color: var(--Accent-Color);
+  cursor: pointer;
+  max-width: 50%;
+  flex: 1;
+  user-select: none;
+}
+.button:hover {
+  color: var(--Secondary-Color);
+  border: 1px solid var(--Secondary-Color);
+  background: var(--Accent-Color);
+}
+.button_delete {
+  background: red;
+  color: #fff;
+  border: 1px solid red;
+}
+.button_delete:hover {
+  background: #fff;
+  color: red;
+  border: 1px solid red;
+}
+.panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}

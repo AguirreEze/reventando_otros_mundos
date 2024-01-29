@@ -1,15 +1,15 @@
-import styles from "./styles.module.scss"
+import styles from "./styles.module.css"
 import Game from "components/Game"
 import useField from "hooks/useField"
 import { addGame, deleteGame, updateGame } from "services/games"
-import { useState } from "react"
+import { DragEvent, FormEvent, useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
-import { useRouter } from "next/router"
 import { uploadImage } from "services/images"
 import gameValidation from "models/gameValidation"
 import Loading from "components/Loading"
+import { GameType } from "types"
 
-export default function ModalGame({ onClose, data }) {
+export default function ModalGame({ data }: { data?: GameType }) {
   const [dragState, setDragState] = useState(false)
   const [loading, setLoading] = useState(false)
   const name = useField({ type: "text", initialValue: data && data.name })
@@ -17,7 +17,7 @@ export default function ModalGame({ onClose, data }) {
   const studio = useField({ type: "text", initialValue: data && data.studio })
   const gameYear = useField({
     type: "number",
-    initialValue: data && data.gameYear,
+    initialValue: data && `${data.gameYear}`,
   })
   const steamLink = useField({
     type: "text",
@@ -26,12 +26,10 @@ export default function ModalGame({ onClose, data }) {
   const [completed, setCompleted] = useState(data ? data.completed : false)
   const [error, setError] = useState("")
   const [gameCover, setGameCover] = useState(
-    data ? data.gameCover : "/PlaceHolder.jpg"
+    data ? data.gameCover : "/PlaceHolder.jpg",
   )
 
-  const router = useRouter()
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
     let dataToAdd = {
@@ -39,7 +37,8 @@ export default function ModalGame({ onClose, data }) {
       studio: studio.input.value,
       gameYear: gameYear.input.value,
       steamLink: steamLink.input.value,
-      completed: completed,
+      gameCover,
+      completed,
     }
     try {
       await gameValidation.validate(dataToAdd)
@@ -47,7 +46,7 @@ export default function ModalGame({ onClose, data }) {
         setError("Cover is required")
         return
       }
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message)
       setLoading(false)
       return
@@ -58,57 +57,58 @@ export default function ModalGame({ onClose, data }) {
         await updateGame(dataToAdd, id)
       } else {
         const coverURL = await uploadImage(gameCover)
-        dataToAdd = { ...dataToAdd, gameCover: coverURL }
+        dataToAdd = { ...dataToAdd, gameCover: coverURL as string }
         await addGame(dataToAdd)
       }
-      router.reload()
-    } catch (res) {
+      setLoading(false)
+      console.log("RELOAD") //  TO_DO
+    } catch (res: any) {
       const { response } = res
-      setError(response.data.error.message || response.data.error)
+      setError(response?.data?.error?.message || response?.data?.error)
       setLoading(false)
     }
   }
-  const handleDelete = async (e) => {
-    e.preventDefault()
-    if (window.confirm(`Delete ${data.name}`)) {
+  const handleDelete = async () => {
+    if (window.confirm(`Delete ${data?.name}`)) {
       try {
-        await deleteGame(data.id)
-        router.reload()
-      } catch ({ response }) {
-        setError(response.data.error.message || response.data.error)
+        await deleteGame(data?.id)
+        setLoading(false)
+        console.log("RELOAD") //  TO_DO
+      } catch ({ response }: any) {
+        setError(response?.data?.error?.message || response?.data?.error)
       }
     }
   }
 
-  const handleDragEnter = (e) => {
+  const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragState(true)
   }
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragState(false)
   }
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
   }
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-    const file = e.dataTransfer.files[0]
-    previewImage(file)
+    const file = e.dataTransfer?.files[0]
+    file && previewImage(file)
     setDragState(false)
   }
-  const previewImage = (file) => {
+  const previewImage = (file: any) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = () => {
-      setGameCover(reader.result)
+      setGameCover(reader.result as string)
     }
   }
 
   return (
     <section
-      className={dragState ? styles.container_drag : styles.container}
+      className={`${styles.container} ${dragState && styles.container_drag}`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -120,20 +120,20 @@ export default function ModalGame({ onClose, data }) {
           <ErrorDisplay text={error} />
           <form onSubmit={handleSubmit} className={styles.form}>
             <div>
-              <label name="name">game name:</label>
+              <label>game name:</label>
               <input {...name.input} placeholder="Name" name="name" />
             </div>
 
             <div>
-              <label name="studio">studio:</label>
+              <label>studio:</label>
               <input {...studio.input} placeholder="Name" name="studio" />
             </div>
             <div>
-              <label name="Game year">game year:</label>
+              <label>game year:</label>
               <input {...gameYear.input} placeholder="Year" name="Game year" />
             </div>
             <div>
-              <label name="Steam link">steam link:</label>
+              <label>steam link:</label>
               <input
                 {...steamLink.input}
                 placeholder="Link"
@@ -141,11 +141,19 @@ export default function ModalGame({ onClose, data }) {
               />
             </div>
             <footer className={styles.panel}>
-              <button type="submit" className={styles.button}>
+              <button
+                type="submit"
+                className={styles.button}
+                disabled={loading}
+              >
                 {data ? "Update" : "Upload"}
               </button>
               {data && (
-                <button className={styles.button_delete} onClick={handleDelete}>
+                <button
+                  className={`${styles.button} ${styles.button_delete}`}
+                  onClick={handleDelete}
+                  disabled={loading}
+                >
                   Delete
                 </button>
               )}
@@ -156,12 +164,12 @@ export default function ModalGame({ onClose, data }) {
               name={name.input.value}
               gameCover={gameCover}
               studio={studio.input.value}
-              gameYear={gameYear.input.value}
+              gameYear={parseInt(gameYear.input.value)}
               steamLink={steamLink.input.value}
               completed={completed}
               onModal={true}
               setCompleted={setCompleted}
-            ></Game>
+            />
           </article>
         </>
       )}
