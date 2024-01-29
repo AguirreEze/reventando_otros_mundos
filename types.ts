@@ -17,11 +17,11 @@ export type AnimeType = {
 
 export type GameType = {
   name: string
-  createdAt: string
-  completed: boolean
   gameCover: string
   studio: string
   gameYear: number
   steamLink: string
-  id: string
+  completed: boolean
+  createdAt?: string
+  id?: string
 }
