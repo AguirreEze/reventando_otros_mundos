@@ -4,6 +4,7 @@ import ButtonAddItem from "components/ButtonAddItem"
 import styles from "./styles.module.css"
 import AnimePreview from "components/AnimePreview"
 import AnimeFilter from "components/AnimeFilter"
+import { Suspense } from "react"
 
 export const metadata = {
   title: "Invernalia",
@@ -77,13 +78,15 @@ export default async function RadioPage({
         <ButtonAddItem type="ADD_ANIME" className={styles.button} />
         <AnimeFilter />
         {list.length === 0 && <h2>No hay animes en la lista</h2>}
-        <ul className={styles.list}>
-          {filteredList
-            .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
-            .map((anime) => (
-              <AnimePreview key={anime.id} anime={anime} />
-            ))}
-        </ul>
+        <Suspense fallback="Loading...">
+          <ul className={styles.list}>
+            {filteredList
+              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
+              .map((anime) => (
+                <AnimePreview key={anime.id} anime={anime} />
+              ))}
+          </ul>
+        </Suspense>
       </section>
     </article>
   )
