@@ -14,3 +14,14 @@ export type AnimeType = {
   watched: number
   id: string
 }
+
+export type GameType = {
+  name: string
+  createdAt: string
+  completed: boolean
+  gameCover: string
+  studio: string
+  gameYear: number
+  steamLink: string
+  id: string
+}
