@@ -1,10 +1,13 @@
+import { Suspense } from "react"
 import Game from "components/Game"
+import ButtonAddItem from "components/ButtonAddItem"
+
 import connectDB from "middleware/mongo"
 import GameModel from "models/Game"
 
-import styles from "./styles.module.css"
 import { GameType } from "types"
-import ButtonAddItem from "components/ButtonAddItem"
+import styles from "./styles.module.css"
+import GamesLoading from "./loading"
 
 export default async function GamePage() {
   await connectDB()
@@ -27,38 +30,40 @@ export default async function GamePage() {
       </header>
       <section className={styles.games}>
         <ButtonAddItem type="ADD_GAME" className={styles.button} />
-        <ul className={styles.list}>
-          {games
-            //   @ts-ignore
-            .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
-            .map(
-              ({
-                name,
-                completed,
-                gameCover,
-                studio,
-                gameYear,
-                steamLink,
-                id,
-                createdAt,
-              }) => {
-                return (
-                  <li key={id}>
-                    <Game
-                      name={name}
-                      completed={completed}
-                      gameCover={gameCover}
-                      studio={studio}
-                      gameYear={gameYear}
-                      steamLink={steamLink}
-                      id={id || ""}
-                      createdAt={createdAt}
-                    />
-                  </li>
-                )
-              },
-            )}
-        </ul>
+        <Suspense fallback={<GamesLoading />}>
+          <ul className={styles.list}>
+            {games
+              //   @ts-ignore
+              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
+              .map(
+                ({
+                  name,
+                  completed,
+                  gameCover,
+                  studio,
+                  gameYear,
+                  steamLink,
+                  id,
+                  createdAt,
+                }) => {
+                  return (
+                    <li key={id}>
+                      <Game
+                        name={name}
+                        completed={completed}
+                        gameCover={gameCover}
+                        studio={studio}
+                        gameYear={gameYear}
+                        steamLink={steamLink}
+                        id={id || ""}
+                        createdAt={createdAt}
+                      />
+                    </li>
+                  )
+                },
+              )}
+          </ul>
+        </Suspense>
       </section>
     </section>
   )
