@@ -3,11 +3,12 @@
 import { ReactNode, createContext, useState } from "react"
 import Modal from "components/Modal"
 import GameForm from "components/GameForm"
+import AnimeForm from "components/AnimeForm"
 import { GameType } from "types"
 
 type ModalTypes =
   | {
-      type: false | "ADD_GAME"
+      type: false | "ADD_GAME" | "ADD_ANIME"
     }
   | {
       type: "UPDATE_GAME"
@@ -33,6 +34,12 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
         return (
           <Modal onClose={() => setModal(DEFAULT_VALUE)}>
             <GameForm onClose={() => setModal(DEFAULT_VALUE)} />
+          </Modal>
+        )
+      case "ADD_ANIME":
+        return (
+          <Modal onClose={() => setModal(DEFAULT_VALUE)}>
+            <AnimeForm onClose={() => setModal(DEFAULT_VALUE)} />
           </Modal>
         )
       case "UPDATE_GAME":

@@ -1,27 +1,36 @@
-import styles from "./styles.module.scss"
-import useField from "hooks/useField"
-import { useEffect, useState } from "react"
-import ErrorDisplay from "components/ErrorDisplay"
-
-import { addAnime, updateAnime, deleteAnime } from "services/anime"
-import Loading from "components/Loading"
-import animeValidation from "models/animeValidation"
-import { useRouter } from "next/router"
-import { uploadImage } from "services/images"
+import { ChangeEvent, DragEvent, FormEvent, useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
+
+import ErrorDisplay from "components/ErrorDisplay"
+import Loading from "components/Loading"
+
+import useField from "hooks/useField"
+import animeValidation from "models/animeValidation"
 import animeGenres from "utils/animeGenres"
 import InputAutocomplete from "utils/InputAutocomplete"
+import { uploadImage } from "services/images"
+import { addAnime, updateAnime, deleteAnime } from "services/anime"
 
-export default function ModalAnime({ show, onClose, data }) {
+import styles from "./styles.module.css"
+import { AnimeType } from "types"
+
+export default function ModalAnime({
+  onClose,
+  data,
+}: {
+  data?: AnimeType
+  onClose: () => void
+}) {
   const router = useRouter()
   const [dragState, setDragState] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [coverPreview, setCoverPreview] = useState(
-    data ? data.cover : "/PlaceHolder.jpg"
+    data ? data.cover : "/PlaceHolder.jpg",
   )
   const [updatedCover, setUpdatedCover] = useState(false)
-  const [state, setState] = useState(data ? data.state : null)
-  const [season, setSeason] = useState(data ? data.season : null)
+  const [state, setState] = useState(data ? data.state : "viendo")
+  const [season, setSeason] = useState(data ? data.season : "winter")
   const name = useField({
     type: "text",
     initialValue: data ? data.name : "",
@@ -36,11 +45,11 @@ export default function ModalAnime({ show, onClose, data }) {
   })
   const year = useField({
     type: "number",
-    initialValue: data ? data.year : "",
+    initialValue: data ? `${data.year}` : "",
   })
   const episodes = useField({
     type: "number",
-    initialValue: data ? data.episodes : "",
+    initialValue: data ? `${data.episodes}` : "",
   })
   const genre = useField({ type: "text" })
   const [genres, setGenres] = useState(data ? data.genres : [])
@@ -72,7 +81,7 @@ export default function ModalAnime({ show, onClose, data }) {
     season,
   ])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setUploading(true)
     let dataToSend = {
@@ -82,7 +91,8 @@ export default function ModalAnime({ show, onClose, data }) {
       sinopsis: sinopsis.input.value,
       genres,
       year: parseInt(year.input.value),
-      season: season,
+      season,
+      cover: coverPreview,
       episodes: parseInt(episodes.input.value) || null,
     }
     try {
@@ -92,7 +102,7 @@ export default function ModalAnime({ show, onClose, data }) {
         return
       }
       await animeValidation.validate(dataToSend)
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message)
       setUploading(false)
     }
@@ -106,30 +116,30 @@ export default function ModalAnime({ show, onClose, data }) {
       } else {
         await addAnime(dataToSend)
       }
-      onClose(false)
-      router.reload()
-    } catch ({ response }) {
+      onClose()
+      router.refresh()
+    } catch ({ response }: any) {
       setError(response.data.error.message || response.data.error)
       setUploading(false)
     }
   }
 
-  const addGenre = (e) => {
+  const addGenre = (e: FormEvent) => {
     e.preventDefault()
     if (genre.input.value !== "") {
       setGenres([...genres, genre.input.value])
       genre.reset()
     }
   }
-  const handleDragEnter = (e) => {
+  const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragState(true)
   }
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     setDragState(false)
   }
-  const handleDrop = (e) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
     previewImage(file)
@@ -137,29 +147,29 @@ export default function ModalAnime({ show, onClose, data }) {
     setUpdatedCover(true)
   }
 
-  const previewImage = (file) => {
+  const previewImage = (file: any) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = () => {
-      setCoverPreview(reader.result)
+      setCoverPreview(reader.result as string)
     }
   }
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
   }
 
-  const handleStateSelect = (e) => {
-    setState(e.target.value)
+  const handleStateSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setState(e.target.value as AnimeType["state"])
   }
-  const handleSeasonSelect = (e) => {
-    setSeason(e.target.value)
+  const handleSeasonSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSeason(e.target.value as AnimeType["season"])
   }
 
-  const handleDelete = (e) => {
+  const handleDelete = (e: FormEvent) => {
     e.preventDefault()
-    if (window.confirm(`Delete ${data.name}`)) {
-      deleteAnime(data.id)
+    if (window.confirm(`Delete ${data?.name}`)) {
+      deleteAnime(data?.id)
         .then(() => {
           router.replace("/radio")
         })
@@ -168,7 +178,7 @@ export default function ModalAnime({ show, onClose, data }) {
         })
     }
   }
-  const handleRemoveGenre = (e) => {
+  const handleRemoveGenre = (e: string) => {
     const filteredList = genres.filter((genre) => genre !== e)
     setGenres(filteredList)
   }
@@ -184,7 +194,7 @@ export default function ModalAnime({ show, onClose, data }) {
       {uploading && <Loading />}
       {dragState ? null : (
         <>
-          <button onClick={() => onClose(false)} className={styles.close}>
+          <button onClick={() => onClose()} className={styles.close}>
             x
           </button>
           <ErrorDisplay text={error} />
@@ -200,23 +210,25 @@ export default function ModalAnime({ show, onClose, data }) {
               />
             </div>
             <div className={styles.input_container}>
-              <label name="name">game name:</label>
+              <label>game name:</label>
               <input {...name.input} placeholder="Name" name="name" />
             </div>
             <div className={styles.input_container}>
-              <label name="studio">studio:</label>
+              <label>studio:</label>
               <input {...studio.input} placeholder="Studio" name="studio" />
             </div>
             <div className={styles.input_container}>
-              <label name="episodes">episodes:</label>
+              <label>episodes:</label>
               <input
                 {...episodes.input}
                 placeholder="Episodes"
                 name="episodes"
               />
             </div>
-            <div className={styles.genre_container}>
-              <label name="Genre">genre:</label>
+            <div
+              className={`${styles.input_container} ${styles.genre_container}`}
+            >
+              <label>genre:</label>
               <input
                 {...genre.input}
                 placeholder="Genre"
@@ -242,16 +254,15 @@ export default function ModalAnime({ show, onClose, data }) {
               </ul>
             </div>
             <div className={styles.input_container}>
-              <label name="Year">year:</label>
+              <label>year:</label>
               <input {...year.input} placeholder="Year" name="Year" />
             </div>
             <div className={styles.input_container__select}>
-              <label name="season">season:</label>
+              <label>season:</label>
               <select
                 onChange={handleSeasonSelect}
                 defaultValue={data && data.season}
               >
-                <option value={null}></option>
                 <option value="winter">Winter</option>
                 <option value="autumn">Autumn</option>
                 <option value="summer">Summer</option>
@@ -260,19 +271,18 @@ export default function ModalAnime({ show, onClose, data }) {
             </div>
 
             <div className={styles.input_container__select}>
-              <label name="State">state:</label>
+              <label>state:</label>
               <select
                 onChange={handleStateSelect}
                 defaultValue={data && data.state}
               >
-                <option value={null}></option>
                 <option>viendo</option>
                 <option>dropeada</option>
                 <option>completo</option>
               </select>
             </div>
             <div className={styles.sinopsis_container}>
-              <label name="Sinopsis">sinopsis:</label>
+              <label>sinopsis:</label>
               <textarea
                 {...sinopsis.input}
                 placeholder="Sinopsis"
@@ -290,7 +300,7 @@ export default function ModalAnime({ show, onClose, data }) {
               {data && (
                 <button
                   onClick={handleDelete}
-                  className={styles.button_delete}
+                  className={`${styles.button} ${styles.button_delete}`}
                   disabled={disableSend}
                 >
                   delete
