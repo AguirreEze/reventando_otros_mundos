@@ -1,11 +1,12 @@
 import Game from "models/Game"
 import connectDB from "middleware/mongo"
 import errorHandler from "middleware/errorHandler"
-import { getSession } from "next-auth/react"
+import { getServerSession } from "next-auth"
+import { authOptions } from "../../auth/[...nextauth]"
 
 const handler = async (req, res) => {
   if (req.method === "PUT") {
-    const session = await getSession({ req })
+    const session = await getServerSession(req, res, authOptions)
     if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
 
@@ -41,7 +42,7 @@ const handler = async (req, res) => {
     }
   }
   if (req.method === "DELETE") {
-    const session = await getSession({ req })
+    const session = await getServerSession(req, res, authOptions)
     if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
 

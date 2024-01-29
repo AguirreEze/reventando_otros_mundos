@@ -1,10 +1,11 @@
-import { getSession } from "next-auth/react"
 import cloudinary from "cloudinary"
 import errorHandler from "middleware/errorHandler"
+import { getServerSession } from "next-auth"
+import { authOptions } from "./auth/[...nextauth]"
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const session = await getSession({ req })
+    const session = await getServerSession(req, res, authOptions)
     if (!session || session.user.group !== "Admin")
       return res.status(401).send({ error: "Unauthorized" })
   }
