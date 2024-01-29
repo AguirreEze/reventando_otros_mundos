@@ -9,6 +9,13 @@ import { GameType } from "types"
 import styles from "./styles.module.css"
 import GamesLoading from "./loading"
 
+export const metadata = {
+  title: "Reventando Otros Mundos",
+  description:
+    "En ReventandoOtrosMundos se transmiten juegos populares y clásicos, principalmente los días lunes y jueves. Los Sábados se transmite el proceso de crear un personaje de ROL y los Domingos se reseñan los animes de temporada.",
+  keywords: "Reventando, otros, Mundos, Anime, Juegos, Myullnir",
+}
+
 export default async function GamePage() {
   await connectDB()
 
