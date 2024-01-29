@@ -8,7 +8,7 @@ export default function ButtonAddItem({
   type,
   className,
 }: {
-  type: "GAMES"
+  type: "ADD_GAME"
   className: string
 }) {
   const session = useSession()
@@ -18,11 +18,11 @@ export default function ButtonAddItem({
   return (
     <button
       onClick={() => {
-        setModal(type)
+        setModal({ type })
       }}
       className={className}
     >
-      + Add {type} +
+      + {type} +
     </button>
   )
 }
