@@ -55,7 +55,7 @@ export default function Game({
             </div>
             {steamLink !== "" && (
               <Link
-                href={steamLink}
+                href={steamLink || "/"}
                 target="_blank"
                 rel="noreferrer"
                 className={styles.steam}
