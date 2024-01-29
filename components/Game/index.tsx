@@ -1,3 +1,5 @@
+"use client"
+
 import Completed from "components/Icons/Completed"
 import EditIcon from "components/Icons/EditIcon"
 import OnProgress from "components/Icons/OnProgress"
@@ -9,6 +11,12 @@ import Image from "next/image"
 import { useState } from "react"
 import styles from "./styles.module.scss"
 import Link from "next/link"
+import { GameType } from "types"
+
+interface Iprops extends GameType {
+  onModal?: boolean
+  setCompleted?: (a: boolean) => void
+}
 
 export default function Game({
   name,
@@ -20,7 +28,7 @@ export default function Game({
   id,
   onModal = false,
   setCompleted,
-}) {
+}: Iprops) {
   const [showModal, setShowModal] = useState(false)
   const [showCompleted, setShowCompleted] = useState(completed)
   const { data: session } = useSession()
@@ -45,7 +53,7 @@ export default function Game({
             <div onClick={handleClick}>
               {showCompleted ? <Completed /> : <OnProgress />}
             </div>
-            {steamLink!=="" && (
+            {steamLink !== "" && (
               <Link
                 href={steamLink}
                 target="_blank"
@@ -56,7 +64,7 @@ export default function Game({
               </Link>
             )}
           </footer>
-          {session && !onModal && session.user.group === "Admin" && (
+          {session && !onModal && session?.user?.group === "Admin" && (
             <EditIcon
               className={styles.editIcon}
               onClick={() => setShowModal(true)}
