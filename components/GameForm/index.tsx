@@ -6,7 +6,7 @@ import { DragEvent, FormEvent, useState } from "react"
 import ErrorDisplay from "components/ErrorDisplay"
 import { uploadImage } from "services/images"
 import gameValidation from "models/gameValidation"
-import Loading from "components/Loading"
+import Loading from "components/Icons/Loading"
 import { GameType } from "types"
 
 export default function ModalGame({

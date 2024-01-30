@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 
 import ErrorDisplay from "components/ErrorDisplay"
-import Loading from "components/Loading"
+import Loading from "components/Icons/Loading"
 
 import useField from "hooks/useField"
 import animeValidation from "models/animeValidation"
