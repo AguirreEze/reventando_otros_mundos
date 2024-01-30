@@ -1,0 +1,71 @@
+.button {
+  border: none;
+  cursor: pointer;
+  background: var(--Accent-Color);
+  font-size: 20px;
+  text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border-radius: 30px;
+  color: var(--Secondary-Color);
+  border: 1px solid var(--Accent-Color);
+}
+.button:hover {
+  background: var(--Secondary-Color);
+  color: var(--Accent-Color);
+}
+.link {
+  color: var(--Accent-Color);
+}
+
+.filter_container {
+  min-height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0 1rem;
+}
+.input {
+  width: 165px;
+  border: none;
+  text-align: center;
+  padding: 0.3rem 0;
+  border-radius: 5px;
+  box-shadow: var(--Field-Shadow);
+}
+.input::placeholder {
+  text-align: center;
+  color: var(--Accent-Color);
+  user-select: none;
+}
+
+.select {
+  width: 165px;
+  text-align: center;
+  border: none;
+  color: var(--Primary-Color);
+  box-shadow: var(--Field-Shadow);
+  text-transform: capitalize;
+}
+
+@media (max-width: 940px) {
+  .filter {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .filter {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    gap: 1rem;
+  }
+}

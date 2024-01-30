@@ -1,0 +1,119 @@
+.subTitle {
+  color: var(--Primary-Color);
+  font-size: 1.2rem;
+  margin: 0;
+  text-transform: capitalize;
+}
+.description {
+  color: var(--Paragraph-Color);
+  grid-area: comentary;
+  margin: 0.5rem;
+  padding: 0.3rem;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  max-height: 160px;
+  overflow-y: auto;
+  border: 1px solid #0000001a;
+  box-shadow: 4px 6px 8px #00000010;
+}
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px 1fr 1fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas:
+    "score state watched"
+    "score comentary comentary";
+  place-items: center;
+  gap: 0 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 730px;
+  border: 1px solid #0000001a;
+  box-shadow: 4px 8px 16px #0000001a;
+  border-radius: 5px;
+}
+.card:hover {
+  .editIcon {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.comentary {
+  grid-area: comentary;
+  width: 100%;
+}
+
+.score {
+  grid-area: score;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.watched {
+  grid-area: watched;
+}
+.stateStamp {
+  grid-area: state;
+  text-transform: uppercase;
+  margin: 0.5rem 0;
+  padding: 0.1rem 1rem;
+  border-radius: 3rem;
+  font-weight: 800;
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.stamp_green {
+  border: 6px solid #1bbe9e;
+  color: #1bbe9e;
+}
+
+.stamp_blue {
+  border: 6px solid #37e;
+  color: #37e;
+}
+
+.stamp_red {
+  border: 6px solid #800000;
+  color: #800000;
+}
+
+.episodes {
+  margin: 0;
+}
+
+.editIcon {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  border-radius: 50%;
+  padding: 3px;
+  border: 2px solid var(--Accent-Color);
+  color: var(--Accent-Color);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+}
+.editIcon:hover {
+  color: var(--Secondary-Color);
+  background: var(--Accent-Color);
+}
+
+@media (max-width: 850px) {
+  .card {
+    width: 95%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, auto);
+    gap: 0.5rem 0;
+    grid-template-areas:
+      "score state "
+      "score watched"
+      " comentary comentary";
+  }
+}

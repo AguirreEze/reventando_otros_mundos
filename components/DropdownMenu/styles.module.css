@@ -1,0 +1,113 @@
+.navMovile {
+  position: absolute;
+  display: flex;
+  z-index: 5;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  right: 0;
+  top: 64px;
+  gap: 0.5rem;
+  background: var(--Secondary-Color);
+  padding: 15px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 1px solid #0001;
+  pointer-events: none;
+  transform-origin: top;
+  transition: transform 0.3s ease-in-out;
+  transform: scaleY(0);
+}
+.navMovile__show {
+  transform: scaleY(1);
+  pointer-events: all;
+}
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--Primary-Color);
+  margin: 0;
+  height: 40px;
+  width: 100%;
+  user-select: none;
+}
+.user > span {
+  margin-left: 0.3rem;
+  text-transform: capitalize;
+}
+
+.link {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 100%;
+  color: var(--Accent-Color);
+  text-transform: capitalize;
+  cursor: pointer;
+  color: var(--Secondary-Color);
+  background: var(--Accent-Color);
+  border: 4px solid transparent;
+  user-select: none;
+}
+.link:hover {
+  opacity: 0.8;
+}
+.twitch {
+  background: #6441a4;
+  color: #fff;
+}
+
+.twitch_icon {
+  height: 80%;
+  margin-left: 0.5rem;
+}
+
+.link_japannext {
+  background-color: #c4302b;
+  color: #fff;
+}
+
+.separation {
+  width: 90%;
+  height: 2px;
+  background: #0001;
+  margin: 0.2rem 0;
+  border-radius: 2px;
+}
+
+@media (min-width: 800px) {
+  .navMovile {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+      "user user" "twitch japan" "separation separation"
+      "account account";
+    place-items: center;
+    max-width: 475px;
+  }
+  .user {
+    grid-area: user;
+  }
+  .link {
+    display: none;
+  }
+  .twitch {
+    display: flex;
+    grid-area: twitch;
+  }
+  .link_japannext {
+    display: flex;
+    grid-area: japan;
+  }
+  .link_account {
+    display: flex;
+    grid-area: account;
+  }
+  .separation {
+    grid-area: separation;
+  }
+}

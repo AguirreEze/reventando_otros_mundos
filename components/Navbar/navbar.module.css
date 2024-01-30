@@ -1,0 +1,54 @@
+.RomIcon {
+  margin-right: auto;
+}
+.header {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 64px;
+  top: 0;
+  padding: 0 1em;
+  background: var(--Secondary-Color);
+  z-index: 10;
+  border-bottom: 1px solid var(--Primary-Color);
+}
+
+.hamburger {
+  display: none;
+  color: var(--Accent-Color);
+  margin: 1rem;
+  border-radius: 5px;
+}
+.hamburger:hover {
+  background: var(--Accent-Color);
+  color: var(--Secondary-Color);
+}
+
+.link {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  text-transform: capitalize;
+  margin: 0 0.5rem;
+  min-width: 100px;
+  cursor: pointer;
+  color: var(--Secondary-Color);
+  background: var(--Accent-Color);
+  border: 4px solid transparent;
+  user-select: none;
+}
+.link:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 800px) {
+  .hamburger {
+    display: block;
+  }
+  .link {
+    display: none;
+  }
+}

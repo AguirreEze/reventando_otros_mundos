@@ -1,0 +1,36 @@
+.container {
+  text-align: center;
+  color: var(--Primary-Color);
+  padding: 0 1em;
+}
+
+.title {
+  color: var(--Primary-Color);
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+.description {
+  color: var(--Paragraph-Color);
+  margin: 0;
+}
+.button {
+  border: none;
+  cursor: pointer;
+  background: var(--Accent-Color);
+  font-size: 20px;
+  text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  border-radius: 30px;
+  color: var(--Secondary-Color);
+  border: 1px solid var(--Accent-Color);
+}
+.button:hover {
+  background: var(--Secondary-Color);
+  color: var(--Accent-Color);
+}
+.link {
+  color: var(--Accent-Color);
+}

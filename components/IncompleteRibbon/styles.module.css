@@ -1,0 +1,11 @@
+.incomplete_ribbon {
+  position: absolute;
+  width: 6rem;
+  height: 1rem;
+  background-color: red;
+  top: 0;
+  right: -1.5rem;
+  transform-origin: center;
+  border: 1px solid #0006;
+  transform: rotate(45deg);
+}
