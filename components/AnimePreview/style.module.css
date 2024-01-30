@@ -5,7 +5,7 @@
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
   transform-origin: center;
   max-width: 280px;
-  transition: transform 0.2s ease-in-out 0.2s;
+  transition: transform 0.2s ease-in-out;
   cursor: pointer;
   color: var(--Accent-Color);
   overflow: hidden;
@@ -39,6 +39,7 @@
 }
 
 .cover {
+  background-color: var(--Placeholder-color);
   width: 90%;
   height: 275px;
   overflow: hidden;
@@ -97,9 +98,41 @@
   color: var(--Accent-Color);
   font-weight: 600;
 }
+.namePlaceholder {
+  position: relative;
+  height: 1.5rem;
+  background-color: var(--Placeholder-color);
+  width: 90%;
+  border-radius: 5px;
+  margin-top: 0.25rem;
+  overflow: hidden;
+}
+
+.loading_bar {
+  position: absolute;
+  height: 100%;
+  width: 50px;
+  background: linear-gradient(
+    to right,
+    var(--Placeholder-color),
+    white 65%,
+    white 85%,
+    var(--Placeholder-color)
+  );
+  animation: loading 1s linear infinite;
+}
 
 @media (max-width: 535px) {
   .card {
     width: 80%;
+  }
+}
+
+@keyframes loading {
+  from {
+    transform: translate(-35px);
+  }
+  to {
+    transform: translate(300px);
   }
 }

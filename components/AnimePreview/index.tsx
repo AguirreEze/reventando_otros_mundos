@@ -5,12 +5,27 @@ import IncompleteRibbon from "components/IncompleteRibbon"
 import { AnimeType } from "types"
 import style from "./style.module.css"
 
-interface Iprops {
+type Iprops = {
   anime: AnimeType
 }
 
+export function SkeletonAnimePreview() {
+  return (
+    <li className={style.card}>
+      <div className={style.anchor}>
+        <div className={style.cover}>
+          <div className={style.loading_bar} />
+        </div>
+        <div className={style.namePlaceholder}>
+          <div className={style.loading_bar} />
+        </div>
+      </div>
+    </li>
+  )
+}
+
 export default function AnimePreview({ anime }: Iprops) {
-  const { name = "loading...", cover = "/PlaceHolder.jpg", score, id } = anime
+  const { name = "loading...", cover, score, id } = anime
 
   return (
     <li className={style.card}>

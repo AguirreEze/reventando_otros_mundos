@@ -3,7 +3,7 @@ import styles from "./styles.module.css"
 import AnimeFilter from "components/AnimeFilter"
 import { Suspense } from "react"
 import AnimeList from "components/AnimeList"
-import AnimeLoading from "./loading"
+import AnimeLoading from "components/AnimeList/AnimeLoading"
 
 export const metadata = {
   title: "Invernalia",
