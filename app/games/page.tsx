@@ -1,13 +1,8 @@
 import { Suspense } from "react"
-import Game from "components/Game"
 import ButtonAddItem from "components/ButtonAddItem"
 
-import connectDB from "middleware/mongo"
-import GameModel from "models/Game"
-
-import { GameType } from "types"
+import GameList, { SkeletonGameList } from "components/GameList"
 import styles from "./styles.module.css"
-import GamesLoading from "./loading"
 
 export const metadata = {
   title: "Reventando Otros Mundos",
@@ -16,17 +11,7 @@ export const metadata = {
   keywords: "Reventando, otros, Mundos, Anime, Juegos, Myullnir",
 }
 
-export default async function GamePage() {
-  await connectDB()
-
-  const res = await GameModel.find({})
-
-  const games: GameType[] = res.map((doc) => {
-    const game = doc.toJSON()
-    game.id = game.id.toString()
-    return game
-  })
-
+export default function GamePage() {
   return (
     <section className={styles.background}>
       <header>
@@ -37,39 +22,8 @@ export default async function GamePage() {
       </header>
       <section className={styles.games}>
         <ButtonAddItem type="ADD_GAME" className={styles.button} />
-        <Suspense fallback={<GamesLoading />}>
-          <ul className={styles.list}>
-            {games
-              //   @ts-ignore
-              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
-              .map(
-                ({
-                  name,
-                  completed,
-                  gameCover,
-                  studio,
-                  gameYear,
-                  steamLink,
-                  id,
-                  createdAt,
-                }) => {
-                  return (
-                    <li key={id}>
-                      <Game
-                        name={name}
-                        completed={completed}
-                        gameCover={gameCover}
-                        studio={studio}
-                        gameYear={gameYear}
-                        steamLink={steamLink}
-                        id={id || ""}
-                        createdAt={createdAt}
-                      />
-                    </li>
-                  )
-                },
-              )}
-          </ul>
+        <Suspense fallback={<SkeletonGameList numberOfElements={9} />}>
+          <GameList />
         </Suspense>
       </section>
     </section>

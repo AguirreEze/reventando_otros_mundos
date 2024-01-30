@@ -17,6 +17,27 @@ interface Iprops extends GameType {
   setCompleted?: (a: boolean) => void
 }
 
+export function SkeletonGame() {
+  return (
+    <div className={styles.container}>
+      <div className={styles.cover}>
+        <div className={styles.loading_bar} />
+      </div>
+      <div className={styles.data_skeleton}>
+        <div className={styles.title_skeleton}>
+          <div className={styles.loading_bar} />
+        </div>
+        <div className={styles.paragraph_skeleton}>
+          <div className={styles.loading_bar} />
+        </div>
+        <div className={styles.paragraph_skeleton}>
+          <div className={styles.loading_bar} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Game({
   name,
   completed,
@@ -40,51 +61,49 @@ export default function Game({
     }
   }
   return (
-    <>
-      <article className={styles.container}>
-        <section className={styles.cover}>
-          <Image alt="Game Cover" src={gameCover} fill />
-        </section>
-        <section className={styles.data}>
-          <h2>{name}</h2>
-          <p>Studio: {studio}</p>
-          <p>Release date: {gameYear}</p>
-          <footer className={styles.footer}>
-            <div onClick={handleClick}>
-              {showCompleted ? <Completed /> : <OnProgress />}
-            </div>
-            {steamLink !== "" && (
-              <Link
-                href={steamLink || "/"}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.steam}
-              >
-                <Steam />
-              </Link>
-            )}
-          </footer>
-          {session && !onModal && session?.user?.group === "Admin" && (
-            <EditIcon
-              className={styles.editIcon}
-              onClick={() => {
-                setModal({
-                  type: "UPDATE_GAME",
-                  payload: {
-                    name,
-                    completed,
-                    gameCover,
-                    studio,
-                    gameYear,
-                    steamLink,
-                    id,
-                  },
-                })
-              }}
-            />
+    <article className={styles.container}>
+      <section className={styles.cover}>
+        <Image alt="Game Cover" src={gameCover} fill />
+      </section>
+      <section className={styles.data}>
+        <h2>{name}</h2>
+        <p>Studio: {studio}</p>
+        <p>Release date: {gameYear}</p>
+        <footer className={styles.footer}>
+          <div onClick={handleClick}>
+            {showCompleted ? <Completed /> : <OnProgress />}
+          </div>
+          {steamLink !== "" && (
+            <Link
+              href={steamLink || "/"}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.steam}
+            >
+              <Steam />
+            </Link>
           )}
-        </section>
-      </article>
-    </>
+        </footer>
+        {session && !onModal && session?.user?.group === "Admin" && (
+          <EditIcon
+            className={styles.editIcon}
+            onClick={() => {
+              setModal({
+                type: "UPDATE_GAME",
+                payload: {
+                  name,
+                  completed,
+                  gameCover,
+                  studio,
+                  gameYear,
+                  steamLink,
+                  id,
+                },
+              })
+            }}
+          />
+        )}
+      </section>
+    </article>
   )
 }
