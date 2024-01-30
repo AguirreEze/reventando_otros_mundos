@@ -1,13 +1,11 @@
-@import "styles/theme.scss";
-
 .subTitle {
-  color: $Primary;
+  color: var(--Primary-Color);
   font-size: 1.2rem;
   margin: 0;
   text-transform: capitalize;
 }
 .description {
-  color: $Paragraph;
+  color: var(--Paragraph-Color);
   grid-area: comentary;
   margin: 0.5rem;
   padding: 0.3rem;
@@ -34,11 +32,11 @@
   border: 1px solid #0000001a;
   box-shadow: 4px 8px 16px #0000001a;
   border-radius: 5px;
-  &:hover {
-    .editIcon {
-      opacity: 1;
-      pointer-events: all;
-    }
+}
+.card:hover {
+  .editIcon {
+    opacity: 1;
+    pointer-events: all;
   }
 }
 
@@ -58,27 +56,28 @@
 .watched {
   grid-area: watched;
 }
-.stateStamp_viendo {
+.stateStamp {
   grid-area: state;
   text-transform: uppercase;
   margin: 0.5rem 0;
   padding: 0.1rem 1rem;
-  border: 6px solid #1bbe9e;
   border-radius: 3rem;
   font-weight: 800;
   font-size: 1.3rem;
-  color: #1bbe9e;
   user-select: none;
 }
 
-.stateStamp_completo {
-  @extend .stateStamp_viendo;
+.stamp_green {
+  border: 6px solid #1bbe9e;
+  color: #1bbe9e;
+}
+
+.stamp_blue {
   border: 6px solid #37e;
   color: #37e;
 }
 
-.stateStamp_dropeada {
-  @extend .stateStamp_viendo;
+.stamp_red {
   border: 6px solid #800000;
   color: #800000;
 }
@@ -93,15 +92,15 @@
   right: 25px;
   border-radius: 50%;
   padding: 3px;
-  border: 2px solid $Accent;
-  color: $Accent;
+  border: 2px solid var(--Accent-Color);
+  color: var(--Accent-Color);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  &:hover {
-    color: $Secondary;
-    background: $Accent;
-  }
+}
+.editIcon:hover {
+  color: var(--Secondary-Color);
+  background: var(--Accent-Color);
 }
 
 @media (max-width: 850px) {
