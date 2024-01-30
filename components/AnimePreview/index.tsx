@@ -30,8 +30,8 @@ export default function AnimePreview({ anime }: Iprops) {
   return (
     <li className={style.card}>
       <Link
-        href={`/radio/animes/[id]`}
-        as={`/radio/animes/${id}`}
+        href={`/radio/anime/[id]`}
+        as={`/radio/anime/${id}`}
         className={style.anchor}
       >
         <div className={style.cover}>
