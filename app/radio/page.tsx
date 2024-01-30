@@ -1,10 +1,9 @@
-import connectDB from "middleware/mongo"
-import Anime from "models/Anime"
 import ButtonAddItem from "components/ButtonAddItem"
 import styles from "./styles.module.css"
-import AnimePreview from "components/AnimePreview"
 import AnimeFilter from "components/AnimeFilter"
 import { Suspense } from "react"
+import AnimeList from "components/AnimeList"
+import AnimeLoading from "./loading"
 
 export const metadata = {
   title: "Invernalia",
@@ -18,47 +17,6 @@ export default async function RadioPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  await connectDB()
-  const res = await Anime.find({})
-
-  const list = res.map((doc) => {
-    const anime = doc.toJSON()
-    anime.id = doc.id.toString()
-    return anime
-  })
-
-  const filterByName = (name: string) => {
-    return typeof searchParams?.name === "string"
-      ? name.toLowerCase().includes(searchParams?.name.toLowerCase())
-      : true
-  }
-
-  const filterBySeason = (season: string) => {
-    return typeof searchParams?.season === "string"
-      ? season.toLowerCase().includes(searchParams?.season.toLowerCase())
-      : true
-  }
-
-  const filterByYear = (year: string) => {
-    return typeof searchParams?.year === "string"
-      ? year.toString().includes(searchParams?.year)
-      : true
-  }
-
-  const filterByState = (state: string) => {
-    return typeof searchParams?.state === "string"
-      ? state.toLowerCase().includes(searchParams?.state)
-      : true
-  }
-
-  const filteredList = list.filter(
-    (e) =>
-      filterByState(e.state) &&
-      filterByName(e.name) &&
-      filterBySeason(e.season) &&
-      filterByYear(e.year),
-  )
-
   return (
     <article>
       <section className={styles.container}>
@@ -77,15 +35,8 @@ export default async function RadioPage({
         </p>
         <ButtonAddItem type="ADD_ANIME" className={styles.button} />
         <AnimeFilter />
-        {list.length === 0 && <h2>No hay animes en la lista</h2>}
-        <Suspense fallback="Loading...">
-          <ul className={styles.list}>
-            {filteredList
-              .sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
-              .map((anime) => (
-                <AnimePreview key={anime.id} anime={anime} />
-              ))}
-          </ul>
+        <Suspense fallback={<AnimeLoading />}>
+          <AnimeList searchParams={searchParams} />
         </Suspense>
       </section>
     </article>
