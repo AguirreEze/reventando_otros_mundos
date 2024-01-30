@@ -1,13 +1,26 @@
+"use client"
+
+import { FormEvent, useState } from "react"
+import { useRouter } from "next/navigation"
 import ErrorDisplay from "components/ErrorDisplay"
+import reviewValidation from "models/reviewValidation"
 import { updateAnime } from "services/anime"
 import useField from "hooks/useField"
-import reviewValidation from "models/reviewValidation"
-import { useRouter } from "next/router"
-import { useState } from "react"
-import styles from "./styles.module.scss"
+import { AnimeReviewType } from "types"
 
-export default function ReviewForm({ review, id }) {
-  const watched = useField({ type: "number", initialValue: review.watched })
+import styles from "./styles.module.css"
+
+interface Iprops {
+  review: AnimeReviewType
+  id: string
+  onClose: () => void
+}
+
+export default function ReviewForm({ review, id, onClose }: Iprops) {
+  const watched = useField({
+    type: "number",
+    initialValue: `${review.watched}`,
+  })
   const comentary = useField({
     type: "textarea",
     initialValue: review.comentary,
@@ -18,11 +31,11 @@ export default function ReviewForm({ review, id }) {
   const [disableSubmit, setDisableSubmit] = useState(false)
   const router = useRouter()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     setDisableSubmit(true)
     const dataToSend = {
-      score: score === "-" ? undefined : parseInt(score),
+      score: score === "-" ? undefined : score,
       state,
       watched: parseInt(watched.input.value),
       comentary: comentary.input.value,
@@ -32,7 +45,8 @@ export default function ReviewForm({ review, id }) {
       .then(() => {
         setError("")
         updateAnime(dataToSend, id).then(() => {
-          router.reload()
+          onClose()
+          router.refresh()
         })
       })
       .catch((err) => {
@@ -47,15 +61,15 @@ export default function ReviewForm({ review, id }) {
       <ErrorDisplay text={error} />
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.form_entry}>
-          <label name="score" className={styles.label}>
-            score
-          </label>
+          <label className={styles.label}>score</label>
           <select
             className={styles.select}
-            onChange={(e) => setScore(e.target.value)}
+            onChange={(e) =>
+              setScore(e.target.value as AnimeReviewType["score"])
+            }
             defaultValue={review.score}
           >
-            <option value={null}>-</option>
+            <option value={""}>-</option>
             <option value={0}>0</option>
             <option value={1}>1</option>
             <option value={2}>2</option>
@@ -70,27 +84,21 @@ export default function ReviewForm({ review, id }) {
           </select>
         </div>
         <div className={styles.form_entry}>
-          <label name="watched" className={styles.label}>
-            ep. vistos
-          </label>
+          <label className={styles.label}>ep. vistos</label>
           <input
             {...watched.input}
             name="watched"
             className={styles.input}
             max={999}
-            onKeyUp={(e) => {
-              if (e.target.value > 999) {
-                e.target.value = 999
-                watched.input.value = 999
-              }
-            }}
           />
         </div>
         <div className={styles.form_entry}>
           <label className={styles.label}>state</label>
           <select
             className={styles.select}
-            onChange={(e) => setState(e.target.value)}
+            onChange={(e) =>
+              setState(e.target.value as AnimeReviewType["state"])
+            }
             defaultValue={review.state}
           >
             <option value="viendo">viendo</option>
@@ -98,17 +106,15 @@ export default function ReviewForm({ review, id }) {
             <option value="completo">completo</option>
           </select>
         </div>
-        <div className={styles.form_entry_big}>
-          <label name="comentary" className={styles.label}>
-            comentario
-          </label>
+        <div className={`${styles.form_entry} ${styles.form_entry_big}`}>
+          <label className={styles.label}>comentario</label>
           <textarea
             {...comentary.input}
             name="comentary"
             className={styles.textarea}
           />
         </div>
-        <div className={styles.form_entry_big}>
+        <div className={`${styles.form_entry} ${styles.form_entry_big}`}>
           <button
             type="submit"
             className={styles.button}
