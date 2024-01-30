@@ -1,7 +1,6 @@
 .container {
   background: var(--Secondary-Color);
   width: 520px;
-  padding: 5px 15px;
   border-radius: 5px;
 }
 .container_drag {

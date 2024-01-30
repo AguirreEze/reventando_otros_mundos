@@ -1,6 +1,5 @@
 .view {
   background: var(--Secondary-Color);
-  padding: 2rem 15px 15px;
   border-radius: 5px;
   width: 550px;
 }

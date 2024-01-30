@@ -4,15 +4,28 @@ import { ReactNode, createContext, useState } from "react"
 import Modal from "components/Modal"
 import GameForm from "components/GameForm"
 import AnimeForm from "components/AnimeForm"
-import { GameType } from "types"
+import ReviewForm from "components/ReviewForm"
+import { AnimeReviewType, AnimeType, GameType } from "types"
 
-type ModalTypes =
+interface UpdateReviewPayload extends AnimeReviewType {
+  id: string
+}
+
+export type ModalTypes =
   | {
       type: false | "ADD_GAME" | "ADD_ANIME"
     }
   | {
       type: "UPDATE_GAME"
       payload: GameType
+    }
+  | {
+      type: "UPDATE_ANIME"
+      payload: AnimeType
+    }
+  | {
+      type: "UPDATE_REVIEW"
+      payload: UpdateReviewPayload
     }
 
 const DEFAULT_VALUE: ModalTypes = { type: false }
@@ -47,6 +60,25 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
           <Modal onClose={() => setModal(DEFAULT_VALUE)}>
             <GameForm
               data={state.payload}
+              onClose={() => setModal(DEFAULT_VALUE)}
+            />
+          </Modal>
+        )
+      case "UPDATE_ANIME":
+        return (
+          <Modal onClose={() => setModal(DEFAULT_VALUE)}>
+            <AnimeForm
+              onClose={() => setModal(DEFAULT_VALUE)}
+              data={state.payload}
+            />
+          </Modal>
+        )
+      case "UPDATE_REVIEW":
+        return (
+          <Modal onClose={() => setModal(DEFAULT_VALUE)}>
+            <ReviewForm
+              review={state.payload}
+              id={state.payload.id}
               onClose={() => setModal(DEFAULT_VALUE)}
             />
           </Modal>

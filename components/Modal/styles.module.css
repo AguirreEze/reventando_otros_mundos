@@ -27,6 +27,7 @@
 }
 .view {
   position: relative;
+  padding: 1rem;
   min-width: 500px;
   min-height: 200px;
   border-radius: 5px;
