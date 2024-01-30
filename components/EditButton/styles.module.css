@@ -1,0 +1,14 @@
+.editIcon {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  border-radius: 50%;
+  padding: 3px;
+  border: 2px solid var(--Accent-Color);
+  color: var(--Accent-Color);
+  cursor: pointer;
+}
+.editIcon:hover {
+  color: var(--Secondary-Color);
+  background: var(--Accent-Color);
+}
