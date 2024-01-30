@@ -37,7 +37,7 @@ export default function RadioPage({
         <Suspense fallback={<SkeletonAnimeFilter />}>
           <AnimeFilter />
         </Suspense>
-        <Suspense fallback={<AnimeLoading />}>
+        <Suspense fallback={<AnimeLoading numberOfElements={12} />}>
           <AnimeList searchParams={searchParams} />
         </Suspense>
       </section>
