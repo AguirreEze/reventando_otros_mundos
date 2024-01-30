@@ -17,8 +17,10 @@ const SCORE_TEXT = [
 
 export default function ScoreStamp({
   score = "-",
+  onlyStamp = false,
 }: {
   score: AnimeType["score"]
+  onlyStamp?: boolean
 }) {
   const scoreStampStyles = (score: AnimeType["score"]) => {
     if (typeof score !== "number" || score > 6) return styles.green
@@ -30,13 +32,11 @@ export default function ScoreStamp({
       <div className={`${styles.scoreStamp} ${scoreStampStyles(score)}`}>
         <span className={styles.scoreValue}>{score}</span>
       </div>
-      {score === "-" ? (
-        <span className={styles.scoreDescription__green}>Sin Score</span>
-      ) : (
+      {!onlyStamp && (
         <span
           className={`${styles.scoreDescription} ${scoreStampStyles(score)}`}
         >
-          {SCORE_TEXT[score]}
+          {score === "-" ? "Sin Score" : SCORE_TEXT[score]}
         </span>
       )}
     </>
