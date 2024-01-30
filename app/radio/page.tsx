@@ -1,6 +1,6 @@
 import ButtonAddItem from "components/ButtonAddItem"
 import styles from "./styles.module.css"
-import AnimeFilter from "components/AnimeFilter"
+import AnimeFilter, { SkeletonAnimeFilter } from "components/AnimeFilter"
 import { Suspense } from "react"
 import AnimeList from "components/AnimeList"
 import AnimeLoading from "components/AnimeList/AnimeLoading"
@@ -34,7 +34,9 @@ export default async function RadioPage({
           </a>
         </p>
         <ButtonAddItem type="ADD_ANIME" className={styles.button} />
-        <AnimeFilter />
+        <Suspense fallback={<SkeletonAnimeFilter />}>
+          <AnimeFilter />
+        </Suspense>
         <Suspense fallback={<AnimeLoading />}>
           <AnimeList searchParams={searchParams} />
         </Suspense>

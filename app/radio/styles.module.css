@@ -31,3 +31,6 @@
   background: var(--Secondary-Color);
   color: var(--Accent-Color);
 }
+.link {
+  color: var(--Accent-Color);
+}

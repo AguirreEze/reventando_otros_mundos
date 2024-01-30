@@ -4,6 +4,34 @@ import { useEffect, useState } from "react"
 import styles from "./styles.module.css"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
+export function SkeletonAnimeFilter() {
+  return (
+    <div className={styles.filter_container}>
+      <form className={styles.filter}>
+        <label>Name</label>
+        <input type="text" value={""} className={styles.input} />
+        <label>Year</label>
+        <input type="number" value={""} className={styles.input} />
+        <label>Season</label>
+        <select className={styles.select}>
+          <option value={""}>All</option>
+          <option value={"winter"}>Winter</option>
+          <option value={"spring"}>Spring</option>
+          <option value={"summer"}>Summer</option>
+          <option value={"autumn"}>Autumn</option>
+        </select>
+        <label>State</label>
+        <select className={styles.select}>
+          <option value={""}>All</option>
+          <option value={"viendo"}>Viendo</option>
+          <option value={"dropeada"}>Dropeada</option>
+          <option value={"completo"}>Completo</option>
+        </select>
+      </form>
+    </div>
+  )
+}
+
 export default function AnimeFilter() {
   const router = useRouter()
   const pathname = usePathname()
