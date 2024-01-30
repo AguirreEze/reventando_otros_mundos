@@ -12,7 +12,7 @@ export const metadata = {
   keywords: "Reventando, otros, Mundos, Anime, Juegos, Myullnir",
 }
 
-export default async function RadioPage({
+export default function RadioPage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
