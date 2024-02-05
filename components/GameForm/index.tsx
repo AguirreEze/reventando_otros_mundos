@@ -8,6 +8,7 @@ import { uploadImage } from "services/images"
 import gameValidation from "models/gameValidation"
 import Loading from "components/Icons/Loading"
 import { GameType } from "types"
+import { useRouter } from "next/navigation"
 
 export default function ModalGame({
   data,
@@ -19,6 +20,7 @@ export default function ModalGame({
   const [dragState, setDragState] = useState(false)
   const [loading, setLoading] = useState(false)
   const name = useField({ type: "text", initialValue: data && data.name })
+  const router = useRouter()
 
   const studio = useField({ type: "text", initialValue: data && data.studio })
   const gameYear = useField({
@@ -68,7 +70,7 @@ export default function ModalGame({
       }
       setLoading(false)
       onClose()
-      console.log("RELOAD") //  TO_DO
+      router.refresh()
     } catch (res: any) {
       const { response } = res
       setError(response?.data?.error?.message || response?.data?.error)
@@ -81,7 +83,7 @@ export default function ModalGame({
         await deleteGame(data?.id)
         setLoading(false)
         onClose()
-        console.log("RELOAD") //  TO_DO
+        router.refresh()
       } catch ({ response }: any) {
         setError(response?.data?.error?.message || response?.data?.error)
       }
