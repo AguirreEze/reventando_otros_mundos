@@ -7,6 +7,8 @@ import { GameType } from "types"
 
 import styles from "./styles.module.css"
 
+export const revalidate = 0
+
 export function SkeletonGameList({
   numberOfElements = 5,
 }: {
@@ -27,7 +29,6 @@ export function SkeletonGameList({
 
 export default async function GameList() {
   await connectDB()
-
   const res = await GameModel.find({})
 
   const games: GameType[] = res.map((doc) => {
