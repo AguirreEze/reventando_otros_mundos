@@ -7,8 +7,6 @@ import { GameType } from "types"
 
 import styles from "./styles.module.css"
 
-export const revalidate = 0
-
 export function SkeletonGameList({
   numberOfElements = 5,
 }: {

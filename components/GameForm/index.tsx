@@ -9,6 +9,7 @@ import gameValidation from "models/gameValidation"
 import Loading from "components/Icons/Loading"
 import { GameType } from "types"
 import { useRouter } from "next/navigation"
+import revalidateGames from "app/actions"
 
 export default function ModalGame({
   data,
@@ -69,6 +70,7 @@ export default function ModalGame({
         await addGame(dataToAdd)
       }
       setLoading(false)
+      await revalidateGames()
       onClose()
       router.refresh()
     } catch (res: any) {
@@ -82,9 +84,11 @@ export default function ModalGame({
       try {
         await deleteGame(data?.id)
         setLoading(false)
+        await revalidateGames()
         onClose()
         router.refresh()
-      } catch ({ response }: any) {
+      } catch (res: any) {
+        const { response } = res
         setError(response?.data?.error?.message || response?.data?.error)
       }
     }
